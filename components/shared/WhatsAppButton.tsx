@@ -1,5 +1,6 @@
 'use client'
 
+import { whatsappHref } from '@/lib/whatsapp'
 import { useEffect, useRef, useState } from 'react'
 
 const WA_ICON = (
@@ -20,8 +21,7 @@ export default function WhatsAppButton({
   const [open, setOpen] = useState(false)
   const popupRef = useRef<HTMLDivElement>(null)
 
-  const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
-  const message = process.env.NEXT_PUBLIC_WHATSAPP_MESSAGE ?? '¡Hola! Me gustaría obtener más información.'
+  const href = whatsappHref()
 
   useEffect(() => {
     if (!open) return
@@ -34,9 +34,7 @@ export default function WhatsAppButton({
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [open])
 
-  if (!number || number.trim() === '') return null
-
-  const href = `https://wa.me/${number.trim()}?text=${encodeURIComponent(message)}`
+  if (!href) return null
 
   if (variant === 'inline') {
     return (
@@ -57,7 +55,7 @@ export default function WhatsAppButton({
   return (
     <div
       ref={popupRef}
-      className="fixed right-3 bottom-3 sm:right-6 sm:bottom-6 z-50 flex flex-col items-end gap-3 max-w-[calc(100vw-1.5rem)]"
+      className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-50 flex flex-col items-end gap-3 max-w-[calc(100vw-1.5rem)]"
     >
       {/* Chat popup */}
       <div
@@ -80,7 +78,7 @@ export default function WhatsAppButton({
           </span>
           <div className="flex-1 min-w-0">
             <p className="text-white font-semibold text-sm leading-tight truncate">WhatsApp</p>
-            <p className="text-green-200 text-xs">Responde normalmente en minutos</p>
+            <p className="text-green-200 text-xs">Turnos y consultas</p>
           </div>
           <button
             onClick={() => setOpen(false)}
@@ -107,7 +105,8 @@ export default function WhatsAppButton({
               }}
             />
             <p className="text-gray-800 text-sm leading-relaxed">
-              ¡Hola! 👋 ¿En qué podemos ayudarte hoy? Escribinos y te respondemos a la brevedad.
+              ¡Hola! 👋 Escribinos para sacar un turno o hacer una consulta sobre
+              nuestros servicios y obras sociales.
             </p>
             <span className="block text-right text-gray-400 text-[10px] mt-1">ahora</span>
           </div>
@@ -123,7 +122,7 @@ export default function WhatsAppButton({
           onClick={() => setOpen(false)}
         >
           <span className="w-4 h-4 shrink-0">{WA_ICON}</span>
-          Iniciar conversación
+          Sacar un turno
         </a>
       </div>
 

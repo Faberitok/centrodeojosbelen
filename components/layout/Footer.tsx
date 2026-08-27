@@ -1,130 +1,124 @@
-import { footer } from '@/content/landing'
+import { brand, contact, footer, locations, site, type SocialNetwork } from '@/content/site'
 import Image from 'next/image'
 import Link from 'next/link'
 
+const socialIcons: Record<SocialNetwork, React.ReactNode> = {
+  instagram: (
+    <path d="M8 0C5.83 0 5.56.01 4.7.05 3.85.09 3.27.22 2.76.42a3.92 3.92 0 0 0-1.42.92A3.93 3.93 0 0 0 .42 2.76C.22 3.27.09 3.85.05 4.7.01 5.56 0 5.83 0 8s.01 2.44.05 3.3c.04.85.17 1.43.37 1.94.2.53.48.97.92 1.42.45.44.9.72 1.42.92.51.2 1.09.33 1.94.37C5.56 15.99 5.83 16 8 16s2.44-.01 3.3-.05c.85-.04 1.43-.17 1.94-.37a3.92 3.92 0 0 0 1.42-.92c.44-.45.72-.89.92-1.42.2-.51.33-1.09.37-1.94.04-.86.05-1.13.05-3.3s-.01-2.45-.05-3.3c-.04-.85-.17-1.43-.37-1.94a3.93 3.93 0 0 0-.92-1.42A3.91 3.91 0 0 0 13.24.42c-.51-.2-1.09-.33-1.94-.37C10.44.01 10.17 0 8 0Zm-.72 1.44H8c2.14 0 2.39.01 3.23.05.78.03 1.2.17 1.49.27.37.15.64.32.92.6.28.28.45.55.6.92.11.28.24.7.27 1.49.04.84.05 1.09.05 3.23s-.01 2.39-.05 3.23c-.03.78-.17 1.2-.27 1.49-.15.37-.32.64-.6.92-.28.28-.55.45-.92.6-.28.11-.7.24-1.49.27-.84.04-1.09.05-3.23.05s-2.39-.01-3.23-.05c-.78-.03-1.2-.17-1.49-.27a2.48 2.48 0 0 1-.92-.6 2.48 2.48 0 0 1-.6-.92c-.11-.28-.24-.7-.27-1.49-.04-.84-.05-1.09-.05-3.23s.01-2.39.05-3.23c.03-.78.17-1.2.27-1.49.15-.37.32-.64.6-.92.28-.28.55-.45.92-.6.28-.11.7-.24 1.49-.27.74-.03 1.02-.04 2.51-.04Zm4.99 1.33a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92ZM8 3.89a4.11 4.11 0 1 0 0 8.22 4.11 4.11 0 0 0 0-8.22Zm0 1.44a2.67 2.67 0 1 1 0 5.34 2.67 2.67 0 0 1 0-5.34Z" />
+  ),
+  facebook: (
+    <path d="M16 8.05a8 8 0 1 0-9.25 7.95v-5.62H4.72V8.05h2.03V6.29c0-2.01 1.2-3.12 3.02-3.12.88 0 1.79.16 1.79.16v1.97h-1.01c-.99 0-1.3.62-1.3 1.25v1.5h2.22l-.36 2.33H9.25V16A8 8 0 0 0 16 8.05Z" />
+  ),
+  whatsapp: (
+    <path d="M13.6 2.33A7.85 7.85 0 0 0 8 0a7.9 7.9 0 0 0-6.85 11.85L0 16l4.25-1.1A7.9 7.9 0 0 0 8 15.85 7.9 7.9 0 0 0 13.6 2.33ZM8 14.52c-1.17 0-2.32-.31-3.32-.9l-.24-.15-2.47.65.66-2.41-.16-.25a6.56 6.56 0 1 1 12.09-3.51A6.57 6.57 0 0 1 8 14.52Zm3.6-4.92c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.45.1-.13.2-.5.64-.62.77-.11.13-.23.15-.43.05-.2-.1-.83-.31-1.59-.98a5.94 5.94 0 0 1-1.1-1.37c-.11-.2-.01-.3.09-.4.09-.09.2-.23.3-.35.1-.12.13-.2.2-.34.06-.13.03-.25-.02-.35-.05-.1-.45-1.08-.61-1.47-.16-.39-.33-.34-.45-.34l-.38-.01c-.13 0-.35.05-.53.25-.18.2-.7.68-.7 1.66s.72 1.92.82 2.06c.1.13 1.41 2.15 3.42 3.02.48.2.85.33 1.14.42.48.15.91.13 1.26.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.08-.18-.13-.38-.23Z" />
+  ),
+}
+
 export default function Footer() {
+  const mainLocation = locations[0]
+  // Server Component: el año se resuelve en el servidor, sin riesgo de que el
+  // cliente renderice otro y rompa la hidratación.
+  const year = new Date().getFullYear()
+
   return (
-    <footer className="bg-brand-900 text-brand-300 py-12">
-      <div className="max-w-[1140px] mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-brand-700">
-          {/* Brand */}
-          <div className="relative">
-            <p className="text-white font-bold text-xl mb-3">{footer.brandName}</p>
-            <p className="text-sm text-brand-400 leading-relaxed max-w-xs">{footer.tagline}</p>
-            <p className="mt-2 text-xs text-brand-500 flex items-center gap-1.5">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-3.5 h-3.5 shrink-0" aria-hidden="true">
-                <path fillRule="evenodd" d="M8 1.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9ZM2 6a6 6 0 1 1 10.174 4.31c-.203.196-.43.37-.66.52L12 13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1l.486-2.17A5.953 5.953 0 0 1 2 6Z" clipRule="evenodd" />
-              </svg>
-              {footer.location}
-            </p>
+    <footer className="bg-brand-900 text-brand-300">
+      <div className="mx-auto max-w-[1140px] px-6 py-14">
+        <div className="grid grid-cols-1 gap-10 border-b border-brand-800 pb-10 md:grid-cols-3">
+          <div>
             <Image
-              src="/favicon.png"
-              alt={`${footer.brandName} icon`}
-              width={640}
-              height={640}
-              sizes="(min-width: 768px) 33vw, 100vw"
-              className="mt-2 -ml-2 block w-[18.75%] h-auto rounded-lg mr-auto md:absolute md:left-0 md:bottom-0 md:mt-0"
+              src={brand.logoDark}
+              alt={site.name}
+              width={1142}
+              height={512}
+              sizes="220px"
+              className="h-12 w-auto object-contain"
             />
+            <p className="mt-5 max-w-xs leading-relaxed text-brand-300">
+              {footer.tagline}
+            </p>
           </div>
 
-          {/* Navigation links */}
-          <div>
-            <p className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">
+          <nav aria-label="Navegación del pie de página">
+            <p className="text-sm font-bold uppercase tracking-wide text-white">
               Navegación
             </p>
-            <ul className="space-y-2">
+            <ul className="mt-4 space-y-2.5">
               {footer.links.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-brand-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
+                    className="rounded text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Contact & social */}
           <div>
-            <p className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">
-              Contacto
-            </p>
-            <ul className="space-y-2 text-sm">
+            <p className="text-sm font-bold uppercase tracking-wide text-white">Contacto</p>
+            <ul className="mt-4 space-y-2.5">
               <li>
                 <a
-                  href={`mailto:${footer.email}`}
-                  className="inline-flex items-center gap-1.5 text-brand-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
+                  href={`mailto:${contact.email}`}
+                  className="rounded break-all text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 shrink-0" aria-hidden="true">
-                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.026A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.025L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
-                  </svg>
-                  {footer.email}
+                  {contact.email}
                 </a>
               </li>
-              {footer.phones.map((phone) => (
+              {contact.phones.map((phone) => (
                 <li key={phone}>
                   <a
-                    href={`tel:${phone.replace(/[\s-]/g, '')}`}
-                    className="inline-flex items-center gap-1.5 text-brand-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
+                    href={`tel:${phone.replace(/[^\d+]/g, '')}`}
+                    className="rounded text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 shrink-0" aria-hidden="true">
-                      <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/>
-                    </svg>
                     {phone}
                   </a>
                 </li>
               ))}
-            </ul>
-            <p className="text-white font-semibold mt-3 mb-2 text-sm uppercase tracking-wide">
-              Redes
-            </p>
-            <ul className="flex gap-4">
-              {footer.social.map((s) => (
-                <li key={s.href}>
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${footer.brandName} en ${s.label}`}
-                    className="inline-flex items-center gap-1.5 text-sm text-brand-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded"
-                  >
-                    {s.label === 'LinkedIn' && (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="currentColor"
-                        className="w-4 h-4 shrink-0"
-                        aria-hidden="true"
-                      >
-                        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
-                      </svg>
-                    )}
-                    {s.label === 'Instagram' && (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="currentColor"
-                        className="w-4 h-4 shrink-0"
-                        aria-hidden="true"
-                      >
-                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
-                      </svg>
-                    )}
-                    {s.label}
-                  </a>
+              {mainLocation && (
+                <li className="text-brand-400">
+                  {mainLocation.street}, {mainLocation.city}
                 </li>
-              ))}
+              )}
             </ul>
+
+            {footer.social.length > 0 && (
+              <>
+                <p className="mt-6 text-sm font-bold uppercase tracking-wide text-white">
+                  Redes
+                </p>
+                <ul className="mt-3 flex gap-3">
+                  {footer.social.map((social) => (
+                    <li key={social.href}>
+                      <a
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${site.name} en ${social.label}`}
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-brand-700 text-brand-300 transition-colors hover:border-accent-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
+                      >
+                        <svg
+                          viewBox="0 0 16 16"
+                          fill="currentColor"
+                          className="h-5 w-5"
+                          aria-hidden="true"
+                        >
+                          {socialIcons[social.network]}
+                        </svg>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
         </div>
 
-        <div className="pt-8 text-center text-xs text-brand-500">
-          <span className="italic">{footer.motto}</span>
-          {' '}
-          <span>{footer.copyright}</span>
-        </div>
+        <p className="pt-8 text-center text-sm text-brand-400">
+          © {year} {footer.copyrightSuffix}
+        </p>
       </div>
     </footer>
   )

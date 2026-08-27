@@ -3,7 +3,7 @@ import {
     getMaintenanceCookieTtlSeconds,
     isMaintenanceEnabled,
     issueMaintenanceCookieValue,
-    validateMaintenancePassword,
+    validateMaintenanceCredentials,
 } from '@/lib/maintenance/auth'
 import {
     evaluateMaintenanceRateLimit,
@@ -15,7 +15,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 
 const bodySchema = z.object({
-  password: z.string().min(1, 'Ingresá la contraseña'),
+  user: z.string().min(1, 'Ingresá el usuario').max(100),
+  password: z.string().min(1, 'Ingresá la contraseña').max(200),
 })
 
 export async function POST(request: NextRequest) {
@@ -62,7 +63,7 @@ export async function POST(request: NextRequest) {
   const parsed = bodySchema.safeParse(body)
   if (!parsed.success) {
     return NextResponse.json(
-      { error: 'Ingresá una contraseña válida.' },
+      { error: 'Completá usuario y contraseña.' },
       {
         status: 400,
         headers: {
@@ -72,7 +73,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  if (!validateMaintenancePassword(parsed.data.password)) {
+  if (!validateMaintenanceCredentials(parsed.data.user, parsed.data.password)) {
     const failedDecision = registerMaintenanceFailure(rateLimitKey)
     const headers: Record<string, string> = {
       'Cache-Control': 'no-store',
@@ -85,7 +86,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error: failedDecision.allowed
-          ? 'Contraseña incorrecta.'
+          ? 'Usuario o contraseña incorrectos.'
           : 'Demasiados intentos fallidos. Volvé a intentar más tarde.',
         retryAfterSeconds: failedDecision.retryAfterSeconds,
       },

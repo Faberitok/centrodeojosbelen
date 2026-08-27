@@ -1,12 +1,31 @@
 'use client'
 
-import Button from '@/components/shared/Button'
+import { brand, siteName } from '@/content/brand'
+import { maintenance } from '@/content/maintenance'
+import { whatsappHref } from '@/lib/whatsapp'
+import Image from 'next/image'
 import { useState } from 'react'
 
+/**
+ * Página en construcción.
+ *
+ * Es lo único que ve el visitante mientras MAINTENANCE_MODE_ENABLED=true.
+ * El equipo entra al sitio real con usuario y contraseña desde el desplegable
+ * de abajo, que queda cerrado por defecto para no ensuciar la página pública.
+ * Las credenciales salen de MAINTENANCE_USER y MAINTENANCE_PASSWORD_HASH.
+ *
+ * Importa de content/brand.ts y content/maintenance.ts, nunca de
+ * content/site.ts: al ser componente de cliente, todo lo que importe termina
+ * descargándose en el navegador, y el contenido del sitio todavía no debería
+ * ser visible mientras la página está cerrada.
+ */
 export default function MaintenanceGate() {
+  const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const whatsapp = whatsappHref(maintenance.whatsappMessage)
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -16,10 +35,8 @@ export default function MaintenanceGate() {
     try {
       const response = await fetch('/api/maintenance/unlock', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ password }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user, password }),
       })
 
       if (!response.ok) {
@@ -31,7 +48,7 @@ export default function MaintenanceGate() {
           const minutes = Math.ceil(data.retryAfterSeconds / 60)
           setError(`Demasiados intentos fallidos. Intentá de nuevo en ${minutes} min.`)
         } else {
-          setError(data?.error ?? 'No se pudo validar la contraseña. Intentá de nuevo.')
+          setError(data?.error ?? 'No se pudieron validar los datos. Intentá de nuevo.')
         }
 
         return
@@ -46,60 +63,132 @@ export default function MaintenanceGate() {
   }
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-brand-900 text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(161,171,192,0.25),transparent_40%),radial-gradient(circle_at_80%_10%,rgba(101,117,150,0.35),transparent_42%),linear-gradient(160deg,#13161C_0%,#282E3A_45%,#13161C_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(19,22,28,0.6)_70%,rgba(19,22,28,0.95)_100%)]" />
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-brand-900 px-6 py-16 text-white">
+      <div
+        className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,#2C3260_0%,transparent_50%),radial-gradient(circle_at_80%_80%,rgba(33,159,192,0.28)_0%,transparent_50%),linear-gradient(160deg,#202055_0%,#14143A_100%)]"
+        aria-hidden="true"
+      />
 
-      <div className="relative max-w-[1140px] mx-auto px-6 py-16 min-h-screen flex items-center justify-center">
-        <div className="w-full max-w-xl rounded-2xl border border-brand-500/40 bg-brand-800/65 backdrop-blur-sm shadow-[0_24px_80px_rgba(0,0,0,0.35)] p-8 md:p-10">
-          <p className="inline-flex items-center rounded-full border border-brand-400/60 bg-brand-700/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-brand-100">
-            Sitio temporalmente no disponible
-          </p>
+      <div className="relative w-full max-w-xl text-center">
+        {/* unoptimized: el optimizador de next/image rechaza SVG salvo que se
+            active dangerouslyAllowSVG. Un SVG no necesita optimización, así que
+            se sirve directo en lugar de relajar esa restricción para todo el sitio. */}
+        <Image
+          src={brand.logoMaintenance}
+          alt={siteName}
+          width={1142}
+          height={512}
+          className="mx-auto h-auto w-[280px] md:w-[380px]"
+          priority
+          unoptimized
+        />
 
-          <h1 className="mt-6 text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
-            Página en construcción
-          </h1>
+        <p className="mt-12 text-xs font-bold uppercase tracking-[0.18em] text-accent-300">
+          {maintenance.badge}
+        </p>
 
-          <p className="mt-4 text-base md:text-lg text-brand-100/90 leading-relaxed">
-            Estamos realizando mejoras para brindarte una mejor experiencia. Si tenes acceso,
-            ingresá la contraseña para continuar.
-          </p>
+        <h1 className="mt-6 text-3xl font-extrabold leading-tight tracking-tight md:text-4xl">
+          {maintenance.title}
+        </h1>
 
-          <form onSubmit={onSubmit} className="mt-8 space-y-4" noValidate>
-            <div className="space-y-2">
-              <label htmlFor="maintenance-password" className="text-sm font-medium text-brand-100">
-                Contraseña
-              </label>
-              <input
-                id="maintenance-password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                className="w-full rounded-md border border-brand-400/60 bg-brand-900/60 px-4 py-3 text-white placeholder:text-brand-300/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-200"
-                placeholder="Ingresá la contraseña"
-                aria-describedby={error ? 'maintenance-error' : undefined}
-                aria-invalid={Boolean(error)}
+        <p className="mx-auto mt-5 max-w-lg text-lg leading-relaxed text-brand-200">
+          {maintenance.message}
+        </p>
+
+        {whatsapp && (
+          <a
+            href={whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-9 inline-flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-7 py-4 text-base font-bold text-brand-950 transition-colors hover:bg-accent-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
+          >
+            <svg viewBox="0 0 16 16" fill="currentColor" className="h-5 w-5" aria-hidden="true">
+              <path d="M13.6 2.33A7.85 7.85 0 0 0 8 0a7.9 7.9 0 0 0-6.85 11.85L0 16l4.25-1.1A7.9 7.9 0 0 0 8 15.85 7.9 7.9 0 0 0 13.6 2.33ZM8 14.52c-1.17 0-2.32-.31-3.32-.9l-.24-.15-2.47.65.66-2.41-.16-.25a6.56 6.56 0 1 1 12.09-3.51A6.57 6.57 0 0 1 8 14.52Zm3.6-4.92c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.45.1-.13.2-.5.64-.62.77-.11.13-.23.15-.43.05-.2-.1-.83-.31-1.59-.98a5.94 5.94 0 0 1-1.1-1.37c-.11-.2-.01-.3.09-.4.09-.09.2-.23.3-.35.1-.12.13-.2.2-.34.06-.13.03-.25-.02-.35-.05-.1-.45-1.08-.61-1.47-.16-.39-.33-.34-.45-.34l-.38-.01c-.13 0-.35.05-.53.25-.18.2-.7.68-.7 1.66s.72 1.92.82 2.06c.1.13 1.41 2.15 3.42 3.02.48.2.85.33 1.14.42.48.15.91.13 1.26.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.08-.18-.13-.38-.23Z" />
+            </svg>
+            {maintenance.whatsappLabel}
+          </a>
+        )}
+
+        <details className="group mt-16 text-left">
+          <summary className="mx-auto flex w-fit cursor-pointer list-none items-center gap-1.5 rounded text-sm font-semibold text-brand-400 transition-colors hover:text-brand-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 [&::-webkit-details-marker]:hidden">
+            {maintenance.teamAccessLabel}
+            <svg
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="h-4 w-4 transition-transform group-open:rotate-180"
+              aria-hidden="true"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                clipRule="evenodd"
               />
-            </div>
+            </svg>
+          </summary>
 
-            {error ? (
-              <p id="maintenance-error" className="text-sm text-red-300" role="alert">
+          <form
+            onSubmit={onSubmit}
+            noValidate
+            className="mx-auto mt-5 max-w-sm rounded-xl border border-brand-700 bg-brand-950/50 p-5"
+          >
+            <label
+              htmlFor="maintenance-user"
+              className="block text-sm font-semibold text-brand-200"
+            >
+              {maintenance.userLabel}
+            </label>
+            <input
+              id="maintenance-user"
+              name="user"
+              type="text"
+              autoComplete="username"
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck={false}
+              required
+              value={user}
+              onChange={(event) => setUser(event.target.value)}
+              className="mt-2 mb-4 w-full rounded-lg border border-brand-600 bg-brand-900/70 px-4 py-3 text-white placeholder:text-brand-400 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/30"
+              placeholder={maintenance.userPlaceholder}
+            />
+
+            <label
+              htmlFor="maintenance-password"
+              className="block text-sm font-semibold text-brand-200"
+            >
+              {maintenance.passwordLabel}
+            </label>
+            <input
+              id="maintenance-password"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              required
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              className="mt-2 w-full rounded-lg border border-brand-600 bg-brand-900/70 px-4 py-3 text-white placeholder:text-brand-400 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/30"
+              placeholder={maintenance.passwordPlaceholder}
+              aria-describedby={error ? 'maintenance-error' : undefined}
+              aria-invalid={Boolean(error)}
+            />
+
+            {error && (
+              <p id="maintenance-error" className="mt-2 text-sm text-red-300" role="alert">
                 {error}
               </p>
-            ) : null}
+            )}
 
-            <Button
+            <button
               type="submit"
-              disabled={isSubmitting || password.trim().length === 0}
-              className="w-full disabled:opacity-60 disabled:cursor-not-allowed"
+              disabled={
+                isSubmitting || user.trim().length === 0 || password.trim().length === 0
+              }
+              className="mt-4 w-full rounded-lg bg-white px-6 py-3 font-bold text-brand-900 transition-colors hover:bg-brand-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isSubmitting ? 'Validando...' : 'Ingresar'}
-            </Button>
+              {isSubmitting ? maintenance.submittingLabel : maintenance.submitLabel}
+            </button>
           </form>
-        </div>
+        </details>
       </div>
     </section>
   )

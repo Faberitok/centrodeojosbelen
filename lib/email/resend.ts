@@ -7,7 +7,7 @@ export class ResendAdapter implements EmailAdapter {
 
   constructor() {
     const apiKey = process.env.RESEND_API_KEY
-    if (!apiKey) throw new Error('Missing RESEND_API_KEY environment variable')
+    if (!apiKey) throw new Error('Falta la variable de entorno RESEND_API_KEY')
     this.client = new Resend(apiKey)
     this.fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev'
   }
@@ -18,6 +18,7 @@ export class ResendAdapter implements EmailAdapter {
       to: payload.to,
       subject: payload.subject,
       html: payload.html,
+      ...(payload.replyTo ? { replyTo: payload.replyTo } : {}),
     })
     if (error) throw new Error(error.message)
   }

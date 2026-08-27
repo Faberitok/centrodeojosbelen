@@ -1,23 +1,82 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand color palette */
-  --color-brand-50: #EDEFF3;
-  --color-brand-100: #DEE2E9;
-  --color-brand-200: #C0C7D4;
-  --color-brand-300: #A1ABC0;
-  --color-brand-400: #8390AB;
-  --color-brand-500: #657596;
-  --color-brand-600: #515E77;
-  --color-brand-700: #3C4659;
-  --color-brand-800: #282E3A;
-  --color-brand-900: #13161C;
+  /* ─── Paleta institucional ──────────────────────────────────────────────────
+     El branding define dos colores: #202055 (azul noche) y #219FC0 (cyan).
+     De cada uno se deriva un barrido de tonalidades en espacio Lab, para que
+     los pasos sean perceptualmente parejos y no se ensucie el tono de marca.
+     Los dos colores exactos del brandboard son brand-900 y accent-500.        */
 
-  /* Typography */
-  --font-sans: var(--font-plus-jakarta-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Azul noche — ancla #202055 en 900 */
+  --color-brand-50: #F5F6FA;
+  --color-brand-100: #EEEBF8;
+  --color-brand-200: #D9D5E7;
+  --color-brand-300: #C0BBD4;
+  --color-brand-400: #A39DBC;
+  --color-brand-500: #867FA4;
+  --color-brand-600: #6F6892;
+  --color-brand-700: #5A5481;
+  --color-brand-800: #464171;
+  --color-brand-900: #202055;
+  --color-brand-950: #14143A;
+
+  /* Cyan — ancla #219FC0 en 500 */
+  --color-accent-50: #E2FAFF;
+  --color-accent-100: #D3F1FE;
+  --color-accent-200: #B2DEEF;
+  --color-accent-300: #88C7DE;
+  --color-accent-400: #4DACCA;
+  --color-accent-500: #219FC0;
+  --color-accent-600: #007895;
+  --color-accent-700: #00637F;
+  --color-accent-800: #005069;
+  --color-accent-900: #003D54;
+  --color-accent-950: #002B40;
+
+  /* Reglas de contraste (WCAG AA = 4.5:1 para texto normal):
+     - accent-500 puro da 3.10:1 contra blanco. Solo para superficies grandes,
+       íconos decorativos, bordes y gráficos. NUNCA como fondo de texto chico
+       ni como color de texto sobre blanco.
+     - Para texto o botones cyan sobre blanco usar accent-600 (5.10:1).
+     - CTA primario: fondo brand-900 + texto blanco (15.01:1).
+     - Sobre fondo brand-900, accent-300/400 funcionan como texto de acento.  */
+
+  /* Tipografía */
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Cuerpo a 17px: el público del centro incluye adultos mayores y personas
+     con baja visión. No bajar de 15px en ningún texto de lectura. */
+  --text-base: 1.0625rem;
+  --text-base--line-height: 1.65;
 }
 
-/* Scroll animation — applied via JS (IntersectionObserver) for progressive enhancement */
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Compensa el navbar sticky (h-16) para que los anclas no queden tapados */
+  scroll-padding-top: 5rem;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  color: var(--color-brand-900);
+  background-color: #ffffff;
+  /* Valor literal a propósito: Tailwind sólo emite --text-base en :root si
+     alguna utilidad la usa, así que la variable puede no existir. */
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+/* ─── Animaciones (progressive enhancement) ────────────────────────────────── */
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -33,18 +92,17 @@
   animation: fadeInUp 0.6s ease-out forwards;
 }
 
-/* Base */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-}
-
-body {
-  overflow-x: hidden;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

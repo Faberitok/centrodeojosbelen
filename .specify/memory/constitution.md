@@ -2,7 +2,7 @@
 SYNC IMPACT REPORT
 ==================
 Version change: (unversioned template) → 1.0.0
-Modified principles: N/A — initial ratification from docu/constitution.md
+Modified principles: N/A — initial ratification from docu/00-plan-transformacion.md
 Added sections: Principios No Negociables, Reglas de Desarrollo, Criterios de Calidad, Límites, Governance
 Removed sections: N/A
 Templates requiring updates:
@@ -12,11 +12,11 @@ Templates requiring updates:
 Follow-up TODOs: none — all placeholders resolved
 -->
 
-# Landing Page FaberIT — Constitution
+# Landing Page Centro de Ojos Belén — Constitution
 
 ## Propósito
 
-Este documento define las reglas no negociables para desarrollar la landing page de FaberIT.
+Este documento define las reglas no negociables para desarrollar la landing page institucional del Centro de Ojos Belén.
 Es agnóstico a features: DEBE seguir siendo válido aunque cambien secciones, copy, integraciones o proveedores.
 
 ## Principios No Negociables

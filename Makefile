@@ -1,42 +1,29 @@
-# Makefile — Landing Page
-# Usage:  make <target>
-# Requires: Node.js 20+, npm, Docker, GNU make
+# Makefile — Centro de Ojos Belén
+# Uso:  make <target>
+# Requiere: Node.js 20+, npm, GNU make
 #
-# On Windows install GNU make via:
-#   winget install GnuWin32.Make   (then add C:\Program Files (x86)\GnuWin32\bin to PATH)
-#   or:  choco install make
+# En Windows, instalar GNU make con:
+#   winget install GnuWin32.Make   (y agregar C:\Program Files (x86)\GnuWin32\bin al PATH)
+#   o:  choco install make
 
-.PHONY: help install env setup dev build start lint \
-        db-up db-down db-reset db-migrate db-logs db-psql
-
-# ─── Default ─────────────────────────────────────────────────────────────────
+.PHONY: help install env setup dev build start lint
 
 help:
 	@echo ""
-	@echo "  Landing Page — Available Commands"
-	@echo "  ==================================="
+	@echo "  Centro de Ojos Belen — Comandos disponibles"
+	@echo "  ==========================================="
 	@echo ""
-	@echo "  First-time setup"
-	@echo "    make setup         install + copy .env.local + start DB container"
-	@echo "    make install       npm install only"
-	@echo "    make env           copy .env.example -> .env.local (skips if exists)"
+	@echo "  Primera vez"
+	@echo "    make setup         install + copia .env.local"
+	@echo "    make install       solo npm install"
+	@echo "    make env           copia .env.example -> .env.local (no pisa si existe)"
 	@echo ""
-	@echo "  Development"
-	@echo "    make dev           start dev server at http://localhost:3000"
-	@echo "    make build         production build"
-	@echo "    make start         start production server (run build first)"
-	@echo "    make lint          run ESLint"
+	@echo "  Desarrollo"
+	@echo "    make dev           servidor de desarrollo en http://localhost:3000"
+	@echo "    make build         build de produccion"
+	@echo "    make start         servidor de produccion (correr build antes)"
+	@echo "    make lint          ESLint"
 	@echo ""
-	@echo "  Database (local Docker)"
-	@echo "    make db-up         start PostgreSQL container"
-	@echo "    make db-down       stop PostgreSQL container"
-	@echo "    make db-logs       tail container logs"
-	@echo "    make db-psql       open psql shell inside container"
-	@echo "    make db-reset      drop + recreate schema (DESTRUCTIVE)"
-	@echo "    make db-migrate    show production Supabase migration SQL"
-	@echo ""
-
-# ─── Setup ───────────────────────────────────────────────────────────────────
 
 install:
 	npm install
@@ -44,18 +31,14 @@ install:
 env:
 	@if [ ! -f .env.local ]; then \
 		cp .env.example .env.local; \
-		echo "✓ .env.local created — DATABASE_URL already set for local Docker DB"; \
+		echo "✓ .env.local creado — completá RESEND_API_KEY y NEXT_PUBLIC_WHATSAPP_NUMBER"; \
 	else \
-		echo ".env.local already exists — skipped"; \
+		echo ".env.local ya existe — omitido"; \
 	fi
 
-setup: install env db-up
+setup: install env
 	@echo ""
-	@echo "✓ Setup complete."
-	@echo "  DB is running at localhost:5433 (postgres/postgres/landing)"
-	@echo "  Run: make dev"
-
-# ─── Development ─────────────────────────────────────────────────────────────
+	@echo "✓ Setup completo. Corré: make dev"
 
 dev:
 	npm run dev
@@ -68,38 +51,3 @@ start:
 
 lint:
 	npm run lint
-
-# ─── Database (local Docker) ──────────────────────────────────────────────────
-
-db-up:
-	@echo "Starting PostgreSQL container..."
-	docker compose up -d --wait db
-	@echo "✓ DB ready at localhost:5433 (user: postgres, pass: postgres, db: landing)"
-
-db-down:
-	docker compose down
-
-db-logs:
-	docker compose logs -f db
-
-db-psql:
-	docker compose exec db psql -U postgres -d landing
-
-db-reset:
-	@echo "WARNING: Dropping and recreating contact_messages..."
-	docker compose exec db psql -U postgres -d landing \
-	  -c "DROP TABLE IF EXISTS contact_messages CASCADE;"
-	docker compose exec db psql -U postgres -d landing \
-	  -f /docker-entrypoint-initdb.d/001_schema.sql
-	@echo "✓ Schema recreated"
-
-# ─── Database (Supabase production migration) ─────────────────────────────────
-
-db-migrate:
-	@echo ""
-	@echo "Run this file in the Supabase SQL editor:"
-	@echo "  db/migrations/001_create_contact_messages.sql"
-	@echo ""
-	@echo "Dashboard: https://supabase.com/dashboard/project/_/sql"
-	@echo ""
-	@cat db/migrations/001_create_contact_messages.sql

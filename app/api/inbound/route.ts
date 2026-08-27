@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+/**
+ * Webhook de Resend Inbound: reenvía el correo que llega al dominio del centro
+ * hacia la casilla que se lee todos los días (Gmail, en nuestro caso).
+ *
+ * El cliente se crea dentro del handler a propósito: instanciarlo a nivel de
+ * módulo hace fallar el build cuando RESEND_API_KEY no está definida, que es
+ * exactamente lo que pasa en un build limpio.
+ */
 
 interface ReceivedEmail {
   subject: string | null
@@ -11,14 +18,26 @@ interface ReceivedEmail {
 }
 
 async function getReceivedEmail(emailId: string): Promise<ReceivedEmail | null> {
-  const res = await fetch(`https://api.resend.com/emails/receiving/${emailId}`, {
-    headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
-  })
-  if (!res.ok) return null
-  return res.json() as Promise<ReceivedEmail>
+  const response = await fetch(
+    `https://api.resend.com/emails/receiving/${emailId}`,
+    { headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` } }
+  )
+  if (!response.ok) return null
+  return response.json() as Promise<ReceivedEmail>
 }
 
 export async function POST(request: NextRequest) {
+  const apiKey = process.env.RESEND_API_KEY
+  const forwardTo = process.env.INBOUND_FORWARD_TO
+  const forwardFrom = process.env.RESEND_FROM_EMAIL
+
+  if (!apiKey || !forwardTo || !forwardFrom) {
+    console.error(
+      '[inbound] Faltan RESEND_API_KEY, INBOUND_FORWARD_TO o RESEND_FROM_EMAIL'
+    )
+    return NextResponse.json({ error: 'Server misconfiguration' }, { status: 500 })
+  }
+
   let event: unknown
   try {
     event = await request.json()
@@ -34,48 +53,38 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true })
   }
 
-  const forwardTo = process.env.INBOUND_FORWARD_TO
-  const forwardFrom = process.env.RESEND_FROM_EMAIL
-
-  if (!forwardTo || !forwardFrom) {
-    console.error('[inbound] Missing INBOUND_FORWARD_TO or RESEND_FROM_EMAIL env vars')
-    return NextResponse.json({ error: 'Server misconfiguration' }, { status: 500 })
-  }
-
   const emailId = (
-    (event as Record<string, unknown>).data as Record<string, unknown>
+    (event as Record<string, unknown>).data as Record<string, unknown> | undefined
   )?.email_id as string | undefined
 
   if (!emailId) {
     return NextResponse.json({ error: 'Missing email_id' }, { status: 400 })
   }
 
-  const emailData = await getReceivedEmail(emailId)
-  if (!emailData) {
-    console.error('[inbound] Failed to fetch received email:', emailId)
+  const email = await getReceivedEmail(emailId)
+  if (!email) {
+    console.error('[inbound] No se pudo recuperar el correo:', emailId)
     return NextResponse.json({ error: 'Failed to fetch email' }, { status: 500 })
   }
 
-  const subject = emailData.subject || '(sin asunto)'
-  const from = emailData.from
-
-  const banner = `<div style="background:#fff3cd;border-left:4px solid #f0a500;padding:10px 16px;margin-bottom:20px;font-family:sans-serif;font-size:13px;">
-    <strong>&#128236; Mensaje de contacto</strong> &middot; De: <strong>${from}</strong>
+  const from = email.from
+  const banner = `<div style="background:#E2FAFF;border-left:4px solid #219FC0;padding:10px 16px;margin-bottom:20px;font-family:sans-serif;font-size:13px;color:#202055;">
+    <strong>&#128236; Correo recibido en el dominio</strong> &middot; De: <strong>${from}</strong>
   </div>`
 
-  const sendOptions: Parameters<typeof resend.emails.send>[0] = {
+  const resend = new Resend(apiKey)
+  const { error } = await resend.emails.send({
     from: forwardFrom,
     to: forwardTo,
-    subject: `${subject}`,
-    ...(emailData.html
-      ? { html: `${banner}${emailData.html}` }
-      : { text: `[CONTACTO · De: ${from}]\n\n${emailData.text ?? ''}` }),
-  }
-
-  const { error } = await resend.emails.send(sendOptions)
+    replyTo: from,
+    subject: email.subject || '(sin asunto)',
+    ...(email.html
+      ? { html: `${banner}${email.html}` }
+      : { text: `[De: ${from}]\n\n${email.text ?? ''}` }),
+  })
 
   if (error) {
-    console.error('[inbound] Forward error:', error)
+    console.error('[inbound] Error al reenviar:', error)
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 

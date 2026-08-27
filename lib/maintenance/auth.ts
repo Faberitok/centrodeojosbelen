@@ -123,6 +123,32 @@ export function getMaintenanceCookieTtlSeconds(): number {
   return Math.floor(raw)
 }
 
+function validateMaintenanceUser(user: string): boolean {
+  const configuredUser = process.env.MAINTENANCE_USER?.trim()
+  if (!configuredUser) {
+    return false
+  }
+
+  // Comparación en tiempo constante y sin distinguir mayúsculas: el usuario no
+  // es un secreto, pero no conviene filtrar por timing si existe o no.
+  return secureCompare(user.trim().toLowerCase(), configuredUser.toLowerCase())
+}
+
+/**
+ * Valida usuario y contraseña juntos.
+ *
+ * Siempre evalúa las dos condiciones antes de responder, para no revelar por
+ * el tiempo de respuesta cuál de las dos falló.
+ */
+export function validateMaintenanceCredentials(
+  user: string,
+  password: string
+): boolean {
+  const userOk = validateMaintenanceUser(user)
+  const passwordOk = validateMaintenancePassword(password)
+  return userOk && passwordOk
+}
+
 export function validateMaintenancePassword(password: string): boolean {
   const configuredHash = process.env.MAINTENANCE_PASSWORD_HASH?.trim()
   const configuredPassword = process.env.MAINTENANCE_PASSWORD ?? ''

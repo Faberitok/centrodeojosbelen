@@ -1,254 +1,208 @@
 'use client'
 
-import { contactSchema, type ContactFormData } from '@/lib/validators/contact'
-import { useEffect, useState } from 'react'
+import { submitContact } from '@/app/actions/contact'
+import { contact } from '@/content/site'
+import { initialContactState, type ContactFormData } from '@/lib/validators/contact'
+import { useActionState, useEffect, useRef } from 'react'
+import { useFormStatus } from 'react-dom'
 
-type FormState = 'idle' | 'submitting' | 'success' | 'error'
+const copy = contact.form
+
+function SubmitButton() {
+  // useFormStatus lee el estado del <form> padre, así que el botón sabe si hay
+  // un envío en curso sin que el formulario tenga que pasarle nada.
+  const { pending } = useFormStatus()
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="inline-flex w-full items-center justify-center rounded-lg bg-brand-900 px-8 py-4 text-base font-bold text-white transition-colors hover:bg-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+    >
+      {pending ? copy.submittingLabel : copy.submitLabel}
+    </button>
+  )
+}
 
 export default function ContactForm() {
-  const [state, setState] = useState<FormState>('idle')
-  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({})
-  const [serverError, setServerError] = useState<string | null>(null)
-  const [fields, setFields] = useState<ContactFormData>({
-    name: '',
-    email: '',
-    message: '',
-    phone: '',
-    company: '',
-  })
+  const [state, formAction] = useActionState(submitContact, initialContactState)
+  const formRef = useRef<HTMLFormElement>(null)
+  const renderedAtRef = useRef<HTMLInputElement>(null)
+
+  // Date.now() es impura: no puede correr durante el render.
+  useEffect(() => {
+    if (renderedAtRef.current) {
+      renderedAtRef.current.value = String(Date.now())
+    }
+  }, [state.status])
 
   useEffect(() => {
-    function handlePrefill(event: Event) {
-      const customEvent = event as CustomEvent<string>
-      const message = (customEvent.detail ?? '').trim()
-      if (!message) return
-
-      setFields((prev) => ({ ...prev, message }))
-      setErrors((prev) => ({ ...prev, message: undefined }))
-
-      const textarea = document.getElementById('message') as HTMLTextAreaElement | null
-      textarea?.focus()
+    if (state.status === 'success') {
+      formRef.current?.reset()
     }
+  }, [state.status])
 
-    window.addEventListener('contact-prefill-message', handlePrefill)
-    return () => {
-      window.removeEventListener('contact-prefill-message', handlePrefill)
-    }
-  }, [])
-
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    const { name, value } = e.target
-    setFields((prev) => ({ ...prev, [name]: value }))
-    if (errors[name as keyof ContactFormData]) {
-      setErrors((prev) => ({ ...prev, [name]: undefined }))
-    }
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setServerError(null)
-
-    const result = contactSchema.safeParse(fields)
-    if (!result.success) {
-      const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {}
-      result.error.errors.forEach((err) => {
-        const key = err.path[0] as keyof ContactFormData
-        if (!fieldErrors[key]) fieldErrors[key] = err.message
-      })
-      setErrors(fieldErrors)
-      return
-    }
-
-    setState('submitting')
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(result.data),
-      })
-
-      if (res.ok) {
-        setState('success')
-        setFields({ name: '', email: '', message: '', phone: '', company: '' })
-        setErrors({})
-      } else {
-        const body = await res.json().catch(() => ({}))
-        setState('error')
-        setServerError(
-          (body as { error?: string }).error ??
-            'Ocurrió un error. Por favor, intentá de nuevo.'
-        )
-      }
-    } catch {
-      setState('error')
-      setServerError(
-        'No se pudo conectar al servidor. Revisá tu conexión e intentá de nuevo.'
-      )
-    }
-  }
-
-  if (state === 'success') {
+  if (state.status === 'success') {
     return (
-      <div className="text-center py-12 px-6 bg-brand-50 rounded-xl border border-brand-200">
-        <div className="mb-4 text-4xl" aria-hidden="true">
-          ✅
-        </div>
-        <h3 className="text-xl font-bold text-brand-900 mb-2">¡Mensaje enviado!</h3>
-        <p className="text-brand-600">Te respondemos en menos de 24 horas.</p>
-        <button
-          type="button"
-          onClick={() => setState('idle')}
-          className="mt-6 text-sm text-brand-600 underline hover:text-brand-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded"
+      <div className="rounded-2xl border border-accent-200 bg-accent-50 px-6 py-12 text-center">
+        <span
+          className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent-600 text-white"
+          aria-hidden="true"
         >
-          Enviar otro mensaje
-        </button>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-7 w-7"
+          >
+            <path d="m5 13 4 4L19 7" />
+          </svg>
+        </span>
+        <h3 className="mt-5 text-xl font-bold text-brand-900">{copy.successTitle}</h3>
+        <p className="mt-2 text-brand-700">{copy.successMessage}</p>
       </div>
     )
   }
 
+  const errors = state.errors ?? {}
+  const values = state.values ?? {}
+
   const inputBase =
-    'w-full px-4 py-3 rounded-md border text-brand-900 placeholder:text-brand-400 bg-white focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-transparent transition'
+    'w-full rounded-lg border px-4 py-3.5 text-brand-900 placeholder:text-brand-400 bg-white focus:outline-none focus:ring-2 focus:ring-accent-600/30 transition'
+
+  function inputClass(field: keyof ContactFormData) {
+    return `${inputBase} ${
+      errors[field]
+        ? 'border-red-500 focus:border-red-500'
+        : 'border-brand-300 focus:border-accent-600'
+    }`
+  }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {/* Name */}
+    <form ref={formRef} action={formAction} className="space-y-5">
+      {/* Honeypot — fuera de la vista y del orden de tabulación */}
+      <div className="absolute left-[-9999px]" aria-hidden="true">
+        <label htmlFor="website">No completar este campo</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
+      <input ref={renderedAtRef} type="hidden" name="renderedAt" defaultValue="" />
+
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <div>
-          <label htmlFor="name" className="block text-sm font-semibold text-brand-800 mb-1.5">
-            Nombre <span aria-hidden="true" className="text-red-500">*</span>
+          <label htmlFor="name" className="mb-1.5 block text-sm font-semibold text-brand-800">
+            {copy.nameLabel} <span className="text-red-600">*</span>
           </label>
           <input
             id="name"
             name="name"
             type="text"
-            required
             autoComplete="name"
-            value={fields.name}
-            onChange={handleChange}
+            required
+            defaultValue={values.name}
+            placeholder={copy.namePlaceholder}
+            className={inputClass('name')}
+            aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? 'name-error' : undefined}
-            aria-invalid={!!errors.name}
-            className={`${inputBase} ${errors.name ? 'border-red-400' : 'border-brand-200'}`}
-            placeholder="Tu nombre"
           />
           {errors.name && (
-            <p id="name-error" role="alert" className="mt-1 text-xs text-red-600">
+            <p id="name-error" className="mt-1.5 text-sm text-red-600">
               {errors.name}
             </p>
           )}
         </div>
 
-        {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-semibold text-brand-800 mb-1.5">
-            Email <span aria-hidden="true" className="text-red-500">*</span>
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            autoComplete="email"
-            value={fields.email}
-            onChange={handleChange}
-            aria-describedby={errors.email ? 'email-error' : undefined}
-            aria-invalid={!!errors.email}
-            className={`${inputBase} ${errors.email ? 'border-red-400' : 'border-brand-200'}`}
-            placeholder="tu@email.com"
-          />
-          {errors.email && (
-            <p id="email-error" role="alert" className="mt-1 text-xs text-red-600">
-              {errors.email}
-            </p>
-          )}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {/* Phone */}
-        <div>
-          <label htmlFor="phone" className="block text-sm font-semibold text-brand-800 mb-1.5">
-            Teléfono{' '}
-            <span className="text-brand-400 font-normal">(opcional)</span>
+          <label htmlFor="phone" className="mb-1.5 block text-sm font-semibold text-brand-800">
+            {copy.phoneLabel} <span className="text-red-600">*</span>
           </label>
           <input
             id="phone"
             name="phone"
             type="tel"
             autoComplete="tel"
-            value={fields.phone}
-            onChange={handleChange}
-            className={`${inputBase} border-brand-200`}
-            placeholder="+54 9 11 XXXX-XXXX"
+            inputMode="tel"
+            required
+            defaultValue={values.phone}
+            placeholder={copy.phonePlaceholder}
+            className={inputClass('phone')}
+            aria-invalid={Boolean(errors.phone)}
+            aria-describedby={errors.phone ? 'phone-error' : undefined}
           />
-        </div>
-
-        {/* Company */}
-        <div>
-          <label
-            htmlFor="company"
-            className="block text-sm font-semibold text-brand-800 mb-1.5"
-          >
-            Empresa{' '}
-            <span className="text-brand-400 font-normal">(opcional)</span>
-          </label>
-          <input
-            id="company"
-            name="company"
-            type="text"
-            autoComplete="organization"
-            value={fields.company}
-            onChange={handleChange}
-            className={`${inputBase} border-brand-200`}
-            placeholder="Nombre de tu empresa"
-          />
+          {errors.phone && (
+            <p id="phone-error" className="mt-1.5 text-sm text-red-600">
+              {errors.phone}
+            </p>
+          )}
         </div>
       </div>
 
-      {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-semibold text-brand-800 mb-1.5">
-          Mensaje <span aria-hidden="true" className="text-red-500">*</span>
+        <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-brand-800">
+          {copy.emailLabel} <span className="text-red-600">*</span>
         </label>
-        <textarea
-          id="message"
-          name="message"
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          inputMode="email"
           required
-          rows={5}
-          value={fields.message}
-          onChange={handleChange}
-          aria-describedby={errors.message ? 'message-error' : undefined}
-          aria-invalid={!!errors.message}
-          className={`${inputBase} resize-y min-h-[120px] ${errors.message ? 'border-red-400' : 'border-brand-200'}`}
-          placeholder="Contanos qué necesitás resolver..."
+          defaultValue={values.email}
+          placeholder={copy.emailPlaceholder}
+          className={inputClass('email')}
+          aria-invalid={Boolean(errors.email)}
+          aria-describedby={errors.email ? 'email-error' : undefined}
         />
-        {errors.message && (
-          <p id="message-error" role="alert" className="mt-1 text-xs text-red-600">
-            {errors.message}
+        {errors.email && (
+          <p id="email-error" className="mt-1.5 text-sm text-red-600">
+            {errors.email}
           </p>
         )}
       </div>
 
-      {/* Server error */}
-      {state === 'error' && serverError && (
-        <div
+      <div>
+        <label htmlFor="message" className="mb-1.5 block text-sm font-semibold text-brand-800">
+          {copy.messageLabel} <span className="text-red-600">*</span>
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          rows={5}
+          required
+          defaultValue={values.message}
+          placeholder={copy.messagePlaceholder}
+          className={`${inputClass('message')} resize-y`}
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={
+            errors.message ? 'message-error health-notice' : 'health-notice'
+          }
+        />
+        {errors.message && (
+          <p id="message-error" className="mt-1.5 text-sm text-red-600">
+            {errors.message}
+          </p>
+        )}
+        <p id="health-notice" className="mt-2 text-sm leading-relaxed text-brand-600">
+          {copy.healthNotice}
+        </p>
+      </div>
+
+      {state.message && (
+        <p
+          className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
           role="alert"
-          className="p-4 bg-red-50 border border-red-200 rounded-md text-sm text-red-700"
         >
-          {serverError}
-        </div>
+          {state.message}
+        </p>
       )}
 
-      <button
-        type="submit"
-        disabled={state === 'submitting'}
-        aria-disabled={state === 'submitting'}
-        className="w-full md:w-auto px-8 py-3.5 bg-brand-700 text-white font-semibold rounded-md cursor-pointer hover:bg-brand-800 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-900/20 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 transition-all duration-200"
-      >
-        {state === 'submitting' ? 'Enviando…' : 'Enviar mensaje'}
-      </button>
+      <SubmitButton />
+
+      <p className="text-sm text-brand-600">{copy.privacyNotice}</p>
     </form>
   )
 }

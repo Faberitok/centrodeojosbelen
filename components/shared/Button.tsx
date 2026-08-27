@@ -24,13 +24,13 @@ export default function Button({
   type = 'button',
 }: ButtonProps) {
   const base =
-    'inline-flex items-center justify-center px-6 py-3 rounded-md font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2'
+    'inline-flex items-center justify-center px-6 py-3.5 rounded-lg font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2'
 
   const variants: Record<ButtonVariant, string> = {
-    solid: 'bg-brand-700 text-white hover:bg-brand-800 active:bg-brand-900',
+    solid: 'bg-brand-900 text-white hover:bg-brand-800 active:bg-brand-950',
     outline:
-      'border border-brand-600 text-brand-600 hover:bg-brand-50 active:bg-brand-100',
-    ghost: 'text-brand-700 hover:bg-brand-50 active:bg-brand-100',
+      'border border-brand-300 text-brand-900 hover:bg-brand-50 active:bg-brand-100',
+    ghost: 'text-accent-700 hover:bg-accent-50 active:bg-accent-100',
   }
 
   const classes = `${base} ${variants[variant]} ${className}`
