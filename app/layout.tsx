@@ -86,7 +86,11 @@ export default async function RootLayout({
 
   return (
     <html lang="es-AR" className={`${figtree.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans bg-white text-brand-900">
+      <body
+        className={`min-h-full flex flex-col font-sans ${
+          hideChrome ? 'maintenance-page' : 'bg-white text-brand-900'
+        }`}
+      >
         {hideChrome ? null : (
           <>
             <a

@@ -63,6 +63,11 @@ html {
   /* Compensa el navbar sticky (h-16) para que los anclas no queden tapados */
   scroll-padding-top: 5rem;
   overflow-x: hidden;
+  /* Corta el rebote del scroll en iOS. Es lo que descubre el lienzo blanco por
+     encima y por debajo del contenido al llegar a los extremos. El costo es
+     perder el "tirar para recargar", que en una landing de una sola página no
+     aporta nada. */
+  overscroll-behavior-y: none;
 }
 
 body {
@@ -73,6 +78,22 @@ body {
      alguna utilidad la usa, así que la variable puede no existir. */
   font-size: 1.0625rem;
   line-height: 1.65;
+}
+
+/* ─── Página en construcción ───────────────────────────────────────────────────
+   El degradado va en el <body> y no en un div interno: el navegador propaga el
+   fondo del body al lienzo completo, que es lo que se ve detrás de la barra de
+   estado de iOS y en el rebote del scroll. Con el degradado adentro de una
+   sección, esas franjas quedaban blancas.                                     */
+
+body.maintenance-page {
+  color: #ffffff;
+  background-color: #202055;
+  background-image:
+    radial-gradient(circle at 20% 20%, #2C3260 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(33, 159, 192, 0.28) 0%, transparent 50%),
+    linear-gradient(160deg, #202055 0%, #14143A 100%);
+  background-repeat: no-repeat;
 }
 
 /* ─── Animaciones (progressive enhancement) ────────────────────────────────── */

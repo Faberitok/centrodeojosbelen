@@ -63,13 +63,10 @@ export default function MaintenanceGate() {
   }
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-brand-900 px-6 py-16 text-white">
-      <div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,#2C3260_0%,transparent_50%),radial-gradient(circle_at_80%_80%,rgba(33,159,192,0.28)_0%,transparent_50%),linear-gradient(160deg,#202055_0%,#14143A_100%)]"
-        aria-hidden="true"
-      />
-
-      <div className="relative w-full max-w-xl text-center">
+    /* El fondo lo pinta body.maintenance-page: así cubre también la franja de
+       la barra de estado y el rebote del scroll, que quedaban blancos. */
+    <section className="flex min-h-[100svh] items-center justify-center px-6 py-16 text-white">
+      <div className="w-full max-w-xl text-center">
         {/* PNG y no el SVG que exportó el diseñador: ese arma la transparencia
             con <mask> + feColorMatrix sobre imágenes rasterizadas, y Safari en
             iOS no resuelve esa combinación — pinta un rectángulo negro. */}
