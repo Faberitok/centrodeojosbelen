@@ -66,7 +66,7 @@ export default function MaintenanceGate() {
     /* El fondo lo pinta body.maintenance-page: así cubre también la franja de
        la barra de estado y el rebote del scroll, que quedaban blancos. */
     <section className="flex min-h-[100svh] items-center justify-center px-6 py-16 text-white">
-      <div className="w-full max-w-xl text-center">
+      <div className="w-full max-w-xl text-left">
         {/* PNG y no el SVG que exportó el diseñador: ese arma la transparencia
             con <mask> + feColorMatrix sobre imágenes rasterizadas, y Safari en
             iOS no resuelve esa combinación — pinta un rectángulo negro. */}
@@ -76,19 +76,19 @@ export default function MaintenanceGate() {
           width={1142}
           height={512}
           sizes="(min-width: 768px) 380px, 280px"
-          className="mx-auto h-auto w-[280px] md:w-[380px]"
+          className="h-auto w-[240px] md:w-[320px]"
           priority
         />
 
-        <p className="mt-12 text-xs font-bold uppercase tracking-[0.18em] text-accent-300">
+        <p className="mt-12 text-xs font-semibold uppercase tracking-[0.18em] text-accent-300">
           {maintenance.badge}
         </p>
 
-        <h1 className="mt-6 text-3xl font-extrabold leading-tight tracking-tight md:text-4xl">
+        <h1 className="mt-5 text-2xl font-semibold leading-snug tracking-tight md:text-3xl">
           {maintenance.title}
         </h1>
 
-        <p className="mx-auto mt-5 max-w-lg text-lg leading-relaxed text-brand-200">
+        <p className="mt-4 max-w-lg text-base leading-relaxed text-brand-200 md:text-lg">
           {maintenance.message}
         </p>
 
@@ -97,7 +97,7 @@ export default function MaintenanceGate() {
             href={whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-9 inline-flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-7 py-4 text-base font-bold text-brand-950 transition-colors hover:bg-accent-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
+            className="mt-9 inline-flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-6 py-4 text-base font-semibold text-brand-950 transition-colors hover:bg-accent-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
           >
             <svg viewBox="0 0 16 16" fill="currentColor" className="h-5 w-5" aria-hidden="true">
               <path d="M13.6 2.33A7.85 7.85 0 0 0 8 0a7.9 7.9 0 0 0-6.85 11.85L0 16l4.25-1.1A7.9 7.9 0 0 0 8 15.85 7.9 7.9 0 0 0 13.6 2.33ZM8 14.52c-1.17 0-2.32-.31-3.32-.9l-.24-.15-2.47.65.66-2.41-.16-.25a6.56 6.56 0 1 1 12.09-3.51A6.57 6.57 0 0 1 8 14.52Zm3.6-4.92c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.45.1-.13.2-.5.64-.62.77-.11.13-.23.15-.43.05-.2-.1-.83-.31-1.59-.98a5.94 5.94 0 0 1-1.1-1.37c-.11-.2-.01-.3.09-.4.09-.09.2-.23.3-.35.1-.12.13-.2.2-.34.06-.13.03-.25-.02-.35-.05-.1-.45-1.08-.61-1.47-.16-.39-.33-.34-.45-.34l-.38-.01c-.13 0-.35.05-.53.25-.18.2-.7.68-.7 1.66s.72 1.92.82 2.06c.1.13 1.41 2.15 3.42 3.02.48.2.85.33 1.14.42.48.15.91.13 1.26.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.08-.18-.13-.38-.23Z" />
@@ -107,7 +107,7 @@ export default function MaintenanceGate() {
         )}
 
         <details className="group mt-16 text-left">
-          <summary className="mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center gap-1.5 rounded-lg px-4 py-3 text-sm font-semibold text-brand-400 transition-colors hover:text-brand-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 [&::-webkit-details-marker]:hidden">
+          <summary className="-ml-2 flex min-h-11 w-fit cursor-pointer list-none items-center gap-1.5 rounded-lg px-2 py-3 text-sm font-medium text-brand-400 transition-colors hover:text-brand-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 [&::-webkit-details-marker]:hidden">
             {maintenance.teamAccessLabel}
             <svg
               viewBox="0 0 20 20"
@@ -126,7 +126,7 @@ export default function MaintenanceGate() {
           <form
             onSubmit={onSubmit}
             noValidate
-            className="mx-auto mt-5 max-w-sm rounded-xl border border-brand-700 bg-brand-950/50 p-5"
+            className="mt-4 max-w-sm rounded-xl border border-brand-700 bg-brand-950/50 p-5"
           >
             <label
               htmlFor="maintenance-user"

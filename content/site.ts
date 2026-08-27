@@ -19,8 +19,7 @@ export const site = {
   shortName: siteName,
   legalName: siteName,
   domain: 'www.centrodeojosbelen.com.ar',
-  // PLACEHOLDER — confirmar ciudad y provincia con el centro
-  city: 'San Fernando del Valle de Catamarca',
+  city: 'Belén',
   province: 'Catamarca',
   country: 'AR',
   specialty: 'Oftalmología',
@@ -308,15 +307,15 @@ export interface Location {
   geo?: { lat: number; lng: number }
 }
 
-// PLACEHOLDER — direcciones, teléfonos, horarios y mapas reales del centro
 export const locations: Location[] = [
   {
-    id: 'sede-central',
-    name: 'Sede Central',
-    street: 'Dirección de la sede 123',
-    city: 'San Fernando del Valle de Catamarca',
+    id: 'sede-belen',
+    name: 'Belén',
+    street: 'Rivadavia 490',
+    city: 'Belén',
     province: 'Catamarca',
-    postalCode: '4700',
+    postalCode: '4750',
+    // PLACEHOLDER — teléfonos y horarios reales del centro
     phones: ['+54 383 400-0000'],
     hours: [
       {
@@ -334,17 +333,19 @@ export const locations: Location[] = [
         schemaCloses: '13:00',
       },
     ],
+    // Se consulta por nombre + dirección para que el pin caiga sobre la ficha
+    // del centro y no sobre el número de la calle.
     mapEmbedUrl:
-      'https://www.google.com/maps?q=San+Fernando+del+Valle+de+Catamarca&output=embed',
+      'https://www.google.com/maps?q=Centro+de+Ojos+Bel%C3%A9n%2C+Rivadavia+490%2C+Bel%C3%A9n%2C+Catamarca&output=embed',
     mapDirectionsUrl:
-      'https://www.google.com/maps/dir/?api=1&destination=San+Fernando+del+Valle+de+Catamarca',
+      'https://www.google.com/maps/dir/?api=1&destination=Centro+de+Ojos+Bel%C3%A9n%2C+Rivadavia+490%2C+Bel%C3%A9n%2C+Catamarca',
   },
 ]
 
 export const locationsSection = {
   eyebrow: 'Dónde estamos',
   title: 'Sedes y horarios de atención',
-  subtitle: 'Encontranos en el centro de la ciudad, con acceso directo al mapa.',
+  subtitle: 'Nos encontrás en Belén, Catamarca. Tocá "Cómo llegar" y te abre el mapa.',
   directionsLabel: 'Cómo llegar',
 } as const
 

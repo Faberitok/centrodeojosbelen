@@ -275,6 +275,7 @@ Las fases 0–5 no dependen de que el cliente entregue material: arrancan con co
 
 | Decisión | Resolución |
 |---|---|
+| Domicilio | **Rivadavia 490, Belén, Catamarca (CP 4750)**. Belén es la localidad, no un nombre propio: el título del sitio dice "Oftalmología en Belén, Catamarca" para que no se lea como una redundancia con el nombre del centro. |
 | Correo | **Resend + Gmail**. Resend Inbound recibe en el dominio y reenvía al Gmail del centro; Gmail responde desde `contacto@` vía SMTP de Resend. Mismo esquema que FaberIT. |
 | Tipografía | **Figtree** como sustituto de Museo Sans. Si aparece la licencia web, se cambia a `next/font/local` sin tocar el resto (la variable CSS no cambia). |
 | Analítica | **Vercel Analytics**. Sin cookies, sin banner de consentimiento. GA4 queda para más adelante si el centro lo pide. |
@@ -282,10 +283,9 @@ Las fases 0–5 no dependen de que el cliente entregue material: arrancan con co
 
 **Pendientes:**
 
-1. **Ciudad y provincia del centro** — hoy figura San Fernando del Valle de Catamarca como placeholder en `content/site.ts`.
-2. **Cantidad de sedes** — con más de una hay que decidir entre tarjetas apiladas (lo que hay hoy) o tabs.
-3. **Sección "Preparación para estudios"** — no está en las 7 secciones del kick-off. ¿Se suma?
-4. **Equipo profesional** — ¿se publican fotos y matrículas, o solo nombres y especialidades?
+1. **Cantidad de sedes** — hoy hay una sola (Rivadavia 490, Belén, Catamarca). Con más de una hay que decidir entre tarjetas apiladas (lo que hay hoy) o tabs.
+2. **Equipo profesional** — ¿se publican fotos y matrículas, o solo nombres y especialidades?
+3. **Código postal** — se usa `4750`. Google devuelve el CPA como `K4750XXX`; si el centro tiene el CPA completo con las tres letras, conviene cargarlo.
 
 ---
 

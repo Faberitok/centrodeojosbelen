@@ -25,8 +25,11 @@ const figtree = Figtree({
   display: 'swap',
 })
 
-const title = `${site.name} — Oftalmología en ${site.city}`
-const description = `Centro oftalmológico en ${site.city}: consultas, estudios diagnósticos, cirugía de cataratas, glaucoma, retina y oftalmología pediátrica. Sacá tu turno por WhatsApp.`
+// "Oftalmología en Belén" a secas se lee raro junto a un centro que se llama
+// Belén, así que el título lleva ciudad y provincia.
+const location = `${site.city}, ${site.province}`
+const title = `${site.name} — Oftalmología en ${location}`
+const description = `Centro oftalmológico en ${location}: consultas, estudios diagnósticos, cirugía de cataratas, glaucoma, retina y oftalmología pediátrica. Sacá tu turno por WhatsApp.`
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
