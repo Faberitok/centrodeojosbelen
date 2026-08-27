@@ -88,20 +88,18 @@ body {
 
 body.maintenance-page {
   color: #ffffff;
+
+  /* El navegador pinta las franjas de la barra de estado y de la barra de
+     Safari con este color liso. Para que no se vea un corte, el degradado
+     NO puede terminar en otro color contra los bordes: por eso la base es
+     plana y los brillos son elipses que se apagan antes de llegar al borde.
+     Así, el borde de la página es exactamente #202055 — el mismo color que
+     las franjas y que el theme-color. */
   background-color: #202055;
   background-image:
-    radial-gradient(circle at 20% 20%, #2C3260 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(33, 159, 192, 0.28) 0%, transparent 50%),
-    linear-gradient(160deg, #202055 0%, #14143A 100%);
+    radial-gradient(ellipse 75% 40% at 22% 45%, #2C3260 0%, rgba(44, 50, 96, 0) 100%),
+    radial-gradient(ellipse 65% 30% at 82% 62%, rgba(33, 159, 192, 0.22) 0%, rgba(33, 159, 192, 0) 100%);
   background-repeat: no-repeat;
-  /* La caja del body mide 100svh, o sea sin la barra del navegador. Sin esto,
-     el degradado se dimensiona a esa caja y las franjas de la barra de estado
-     y de la barra de Safari se pintan con el background-color liso, que se ve
-     como un azul plano cortado. `fixed` ancla el degradado al viewport para
-     que sea continuo de borde a borde. */
-  background-attachment: fixed;
-  background-size: cover;
-  min-height: 100lvh;
 }
 
 /* ─── Animaciones (progressive enhancement) ────────────────────────────────── */
