@@ -42,12 +42,12 @@ export default function Footer() {
             <p className="text-sm font-bold uppercase tracking-wide text-white">
               Navegación
             </p>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-2">
               {footer.links.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="rounded text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
+                    className="inline-flex min-h-11 items-center rounded text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
                   >
                     {link.label}
                   </Link>
@@ -58,11 +58,11 @@ export default function Footer() {
 
           <div>
             <p className="text-sm font-bold uppercase tracking-wide text-white">Contacto</p>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-2">
               <li>
                 <a
                   href={`mailto:${contact.email}`}
-                  className="rounded break-all text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
+                  className="inline-flex min-h-11 items-center rounded break-all text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
                 >
                   {contact.email}
                 </a>
@@ -71,7 +71,7 @@ export default function Footer() {
                 <li key={phone}>
                   <a
                     href={`tel:${phone.replace(/[^\d+]/g, '')}`}
-                    className="rounded text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
+                    className="inline-flex min-h-11 items-center rounded text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
                   >
                     {phone}
                   </a>

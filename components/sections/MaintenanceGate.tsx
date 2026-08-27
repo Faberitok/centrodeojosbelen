@@ -70,17 +70,17 @@ export default function MaintenanceGate() {
       />
 
       <div className="relative w-full max-w-xl text-center">
-        {/* unoptimized: el optimizador de next/image rechaza SVG salvo que se
-            active dangerouslyAllowSVG. Un SVG no necesita optimización, así que
-            se sirve directo en lugar de relajar esa restricción para todo el sitio. */}
+        {/* PNG y no el SVG que exportó el diseñador: ese arma la transparencia
+            con <mask> + feColorMatrix sobre imágenes rasterizadas, y Safari en
+            iOS no resuelve esa combinación — pinta un rectángulo negro. */}
         <Image
-          src={brand.logoMaintenance}
+          src={brand.logoDark}
           alt={siteName}
           width={1142}
           height={512}
+          sizes="(min-width: 768px) 380px, 280px"
           className="mx-auto h-auto w-[280px] md:w-[380px]"
           priority
-          unoptimized
         />
 
         <p className="mt-12 text-xs font-bold uppercase tracking-[0.18em] text-accent-300">
@@ -110,7 +110,7 @@ export default function MaintenanceGate() {
         )}
 
         <details className="group mt-16 text-left">
-          <summary className="mx-auto flex w-fit cursor-pointer list-none items-center gap-1.5 rounded text-sm font-semibold text-brand-400 transition-colors hover:text-brand-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 [&::-webkit-details-marker]:hidden">
+          <summary className="mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center gap-1.5 rounded-lg px-4 py-3 text-sm font-semibold text-brand-400 transition-colors hover:text-brand-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 [&::-webkit-details-marker]:hidden">
             {maintenance.teamAccessLabel}
             <svg
               viewBox="0 0 20 20"

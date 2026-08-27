@@ -25,12 +25,12 @@ export default function Contact() {
               <dt className="text-sm font-bold uppercase tracking-wide text-brand-500">
                 Teléfonos
               </dt>
-              <dd className="mt-2 space-y-1">
+              <dd className="mt-1">
                 {contact.phones.map((phone) => (
                   <a
                     key={phone}
                     href={`tel:${phone.replace(/[^\d+]/g, '')}`}
-                    className="block text-lg font-semibold text-accent-700 underline underline-offset-4 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 rounded"
+                    className="inline-flex min-h-11 items-center text-lg font-semibold text-accent-700 underline underline-offset-4 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 rounded"
                   >
                     {phone}
                   </a>
@@ -45,7 +45,7 @@ export default function Contact() {
               <dd className="mt-2">
                 <a
                   href={`mailto:${contact.email}`}
-                  className="text-lg font-semibold break-all text-accent-700 underline underline-offset-4 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 rounded"
+                  className="inline-flex min-h-11 items-center text-lg font-semibold break-all text-accent-700 underline underline-offset-4 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 rounded"
                 >
                   {contact.email}
                 </a>

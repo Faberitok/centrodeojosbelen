@@ -86,12 +86,12 @@ function LocationCard({ location }: { location: Location }) {
                 <p className="text-sm font-bold uppercase tracking-wide text-brand-500">
                   Teléfonos
                 </p>
-                <ul className="mt-1 space-y-1">
+                <ul className="mt-1">
                   {location.phones.map((phone) => (
                     <li key={phone}>
                       <a
                         href={`tel:${phone.replace(/[^\d+]/g, '')}`}
-                        className="font-semibold text-accent-700 underline underline-offset-4 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 rounded"
+                        className="inline-flex min-h-11 items-center rounded font-semibold text-accent-700 underline underline-offset-4 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
                       >
                         {phone}
                       </a>

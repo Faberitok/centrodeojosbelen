@@ -104,7 +104,7 @@ export default function Hero() {
               </span>
               <Link
                 href="#sedes"
-                className="font-semibold text-accent-300 underline underline-offset-4 hover:text-accent-200"
+                className="inline-flex min-h-11 items-center font-semibold text-accent-300 underline underline-offset-4 hover:text-accent-200"
               >
                 Ver horarios de atención
               </Link>

@@ -12,11 +12,12 @@ export const siteName = 'Centro de Ojos Belén'
 export const brand = {
   // Isologo horizontal, versión color — para fondos claros
   logoLight: '/centrodeojosbelen.png',
-  // Isologo horizontal, versión blanca — para fondos azules
-  logoDark: '/centrodeojosbelenfondo.png',
-  // Isologo para la página en construcción (SVG con transparencia real)
-  logoMaintenance: '/centrodeojosbelenfondo2.svg',
+  // Isologo horizontal, versión blanca — para fondos oscuros.
+  // Generado a partir de centrodeojosbelenfondo.png despejando el navy de
+  // fondo: los PNG originales traen el alfa opaco al 100% y recortan un
+  // rectángulo sobre cualquier fondo que no sea exactamente #202055.
+  logoDark: '/centrodeojosbelen-blanco.png',
   // Isotipo suelto (el ojo)
   isotypeLight: '/centrodeojosbelen-iso.png',
-  isotypeDark: '/centrodeojosbelenfondo-iso.png',
+  isotypeDark: '/centrodeojosbelen-iso-blanco.png',
 } as const

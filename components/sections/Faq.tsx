@@ -39,8 +39,8 @@ export default function Faq() {
         <ul className="divide-y divide-brand-200 border-y border-brand-200">
           {faq.map((item) => (
             <li key={item.question}>
-              <details className="group py-5">
-                <summary className="flex cursor-pointer list-none items-start justify-between gap-4 rounded text-left text-lg font-bold text-brand-900 hover:text-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-4 [&::-webkit-details-marker]:hidden">
+              <details className="group py-1">
+                <summary className="flex min-h-11 cursor-pointer list-none items-start justify-between gap-4 rounded py-4 text-left text-lg font-bold text-brand-900 hover:text-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-4 [&::-webkit-details-marker]:hidden">
                   {item.question}
                   <span
                     className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-brand-300 text-accent-700 transition-transform group-open:rotate-45"

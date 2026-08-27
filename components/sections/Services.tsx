@@ -55,8 +55,8 @@ export default function Services() {
                   {service.description}
                 </p>
 
-                <details className="group/details mt-4 border-t border-brand-100 pt-4">
-                  <summary className="flex cursor-pointer list-none items-center gap-1.5 rounded text-sm font-bold text-accent-700 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
+                <details className="group/details mt-4 border-t border-brand-100 pt-1">
+                  <summary className="flex min-h-11 cursor-pointer list-none items-center gap-1.5 rounded py-3 text-sm font-bold text-accent-700 hover:text-accent-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
                     Qué incluye
                     <svg
                       viewBox="0 0 20 20"

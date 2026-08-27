@@ -36,7 +36,7 @@ export default function Navbar() {
         <div className="flex h-16 md:h-20 items-center justify-between gap-4">
           <Link
             href="#inicio"
-            className="flex items-center rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
+            className="flex min-h-11 items-center rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
             aria-label={`${site.name} — Inicio`}
             onClick={() => setOpen(false)}
           >

@@ -55,7 +55,7 @@ export default function WhatsAppButton({
   return (
     <div
       ref={popupRef}
-      className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-50 flex flex-col items-end gap-3 max-w-[calc(100vw-1.5rem)]"
+      className="pointer-events-none fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-50 flex flex-col items-end gap-3 max-w-[calc(100vw-1.5rem)]"
     >
       {/* Chat popup */}
       <div
@@ -131,12 +131,12 @@ export default function WhatsAppButton({
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Cerrar chat de WhatsApp' : 'Abrir chat de WhatsApp'}
         aria-expanded={open}
-        className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500"
+        className="pointer-events-auto flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500"
         style={{ backgroundColor: '#25D366', color: 'white' }}
       >
         <span
           className={[
-            'w-6 h-6 sm:w-7 sm:h-7 transition-all duration-300',
+            'w-7 h-7 transition-all duration-300',
             open ? 'scale-0 opacity-0 absolute' : 'scale-100 opacity-100',
           ].join(' ')}
           aria-hidden="true"
@@ -149,7 +149,7 @@ export default function WhatsAppButton({
           stroke="currentColor"
           strokeWidth={2.5}
           className={[
-            'w-5 h-5 sm:w-6 sm:h-6 transition-all duration-300',
+            'w-6 h-6 transition-all duration-300',
             open ? 'scale-100 opacity-100' : 'scale-0 opacity-0 absolute',
           ].join(' ')}
           aria-hidden="true"
