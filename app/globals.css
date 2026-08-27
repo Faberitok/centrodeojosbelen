@@ -94,6 +94,14 @@ body.maintenance-page {
     radial-gradient(circle at 80% 80%, rgba(33, 159, 192, 0.28) 0%, transparent 50%),
     linear-gradient(160deg, #202055 0%, #14143A 100%);
   background-repeat: no-repeat;
+  /* La caja del body mide 100svh, o sea sin la barra del navegador. Sin esto,
+     el degradado se dimensiona a esa caja y las franjas de la barra de estado
+     y de la barra de Safari se pintan con el background-color liso, que se ve
+     como un azul plano cortado. `fixed` ancla el degradado al viewport para
+     que sea continuo de borde a borde. */
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 100lvh;
 }
 
 /* ─── Animaciones (progressive enhancement) ────────────────────────────────── */
