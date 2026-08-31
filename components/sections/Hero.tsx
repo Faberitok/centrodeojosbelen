@@ -12,9 +12,8 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative flex min-h-[calc(100svh-4rem)] md:min-h-[calc(88svh-5rem)] items-center overflow-hidden bg-brand-900"
+      className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden bg-brand-900 md:min-h-[calc(92svh-5rem)]"
     >
-      {/* Foto del centro cuando esté disponible; hasta entonces, composición de marca */}
       {hero.image ? (
         <>
           <Image
@@ -26,7 +25,7 @@ export default function Hero() {
             sizes="100vw"
           />
           <div
-            className="absolute inset-0 bg-gradient-to-r from-brand-900 via-brand-900/90 to-brand-900/60"
+            className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,18,0.96)_0%,rgba(13,13,34,0.87)_44%,rgba(13,13,34,0.35)_74%,rgba(7,7,18,0.12)_100%)]"
             aria-hidden="true"
           />
         </>
@@ -46,13 +45,13 @@ export default function Hero() {
         </div>
       )}
 
-      <div className="relative z-10 mx-auto w-full max-w-[1140px] px-6 py-20 md:py-24 text-white">
-        <div className="max-w-2xl">
+      <div className="relative z-10 mx-auto w-full max-w-[1140px] px-6 py-20 text-white md:py-28">
+        <div className="max-w-[44rem]">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-300">
             {hero.eyebrow}
           </p>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-[1.1] tracking-tight md:text-5xl lg:text-[3.4rem]">
+          <h1 className="mt-6 text-4xl font-extrabold leading-[1.05] tracking-[-0.035em] md:text-6xl lg:text-[4.5rem]">
             {hero.headline.split('\n').map((line, index) => (
               <span key={line}>
                 {index > 0 && <br />}
@@ -61,7 +60,7 @@ export default function Hero() {
             ))}
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-brand-200">
+          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-brand-100 md:text-xl">
             {hero.subtitle}
           </p>
 
@@ -71,20 +70,20 @@ export default function Hero() {
               {...(primaryIsExternal
                 ? { target: '_blank', rel: 'noopener noreferrer' }
                 : {})}
-              className="inline-flex items-center justify-center rounded-lg bg-accent-500 px-7 py-4 text-base font-bold text-brand-950 transition-colors hover:bg-accent-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
+              className="inline-flex min-h-13 items-center justify-center rounded-full bg-accent-500 px-7 py-4 text-base font-bold text-brand-900 transition-colors hover:bg-accent-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
             >
               {hero.ctaPrimary.label}
             </a>
             <Link
               href={hero.ctaSecondary.href}
-              className="inline-flex items-center justify-center rounded-lg border border-white/50 px-7 py-4 text-base font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
+              className="inline-flex min-h-13 items-center justify-center rounded-full border border-white/45 px-7 py-4 text-base font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
             >
               {hero.ctaSecondary.label}
             </Link>
           </div>
 
           {mainLocation && (
-            <p className="mt-10 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-brand-300">
+            <p className="mt-10 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-brand-100">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -103,16 +102,20 @@ export default function Hero() {
                 ·
               </span>
               <Link
-                href="#sedes"
+                href="#ubicacion"
                 className="inline-flex min-h-11 items-center font-semibold text-accent-300 underline underline-offset-4 hover:text-accent-200"
               >
-                Ver horarios de atención
+                Ver ubicación
               </Link>
             </p>
           )}
         </div>
       </div>
 
+      <div
+        className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full border-[46px] border-accent-500/25 md:h-96 md:w-96"
+        aria-hidden="true"
+      />
       <span className="sr-only">{site.description}</span>
     </section>
   )

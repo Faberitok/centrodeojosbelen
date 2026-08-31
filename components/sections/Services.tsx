@@ -15,27 +15,26 @@ export default function Services() {
   return (
     <SectionWrapper id="servicios" className="py-20 md:py-28 bg-white">
       <div className="max-w-2xl">
-        <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent-600">
-          Servicios y especialidades
+        <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent-700">
+          Atención oftalmológica
         </p>
         <h2 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-brand-900">
-          Todo el cuidado de tu vista, en un solo lugar
+          Cuidamos la visión de toda la familia
         </h2>
         <p className="mt-4 text-lg text-brand-700 leading-relaxed">
-          Consultas, estudios diagnósticos y cirugía ocular, con seguimiento del
-          mismo equipo de principio a fin.
+          Controles y seguimiento adaptados a las necesidades de cada etapa de la vida.
         </p>
       </div>
 
       <ul className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service) => (
           <li key={service.id}>
-            <article className="group h-full rounded-2xl border border-brand-200 bg-white transition-colors hover:border-accent-400 focus-within:border-accent-500">
+            <article className="group h-full overflow-hidden rounded-[1.75rem] border border-brand-200 bg-white transition duration-300 hover:-translate-y-1 hover:border-accent-400 focus-within:border-accent-500">
               {service.image && (
                 <div className="relative aspect-[16/9] overflow-hidden rounded-t-2xl">
                   <Image
                     src={service.image}
-                    alt=""
+                    alt={`Atención de ${service.title.toLowerCase()} en Centro de Ojos Belén`}
                     fill
                     sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw"
                     className="object-cover"

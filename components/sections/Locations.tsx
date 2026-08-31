@@ -107,17 +107,21 @@ function LocationCard({ location }: { location: Location }) {
                 <p className="text-sm font-bold uppercase tracking-wide text-brand-500">
                   Horarios de atención
                 </p>
-                <dl className="mt-1 space-y-1">
-                  {location.hours.map((slot) => (
-                    <div
-                      key={slot.days}
-                      className="flex flex-wrap items-baseline gap-x-2"
-                    >
-                      <dt className="font-semibold text-brand-900">{slot.days}</dt>
-                      <dd className="text-brand-700">{slot.hours}</dd>
-                    </div>
-                  ))}
-                </dl>
+                {location.hours.length > 0 ? (
+                  <dl className="mt-1 space-y-1">
+                    {location.hours.map((slot) => (
+                      <div
+                        key={slot.days}
+                        className="flex flex-wrap items-baseline gap-x-2"
+                      >
+                        <dt className="font-semibold text-brand-900">{slot.days}</dt>
+                        <dd className="text-brand-700">{slot.hours}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                ) : (
+                  <p className="mt-1 text-brand-700">{locationsSection.hoursPending}</p>
+                )}
               </div>
             </li>
           </ul>
@@ -160,9 +164,9 @@ function LocationCard({ location }: { location: Location }) {
 
 export default function Locations() {
   return (
-    <SectionWrapper id="sedes" className="py-20 md:py-28 bg-brand-50">
+    <SectionWrapper id="ubicacion" className="bg-brand-50 py-20 md:py-28">
       <div className="max-w-2xl">
-        <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent-600">
+        <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent-700">
           {locationsSection.eyebrow}
         </p>
         <h2 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-brand-900">

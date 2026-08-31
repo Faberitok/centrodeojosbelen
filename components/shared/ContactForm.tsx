@@ -1,7 +1,7 @@
 'use client'
 
 import { submitContact } from '@/app/actions/contact'
-import { contact } from '@/content/site'
+import { contact } from '@/content/contact'
 import { initialContactState, type ContactFormData } from '@/lib/validators/contact'
 import { useActionState, useEffect, useRef } from 'react'
 import { useFormStatus } from 'react-dom'

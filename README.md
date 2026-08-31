@@ -1,6 +1,7 @@
-# Centro de Ojos Belén — Landing institucional
+# Centro de Ojos Belén — Sitio institucional
 
-Landing page institucional de una sola página para el Centro de Ojos Belén.
+Sitio institucional con una portada integral y páginas específicas para cataratas,
+glaucoma, queratocono y retinopatía diabética.
 
 **Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Resend · Vercel
 
@@ -33,12 +34,13 @@ producción, no un error de configuración local.
 app/
   layout.tsx          metadata, viewport, tipografía, JSON-LD, analytics
   page.tsx            composición de la landing
+  [slug]/page.tsx     páginas informativas específicas
   globals.css         paleta institucional y base tipográfica
   error.tsx           error boundary de la ruta
   not-found.tsx       404 con la identidad del centro
   icon.png            favicon (generado desde el isotipo)
   apple-icon.png      ícono de iOS
-  opengraph-image.jpg imagen de OG y Twitter (convención de archivo)
+  opengraph-image.tsx imagen dinámica de OG y Twitter
   manifest.ts         web app manifest
   actions/
     contact.ts        Server Action del formulario → correo (sin persistencia)
@@ -47,8 +49,8 @@ app/
     maintenance/      desbloqueo de la página en construcción
 components/
   layout/             Navbar, Footer
-  sections/           Hero, Services, About, HealthPlans, Locations, Faq, Contact, MaintenanceGate
-  shared/             Button, ContactForm, SectionWrapper, ServiceIcon, WhatsAppButton
+  sections/           bloques institucionales, servicios, estudios, tecnología y contacto
+  shared/             primitivos, formulario, carrusel y WhatsApp
 content/
   site.ts             ← TODO el contenido del sitio vive acá
   brand.ts            nombre y archivos del logo (seguro para el cliente)
@@ -60,7 +62,7 @@ lib/
   seo/                JSON-LD MedicalClinic
   validators/         esquemas Zod
   whatsapp.ts         armado del enlace al chatbot
-public/               logos, isotipos e imágenes
+public/media/         selección de imágenes optimizadas y con nombres web-safe
 docu/                 plan del proyecto y guía de configuración de cuentas
 ```
 
@@ -72,17 +74,13 @@ docu/                 plan del proyecto y guía de configuración de cuentas
 teléfono sale de [`content/site.ts`](content/site.ts). Si hay que cambiar una
 palabra en el sitio, se cambia ahí y en ningún otro lado.
 
-**Los placeholders están marcados.** El sitio arranca con contenido de
-referencia, acordado con el cliente en el kick-off. Para encontrar lo que falta
-reemplazar:
+**No se publican datos no confirmados.** Las coberturas, redes, horarios y correo
+institucional se incorporan únicamente cuando el centro los valide. Mientras tanto,
+la interfaz ofrece WhatsApp como canal confirmado.
 
-```bash
-grep -rn "PLACEHOLDER" content/
-```
-
-**El cyan no va sobre blanco en texto chico.** `#219FC0` (accent-500) da 3.10:1
-contra blanco y no cumple WCAG AA. Para texto y botones usar `accent-600`
-(5.10:1) o `brand-900` (15.01:1). El detalle está comentado en
+**El cyan principal no va sobre blanco en texto chico.** `#219FC0` (accent-500)
+no cumple WCAG AA para texto normal. Para texto usar `accent-700` o `brand-900`;
+el cyan de marca se reserva para superficies, detalles y texto grande. El sistema está en
 [`app/globals.css`](app/globals.css).
 
 **Todo funciona sin JavaScript.** El formulario es una Server Action, no un

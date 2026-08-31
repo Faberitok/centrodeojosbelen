@@ -1,45 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  /* ─── Paleta institucional ──────────────────────────────────────────────────
-     El branding define dos colores: #202055 (azul noche) y #219FC0 (cyan).
-     De cada uno se deriva un barrido de tonalidades en espacio Lab, para que
-     los pasos sean perceptualmente parejos y no se ensucie el tono de marca.
-     Los dos colores exactos del brandboard son brand-900 y accent-500.        */
+  /* Paleta institucional oficial entregada por el centro. */
+  --color-brand-50: #ECEEFA;
+  --color-brand-100: #D7DAF2;
+  --color-brand-200: #BFC5E6;
+  --color-brand-300: #A4ACD9;
+  --color-brand-400: #818BBF;
+  --color-brand-500: #202055;
+  --color-brand-600: #1A1844;
+  --color-brand-700: #141333;
+  --color-brand-800: #0D0D22;
+  --color-brand-900: #070712;
+  --color-brand-950: #040409;
 
-  /* Azul noche — ancla #202055 en 900 */
-  --color-brand-50: #F5F6FA;
-  --color-brand-100: #EEEBF8;
-  --color-brand-200: #D9D5E7;
-  --color-brand-300: #C0BBD4;
-  --color-brand-400: #A39DBC;
-  --color-brand-500: #867FA4;
-  --color-brand-600: #6F6892;
-  --color-brand-700: #5A5481;
-  --color-brand-800: #464171;
-  --color-brand-900: #202055;
-  --color-brand-950: #14143A;
-
-  /* Cyan — ancla #219FC0 en 500 */
-  --color-accent-50: #E2FAFF;
-  --color-accent-100: #D3F1FE;
-  --color-accent-200: #B2DEEF;
-  --color-accent-300: #88C7DE;
-  --color-accent-400: #4DACCA;
+  --color-accent-50: #E6F4F7;
+  --color-accent-100: #CDEAF1;
+  --color-accent-200: #A9DCE6;
+  --color-accent-300: #7CCDE0;
+  --color-accent-400: #4EBBD1;
   --color-accent-500: #219FC0;
-  --color-accent-600: #007895;
-  --color-accent-700: #00637F;
-  --color-accent-800: #005069;
-  --color-accent-900: #003D54;
-  --color-accent-950: #002B40;
-
-  /* Reglas de contraste (WCAG AA = 4.5:1 para texto normal):
-     - accent-500 puro da 3.10:1 contra blanco. Solo para superficies grandes,
-       íconos decorativos, bordes y gráficos. NUNCA como fondo de texto chico
-       ni como color de texto sobre blanco.
-     - Para texto o botones cyan sobre blanco usar accent-600 (5.10:1).
-     - CTA primario: fondo brand-900 + texto blanco (15.01:1).
-     - Sobre fondo brand-900, accent-300/400 funcionan como texto de acento.  */
+  --color-accent-600: #1B8CAB;
+  --color-accent-700: #156E8B;
+  --color-accent-800: #104F66;
+  --color-accent-900: #0B313F;
+  --color-accent-950: #071F28;
 
   /* Tipografía */
   --font-sans: var(--font-figtree), ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -95,9 +80,9 @@ body.maintenance-page {
      plana y los brillos son elipses que se apagan antes de llegar al borde.
      Así, el borde de la página es exactamente #202055 — el mismo color que
      las franjas y que el theme-color. */
-  background-color: #202055;
+  background-color: #070712;
   background-image:
-    radial-gradient(ellipse 75% 40% at 22% 45%, #2C3260 0%, rgba(44, 50, 96, 0) 100%),
+    radial-gradient(ellipse 75% 40% at 22% 45%, #202055 0%, rgba(32, 32, 85, 0) 100%),
     radial-gradient(ellipse 65% 30% at 82% 62%, rgba(33, 159, 192, 0.22) 0%, rgba(33, 159, 192, 0) 100%);
   background-repeat: no-repeat;
 }

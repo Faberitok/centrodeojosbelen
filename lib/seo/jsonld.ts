@@ -20,9 +20,9 @@ export function buildClinicJsonLd() {
     name: locations.length > 1 ? `${site.name} — ${location.name}` : site.name,
     description: site.description,
     url: siteUrl,
-    image: `${siteUrl}/opengraph-image.jpg`,
+    image: `${siteUrl}/opengraph-image`,
     medicalSpecialty: 'Ophthalmologic',
-    email: contact.email,
+    ...(contact.email ? { email: contact.email } : {}),
     telephone: location.phones,
     address: {
       '@type': 'PostalAddress',
@@ -41,12 +41,16 @@ export function buildClinicJsonLd() {
           },
         }
       : {}),
-    openingHoursSpecification: location.hours.map((slot) => ({
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: slot.schemaDays,
-      opens: slot.schemaOpens,
-      closes: slot.schemaCloses,
-    })),
+    ...(location.hours.length > 0
+      ? {
+          openingHoursSpecification: location.hours.map((slot) => ({
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: slot.schemaDays,
+            opens: slot.schemaOpens,
+            closes: slot.schemaCloses,
+          })),
+        }
+      : {}),
   }))
 
   return nodes.length === 1 ? nodes[0] : nodes

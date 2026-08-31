@@ -2,15 +2,14 @@
 // Fuente única de verdad de todo el contenido del sitio.
 // Ningún texto debe estar hardcodeado en el JSX de los componentes.
 //
-// Los bloques marcados con PLACEHOLDER son contenido de referencia acordado en
-// el kick-off (§4) y deben reemplazarse por el material definitivo del centro
-// antes de publicar. Para encontrarlos todos:  grep -rn "PLACEHOLDER" content/
-
 import { brand, siteName } from './brand'
+import { contact } from './contact'
+import { healthPlans, healthPlansSection } from './health-plans'
+import { nav } from './navigation'
 
 // Se re-exporta para que los componentes de servidor sigan importando todo
 // desde content/site.ts. Los de cliente deben importar de './brand' directo.
-export { brand }
+export { brand, contact, healthPlans, healthPlansSection, nav }
 
 // ─── Datos del sitio ──────────────────────────────────────────────────────────
 
@@ -24,37 +23,20 @@ export const site = {
   country: 'AR',
   specialty: 'Oftalmología',
   description:
-    'Centro oftalmológico dedicado al cuidado integral de la salud visual: consultas, estudios diagnósticos y cirugía ocular.',
-} as const
-
-// ─── Navegación ───────────────────────────────────────────────────────────────
-
-export const nav = {
-  ctaLabel: 'Sacar un turno',
-  links: [
-    { label: 'Servicios', href: '#servicios' },
-    { label: 'El centro', href: '#nosotros' },
-    { label: 'Obras sociales', href: '#obras-sociales' },
-    { label: 'Sedes', href: '#sedes' },
-    { label: 'Preguntas', href: '#preguntas' },
-    { label: 'Contacto', href: '#contacto' },
-  ],
+    'Atención oftalmológica integral para bebés, niños, adolescentes y adultos en Belén, Catamarca: consultas, estudios, tecnología y cirugías.',
 } as const
 
 // ─── Inicio ───────────────────────────────────────────────────────────────────
 
 export const hero = {
-  eyebrow: 'Oftalmología integral',
-  // PLACEHOLDER — mensaje institucional a definir con el centro
-  headline: 'Cuidamos tu visión\ncon la atención que merece.',
+  eyebrow: 'Centro de Ojos Belén',
+  headline: 'Cuidamos tu visión\nen cada etapa de la vida.',
   subtitle:
-    'Consultas, estudios diagnósticos y cirugía ocular en un solo lugar, con equipamiento actualizado y un equipo que te acompaña en cada paso.',
-  ctaPrimary: { label: 'Sacar un turno', href: 'whatsapp' as const },
-  ctaSecondary: { label: 'Ver servicios', href: '#servicios' },
-  // Imagen de fondo opcional. Cuando el centro entregue las fotos del
-  // consultorio, apuntar acá; mientras tanto se usa la composición de marca.
-  image: null as string | null,
-  imageAlt: '',
+    'Atención oftalmológica integral para bebés, niños, adolescentes y adultos, con tecnología diagnóstica y seguimiento cercano.',
+  ctaPrimary: { label: 'Solicitar turno por WhatsApp', href: 'whatsapp' as const },
+  ctaSecondary: { label: 'Conocer el centro', href: '#nosotros' },
+  image: '/media/hero-centro.webp',
+  imageAlt: 'Fachada de Centro de Ojos Belén',
 } as const
 
 // ─── Servicios y especialidades ───────────────────────────────────────────────
@@ -79,142 +61,360 @@ export interface Service {
   image?: string
 }
 
-// PLACEHOLDER — listado y descripciones a reemplazar por los del centro
 export const services: Service[] = [
   {
-    id: 'consulta-general',
-    title: 'Consulta oftalmológica',
+    id: 'bebes-ninos',
+    title: 'Bebés y niños',
     description:
-      'El control completo de la vista: agudeza visual, presión ocular y examen del fondo de ojo.',
+      'Controles desde los primeros meses de vida y acompañamiento del desarrollo visual.',
     details: [
-      'Control de agudeza visual y graduación',
-      'Medición de la presión intraocular',
-      'Examen de fondo de ojo con dilatación',
-      'Indicación de anteojos y lentes de contacto',
+      'Control oftalmológico del bebé y del niño',
+      'Detección de ambliopía y estrabismo',
+      'Miopía, hipermetropía y astigmatismo',
+      'Controles escolares y fondo de ojos',
+    ],
+    icon: 'child',
+    image: '/media/atencion-bebes-ninos.webp',
+  },
+  {
+    id: 'adultos',
+    title: 'Adultos',
+    description:
+      'Prevención, diagnóstico temprano y evaluación integral de la salud visual.',
+    details: [
+      'Agudeza visual y defectos refractivos',
+      'Presbicia, ojo seco y cataratas',
+      'Presión intraocular y fondo de ojos',
+      'Glaucoma, córnea y retina',
     ],
     icon: 'eye',
+    image: '/media/atencion-adultos.webp',
   },
+  {
+    id: 'adultos-mayores',
+    title: 'Adultos mayores',
+    description:
+      'Diagnóstico y seguimiento de las enfermedades oculares más frecuentes con el paso del tiempo.',
+    details: [
+      'Cataratas y glaucoma',
+      'Degeneración macular',
+      'Retinopatía diabética',
+      'Superficie ocular y enfermedades crónicas',
+    ],
+    icon: 'pressure',
+    image: '/media/atencion-adultos-mayores.webp',
+  },
+]
+
+export const careStages = [
+  {
+    label: 'Primeros años',
+    title: 'Desarrollo visual',
+    description:
+      'Controles desde los primeros meses de vida para acompañar cómo aprende a ver cada niño.',
+  },
+  {
+    label: 'Vida adulta',
+    title: 'Prevención y diagnóstico',
+    description:
+      'Evaluaciones periódicas para detectar cambios y cuidar la visión antes de que aparezcan síntomas.',
+  },
+  {
+    label: 'Adultos mayores',
+    title: 'Seguimiento cercano',
+    description:
+      'Diagnóstico y control de cataratas, glaucoma y enfermedades de la retina.',
+  },
+] as const
+
+export interface Study {
+  id: string
+  title: string
+  description: string
+  image: string
+}
+
+export const studies: Study[] = [
+  {
+    id: 'oct',
+    title: 'OCT · Tomografía de Coherencia Óptica',
+    description:
+      'Imágenes de alta resolución de la retina, la mácula y el nervio óptico para diagnóstico y seguimiento.',
+    image: '/media/oct-estudio.webp',
+  },
+  {
+    id: 'topografia-corneal',
+    title: 'Topografía corneal',
+    description:
+      'Analiza la forma y curvatura de la córnea para detectar queratocono y planificar evaluaciones prequirúrgicas.',
+    image: '/media/topografia-corneal.webp',
+  },
+  {
+    id: 'paquimetria',
+    title: 'Paquimetría corneal',
+    description:
+      'Mide el espesor de la córnea, un dato importante para evaluar glaucoma y patologías corneales.',
+    image: '/media/paquimetria-estudio.webp',
+  },
+  {
+    id: 'biometria',
+    title: 'Biometría óptica',
+    description:
+      'Realiza mediciones precisas del ojo para calcular la lente intraocular de una cirugía de cataratas.',
+    image: '/media/biometria-meda.webp',
+  },
+  {
+    id: 'tonometria',
+    title: 'Tonometría',
+    description:
+      'Mide la presión intraocular para la detección y el seguimiento del glaucoma.',
+    image: '/media/tonometro-icare-100.webp',
+  },
+  {
+    id: 'autorrefractometria',
+    title: 'Autorrefractometría',
+    description:
+      'Obtiene una medición objetiva de los defectos refractivos como parte de la evaluación oftalmológica.',
+    image: '/media/autorrefractometria-estudio.webp',
+  },
+]
+
+export interface Equipment {
+  id: string
+  name: string
+  kicker: string
+  description: string
+  image: string
+  imageAlt: string
+}
+
+export const equipment: Equipment[] = [
+  {
+    id: 'oct-optovue',
+    name: 'OCT Optovue iScan',
+    kicker: 'Retina y nervio óptico',
+    description: 'Tomografía no invasiva de alta resolución.',
+    image: '/media/oct-optovue-iscan.webp',
+    imageAlt: 'Equipo OCT Optovue iScan de Centro de Ojos Belén',
+  },
+  {
+    id: 'topografo-tomey',
+    name: 'Topógrafo Tomey TMS-4',
+    kicker: 'Mapa de la córnea',
+    description: 'Análisis preciso de forma y curvatura corneal.',
+    image: '/media/topografo-tomey-tms4.webp',
+    imageAlt: 'Topógrafo corneal Tomey TMS-4',
+  },
+  {
+    id: 'paquimetro',
+    name: 'Paquímetro corneal',
+    kicker: 'Espesor corneal',
+    description: 'Medición relevante para glaucoma y córnea.',
+    image: '/media/paquimetro-corneal.webp',
+    imageAlt: 'Paquímetro corneal del centro',
+  },
+  {
+    id: 'biometria-meda',
+    name: 'Regla biométrica MEDA',
+    kicker: 'Planificación de cataratas',
+    description: 'Mediciones para el cálculo de lentes intraoculares.',
+    image: '/media/biometria-meda.webp',
+    imageAlt: 'Regla biométrica MEDA',
+  },
+  {
+    id: 'tonometro-icare',
+    name: 'Tonómetro iCare 100',
+    kicker: 'Presión intraocular',
+    description: 'Medición rápida para detección y control de glaucoma.',
+    image: '/media/tonometro-icare-100.webp',
+    imageAlt: 'Tonómetro de rebote iCare 100',
+  },
+  {
+    id: 'autorrefractometro',
+    name: 'Autorrefractómetro',
+    kicker: 'Evaluación refractiva',
+    description: 'Medición objetiva para complementar la consulta.',
+    image: '/media/autorrefractometro.webp',
+    imageAlt: 'Autorrefractómetro de escritorio',
+  },
+  {
+    id: 'retinomax',
+    name: 'Retinomax portátil',
+    kicker: 'Evaluación pediátrica',
+    description: 'Autorrefracción portátil para pacientes de todas las edades.',
+    image: '/media/retinomax-portatil.webp',
+    imageAlt: 'Autorrefractómetro portátil Retinomax',
+  },
+  {
+    id: 'oftalmoscopio-keeler',
+    name: 'Oftalmoscopio Keeler',
+    kicker: 'Fondo de ojos',
+    description: 'Evaluación binocular indirecta de la retina.',
+    image: '/media/oftalmoscopio-keeler.webp',
+    imageAlt: 'Oftalmoscopio binocular indirecto Keeler',
+  },
+  {
+    id: 'yag-appasamy',
+    name: 'YAG láser Appasamy 307',
+    kicker: 'Procedimientos ambulatorios',
+    description: 'Tecnología láser para indicaciones del segmento anterior.',
+    image: '/media/yag-laser-appasamy.webp',
+    imageAlt: 'Equipo YAG láser Appasamy 307',
+  },
+]
+
+export interface Procedure {
+  id: string
+  title: string
+  description: string
+  href?: string
+}
+
+export const procedures: Procedure[] = [
   {
     id: 'cataratas',
     title: 'Cirugía de cataratas',
     description:
-      'Procedimiento ambulatorio para recuperar la nitidez de la visión cuando el cristalino pierde transparencia.',
-    details: [
-      'Estudio prequirúrgico completo',
-      'Técnica de facoemulsificación',
-      'Lentes intraoculares monofocales y multifocales',
-      'Control postoperatorio incluido',
-    ],
-    icon: 'lens',
+      'Evaluación, estudios prequirúrgicos, planificación y seguimiento postoperatorio.',
+    href: '/cirugia-de-cataratas',
   },
   {
-    id: 'cirugia-refractiva',
-    title: 'Cirugía refractiva',
+    id: 'yag-laser',
+    title: 'YAG láser',
     description:
-      'Corrección de miopía, hipermetropía y astigmatismo para reducir o eliminar la dependencia de los anteojos.',
-    details: [
-      'Evaluación de aptitud con topografía corneal',
-      'Tratamiento con láser',
-      'Indicaciones y cuidados postoperatorios',
-      'Seguimiento a los 30, 90 y 180 días',
-    ],
-    icon: 'scalpel',
+      'Procedimiento láser ambulatorio indicado para determinadas patologías del segmento anterior.',
   },
   {
-    id: 'retina',
-    title: 'Retina y vítreo',
+    id: 'inyecciones',
+    title: 'Inyecciones intravítreas',
     description:
-      'Diagnóstico y tratamiento de las afecciones de la retina, incluida la retinopatía diabética.',
-    details: [
-      'Control de retinopatía diabética',
-      'Degeneración macular relacionada con la edad',
-      'Tratamiento con láser y aplicaciones intravítreas',
-      'Estudio de desprendimiento de retina',
-    ],
-    icon: 'retina',
+      'Tratamiento de distintas enfermedades de la retina según indicación oftalmológica.',
   },
   {
-    id: 'glaucoma',
-    title: 'Glaucoma',
-    description:
-      'Detección temprana y seguimiento de una enfermedad que avanza sin síntomas hasta etapas tardías.',
-    details: [
-      'Medición y curva de presión intraocular',
-      'Campo visual computarizado',
-      'OCT de nervio óptico',
-      'Seguimiento y ajuste del tratamiento',
+    id: 'pterigion',
+    title: 'Cirugía de pterigión',
+    description: 'Evaluación, indicación quirúrgica y seguimiento personalizado.',
+  },
+]
+
+export interface ConditionPage {
+  slug: string
+  eyebrow: string
+  title: string
+  summary: string
+  sections: { title: string; body: string }[]
+  ctaLabel: string
+  whatsappMessage: string
+  image: string
+  imageAlt: string
+}
+
+export const conditionPages: ConditionPage[] = [
+  {
+    slug: 'cirugia-de-cataratas',
+    eyebrow: 'Cirugía de cataratas',
+    title: 'Volver a ver con claridad',
+    summary:
+      'La catarata es la pérdida progresiva de transparencia del cristalino. Puede provocar visión borrosa, menor contraste y molestias con las luces.',
+    sections: [
+      {
+        title: '¿Cómo se trata?',
+        body: 'El tratamiento definitivo es quirúrgico. Durante la cirugía se retira el cristalino opacificado y se implanta una lente intraocular calculada específicamente para cada paciente.',
+      },
+      {
+        title: 'Evaluación prequirúrgica',
+        body: 'Antes de la cirugía realizamos una evaluación oftalmológica completa y los estudios necesarios para planificar el procedimiento y seleccionar la lente intraocular.',
+      },
+      {
+        title: 'Seguimiento',
+        body: 'Acompañamos al paciente antes y después de su cirugía mediante controles postoperatorios programados.',
+      },
     ],
-    icon: 'pressure',
+    ctaLabel: 'Solicitar evaluación de cataratas',
+    whatsappMessage: 'Hola, quisiera solicitar una evaluación de cataratas.',
+    image: '/media/evaluacion-cataratas.webp',
+    imageAlt: 'Profesional de Centro de Ojos Belén junto a equipo oftalmológico',
   },
   {
-    id: 'pediatrica',
-    title: 'Oftalmología pediátrica',
-    description:
-      'Controles de la visión en la infancia, donde la detección temprana define el resultado del tratamiento.',
-    details: [
-      'Control de visión escolar',
-      'Estrabismo y ojo vago (ambliopía)',
-      'Graduación en niños',
-      'Seguimiento del desarrollo visual',
+    slug: 'glaucoma',
+    eyebrow: 'Glaucoma',
+    title: 'Puede avanzar sin dar síntomas',
+    summary:
+      'El glaucoma comprende enfermedades capaces de producir daño progresivo del nervio óptico. En sus etapas iniciales puede no producir síntomas.',
+    sections: [
+      {
+        title: '¿Cómo lo estudiamos?',
+        body: 'La evaluación puede incluir medición de presión intraocular, evaluación del nervio óptico, paquimetría corneal, OCT y otros estudios según cada paciente.',
+      },
+      {
+        title: 'La importancia del control',
+        body: 'Los controles oftalmológicos periódicos son fundamentales. El diagnóstico temprano permite iniciar tratamiento y disminuir el riesgo de pérdida visual.',
+      },
     ],
-    icon: 'child',
+    ctaLabel: 'Solicitar control',
+    whatsappMessage: 'Hola, quisiera solicitar un control de glaucoma.',
+    image: '/media/tonometro-icare-100.webp',
+    imageAlt: 'Tonómetro iCare para medición de presión intraocular',
   },
   {
-    id: 'estudios',
-    title: 'Estudios diagnósticos',
-    description:
-      'Estudios complementarios realizados en el centro, sin necesidad de derivación a otra institución.',
-    details: [
-      'OCT (tomografía de coherencia óptica)',
-      'Campo visual computarizado',
-      'Topografía y paquimetría corneal',
-      'Retinografía y biometría',
+    slug: 'queratocono',
+    eyebrow: 'Queratocono',
+    title: 'Diagnóstico y seguimiento',
+    summary:
+      'El queratocono produce un adelgazamiento y una modificación progresiva de la forma de la córnea. Puede generar astigmatismo irregular y disminución de la visión.',
+    sections: [
+      {
+        title: 'Topografía corneal',
+        body: 'La topografía corneal constituye una herramienta fundamental para detectar la enfermedad y acompañar su evolución con mediciones comparables.',
+      },
     ],
-    icon: 'scan',
+    ctaLabel: 'Solicitar topografía corneal',
+    whatsappMessage: 'Hola, quisiera solicitar una topografía corneal.',
+    image: '/media/topografia-corneal.webp',
+    imageAlt: 'Topógrafo corneal Tomey TMS-4',
   },
   {
-    id: 'optica',
-    title: 'Óptica y lentes de contacto',
-    description:
-      'Adaptación de anteojos y lentes de contacto a partir de la graduación indicada en la consulta.',
-    details: [
-      'Adaptación de lentes de contacto',
-      'Anteojos recetados y de sol con graduación',
-      'Lentes multifocales y ocupacionales',
-      'Control de adaptación',
+    slug: 'retinopatia-diabetica',
+    eyebrow: 'Retinopatía diabética',
+    title: 'Diabetes y salud visual',
+    summary:
+      'La diabetes puede afectar los pequeños vasos sanguíneos de la retina y producir retinopatía diabética. Durante sus primeras etapas puede no generar síntomas.',
+    sections: [
+      {
+        title: 'Controles aunque veas bien',
+        body: 'Las personas con diabetes deben realizar controles oftalmológicos periódicos aunque tengan buena visión. La evaluación puede incluir fondo de ojos y estudios como OCT cuando estén indicados.',
+      },
     ],
-    icon: 'glasses',
+    ctaLabel: 'Solicitar control oftalmológico',
+    whatsappMessage: 'Hola, quisiera solicitar un control por diabetes.',
+    image: '/media/retina-control.webp',
+    imageAlt: 'Evaluación de retina con oftalmoscopio binocular indirecto',
   },
 ]
 
 // ─── Sobre el centro ──────────────────────────────────────────────────────────
 
-// PLACEHOLDER — presentación institucional a redactar con el centro
 export const about = {
   eyebrow: 'El centro',
-  title: 'Un equipo dedicado a cuidar tu visión',
+  title: 'Atención integral, cerca de casa',
   paragraphs: [
-    'El Centro de Ojos Belén reúne consultas, estudios diagnósticos y cirugía ocular en un mismo lugar, para que el paciente resuelva todo su tratamiento sin tener que trasladarse entre instituciones.',
-    'Trabajamos con equipamiento actualizado y con un criterio simple: explicar cada diagnóstico en palabras claras, para que puedas decidir con información sobre tu propia salud.',
+    'Centro de Ojos Belén nace con el objetivo de brindar atención oftalmológica integral en Belén y la región, acercando profesionales especializados y tecnología diagnóstica a nuestros pacientes.',
+    'Nuestro modelo de atención integra en un mismo espacio la consulta, los estudios complementarios, el seguimiento de enfermedades oculares y la planificación de tratamientos y procedimientos quirúrgicos.',
   ],
   highlights: [
     {
-      title: 'Todo en un solo lugar',
-      description: 'Consulta, estudios y cirugía sin derivaciones ni traslados.',
+      title: 'Nuestra misión',
+      description:
+        'Brindar atención oftalmológica de calidad, accesible y cercana, incorporando tecnología y formación profesional continua.',
     },
     {
-      title: 'Equipamiento actualizado',
-      description: 'Tecnología diagnóstica que permite detectar a tiempo.',
-    },
-    {
-      title: 'Explicaciones claras',
-      description: 'Te contamos qué tenés y qué opciones hay, sin tecnicismos.',
-    },
-    {
-      title: 'Turnos por WhatsApp',
-      description: 'Sacá tu turno desde el celular, sin llamadas ni esperas.',
+      title: 'Nuestra visión',
+      description:
+        'Ser un centro oftalmológico de referencia para Belén y el oeste de Catamarca, ampliando nuestra capacidad diagnóstica, terapéutica y quirúrgica.',
     },
   ],
+  image: '/media/centro-interior.webp',
+  imageAlt: 'Interior de Centro de Ojos Belén en Belén, Catamarca',
 } as const
 
 export interface TeamMember {
@@ -222,60 +422,25 @@ export interface TeamMember {
   role: string
   license?: string
   photo?: string
+  bio: string
 }
 
-// PLACEHOLDER — el equipo real, con matrículas y fotos, lo provee el centro.
-// Los nombres y matrículas de abajo son deliberadamente genéricos: no se
-// publican datos profesionales inventados en un sitio de salud.
 export const team: TeamMember[] = [
-  { name: 'Profesional 1', role: 'Oftalmología general · Segmento anterior', license: 'M.P. —' },
-  { name: 'Profesional 2', role: 'Retina y vítreo', license: 'M.P. —' },
-  { name: 'Profesional 3', role: 'Glaucoma', license: 'M.P. —' },
-  { name: 'Profesional 4', role: 'Oftalmología pediátrica', license: 'M.P. —' },
+  {
+    name: 'Dr. Gonzalo Castro Barrientos',
+    role: 'Médico especialista en Oftalmología · Oftalmología clínica y quirúrgica',
+    license: 'MP 2820 · ME 1483',
+    photo: '/media/dr-gonzalo-castro.webp',
+    bio:
+      'Formación médica y residencia en Oftalmología en el Hospital Nacional de Clínicas. Especial interés en cirugía de cataratas, glaucoma y seguimiento de patologías oftalmológicas.',
+  },
+  {
+    name: 'Dra. Carla Ferreyra',
+    role: 'Médica oftalmóloga · Atención integral de bebés, niños y adultos',
+    bio:
+      'Médica formada en la Universidad Nacional de Córdoba. Residencia en Oftalmología realizada en el Instituto Mostaza Sánchez, Córdoba.',
+  },
 ]
-
-export const showTeam = true
-
-// ─── Obras sociales ───────────────────────────────────────────────────────────
-
-export interface HealthPlan {
-  name: string
-  note?: string
-}
-
-// PLACEHOLDER — listado a reemplazar por las coberturas reales del centro
-export const healthPlans: HealthPlan[] = [
-  { name: 'OSDE' },
-  { name: 'Swiss Medical' },
-  { name: 'Galeno' },
-  { name: 'Medifé' },
-  { name: 'Sancor Salud' },
-  { name: 'Federada Salud' },
-  { name: 'Jerárquicos Salud' },
-  { name: 'Unión Personal' },
-  { name: 'Accord Salud' },
-  { name: 'OSECAC' },
-  { name: 'OSPE' },
-  { name: 'OSDOP' },
-  { name: 'Prevención Salud' },
-  { name: 'PAMI', note: 'Requiere orden médica' },
-  { name: 'IOSFA' },
-  { name: 'OSEP Catamarca' },
-]
-
-export const healthPlansSection = {
-  eyebrow: 'Coberturas',
-  title: 'Obras sociales y prepagas',
-  subtitle:
-    'Trabajamos con las siguientes coberturas. Buscá la tuya en el listado.',
-  searchLabel: 'Buscar obra social o prepaga',
-  searchPlaceholder: 'Escribí el nombre de tu cobertura…',
-  emptyMessage:
-    'No encontramos esa cobertura en el listado. Escribinos por WhatsApp y lo verificamos.',
-  disclaimer:
-    'Las condiciones de cobertura pueden cambiar y algunas prácticas requieren autorización previa. Ante cualquier duda, consultanos antes de sacar el turno.',
-  ctaLabel: 'Consultar por mi cobertura',
-} as const
 
 // ─── Sedes y horarios ─────────────────────────────────────────────────────────
 
@@ -315,24 +480,8 @@ export const locations: Location[] = [
     city: 'Belén',
     province: 'Catamarca',
     postalCode: '4750',
-    // PLACEHOLDER — teléfonos y horarios reales del centro
-    phones: ['+54 383 400-0000'],
-    hours: [
-      {
-        days: 'Lunes a viernes',
-        hours: '8:00 a 13:00 y 16:00 a 20:00',
-        schemaDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        schemaOpens: '08:00',
-        schemaCloses: '20:00',
-      },
-      {
-        days: 'Sábados',
-        hours: '9:00 a 13:00',
-        schemaDays: ['Saturday'],
-        schemaOpens: '09:00',
-        schemaCloses: '13:00',
-      },
-    ],
+    phones: ['3804-100707'],
+    hours: [],
     // Se consulta por nombre + dirección para que el pin caiga sobre la ficha
     // del centro y no sobre el número de la calle.
     mapEmbedUrl:
@@ -343,10 +492,11 @@ export const locations: Location[] = [
 ]
 
 export const locationsSection = {
-  eyebrow: 'Dónde estamos',
-  title: 'Sedes y horarios de atención',
-  subtitle: 'Nos encontrás en Belén, Catamarca. Tocá "Cómo llegar" y te abre el mapa.',
+  eyebrow: 'Dirección y atención',
+  title: 'Estamos en Belén',
+  subtitle: 'Rivadavia 490, Belén, Catamarca. Tocá “Cómo llegar” para abrir el mapa.',
   directionsLabel: 'Cómo llegar',
+  hoursPending: 'Consultá los horarios de atención por WhatsApp.',
 } as const
 
 // ─── Preguntas frecuentes ─────────────────────────────────────────────────────
@@ -356,45 +506,40 @@ export interface FaqItem {
   answer: string
 }
 
-// PLACEHOLDER — respuestas a validar con el centro antes de publicar.
-// Este bloque cumple dos funciones: responde las objeciones que frenan a un
-// paciente antes de pedir turno, y alimenta el JSON-LD de FAQPage, que Google
-// muestra desplegado en los resultados de búsqueda.
 export const faq: FaqItem[] = [
   {
-    question: '¿Necesito orden médica para sacar un turno?',
+    question: '¿Atienden bebés y niños?',
     answer:
-      'Para una consulta oftalmológica general no hace falta. Algunas coberturas sí piden orden para estudios y cirugías: cuando saques el turno te avisamos si tu caso la requiere.',
+      'Sí. Realizamos atención oftalmológica desde los primeros meses de vida y durante toda la infancia.',
   },
   {
-    question: '¿Cómo saco un turno?',
+    question: '¿Necesito una orden para realizarme un estudio?',
     answer:
-      'Por WhatsApp es lo más rápido: escribinos y te ofrecemos los horarios disponibles. También podés llamarnos por teléfono o dejarnos tu consulta en el formulario de esta página.',
+      'Depende del estudio y de la cobertura médica. Nuestro equipo puede orientarte antes de solicitar el turno.',
   },
   {
-    question: '¿Cuánto dura una consulta?',
+    question: '¿Trabajan con obras sociales?',
     answer:
-      'Una consulta general lleva entre 30 y 45 minutos. Si necesitás estudios complementarios el mismo día, puede extenderse un poco más.',
+      'Sí. Trabajamos con diferentes obras sociales. La cobertura depende de cada plan y prestación.',
   },
   {
-    question: 'Me van a dilatar la pupila. ¿Puedo manejar después?',
+    question: '¿Realizan estudios oftalmológicos?',
     answer:
-      'No. La dilatación deja la visión borrosa y muy sensible a la luz durante 4 a 6 horas. Vení acompañado o previendo volver en transporte, y traé anteojos de sol.',
+      'Sí. Contamos con OCT, topografía corneal, paquimetría, biometría óptica y otros estudios complementarios.',
   },
   {
-    question: '¿Tengo que ir en ayunas?',
+    question: '¿Realizan cirugías?',
     answer:
-      'No hace falta para la consulta ni para los estudios habituales. Si tu caso requiere alguna preparación especial, te la indicamos al confirmar el turno.',
+      'Realizamos evaluación y seguimiento de pacientes con indicación quirúrgica y diferentes procedimientos oftalmológicos.',
   },
   {
-    question: '¿Desde qué edad hay que controlar la vista de los chicos?',
+    question: '¿Cómo solicito un turno?',
     answer:
-      'El primer control se recomienda entre los 3 y 4 años, incluso sin síntomas. Muchos problemas visuales de la infancia no dan señales y solo se detectan en un examen.',
+      'Podés comunicarte directamente con nuestro equipo mediante WhatsApp.',
   },
   {
-    question: '¿Qué llevo a la consulta?',
-    answer:
-      'Documento, credencial de la obra social, los anteojos que usás actualmente y, si tenés, estudios oftalmológicos previos y la lista de medicación que tomás.',
+    question: '¿Dónde están ubicados?',
+    answer: 'Estamos en Rivadavia 490, Belén, Catamarca.',
   },
 ]
 
@@ -403,39 +548,6 @@ export const faqSection = {
   title: 'Lo que más nos consultan',
   subtitle:
     'Si tu duda no está acá, escribinos por WhatsApp y te respondemos sin compromiso.',
-} as const
-
-// ─── Contacto ─────────────────────────────────────────────────────────────────
-
-export const contact = {
-  eyebrow: 'Contacto',
-  heading: 'Escribinos',
-  subtext:
-    'Completá el formulario y te respondemos por correo. Si necesitás un turno, WhatsApp es el camino más rápido.',
-  // PLACEHOLDER — teléfonos del centro
-  phones: ['+54 383 400-0000'],
-  email: 'contacto@centrodeojosbelen.com.ar',
-  whatsappLabel: 'Sacar un turno por WhatsApp',
-  form: {
-    nameLabel: 'Nombre y apellido',
-    namePlaceholder: 'Tu nombre completo',
-    emailLabel: 'Correo electrónico',
-    emailPlaceholder: 'tunombre@correo.com',
-    phoneLabel: 'Teléfono',
-    phonePlaceholder: '383 400 0000',
-    messageLabel: 'Tu consulta',
-    messagePlaceholder: '¿En qué podemos ayudarte?',
-    submitLabel: 'Enviar consulta',
-    submittingLabel: 'Enviando…',
-    successTitle: '¡Consulta enviada!',
-    successMessage: 'Te respondemos a la brevedad por correo o teléfono.',
-    successAgainLabel: 'Enviar otra consulta',
-    // Aviso obligatorio: el formulario no es un canal clínico
-    healthNotice:
-      'No incluyas información médica ni resultados de estudios en este formulario. Para consultas sobre tu tratamiento, comunicate por teléfono o WhatsApp.',
-    privacyNotice:
-      'Tus datos se usan únicamente para responder esta consulta y no se almacenan en el sitio.',
-  },
 } as const
 
 // ─── Pie de página ────────────────────────────────────────────────────────────
@@ -448,15 +560,11 @@ export interface SocialLink {
   href: string
 }
 
-// PLACEHOLDER — redes reales del centro
 export const footer = {
   tagline:
-    'Cuidado integral de la salud visual: consultas, estudios diagnósticos y cirugía ocular.',
+    'Cuidamos tu visión en cada etapa de la vida.',
   links: nav.links,
-  social: [
-    { network: 'instagram', label: 'Instagram', href: 'https://instagram.com/' },
-    { network: 'facebook', label: 'Facebook', href: 'https://facebook.com/' },
-  ] as SocialLink[],
+  social: [] as SocialLink[],
   // El año NO se calcula acá: content/site.ts lo importan componentes de
   // cliente, así que new Date() terminaría corriendo en el navegador y podría
   // no coincidir con el HTML del servidor. Lo resuelve el Footer.

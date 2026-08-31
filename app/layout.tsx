@@ -39,6 +39,9 @@ export const metadata: Metadata = {
   },
   description,
   applicationName: site.name,
+  icons: {
+    icon: '/favicon.svg',
+  },
   keywords: [
     'oftalmología',
     'oftalmólogo',
@@ -97,7 +100,7 @@ export default async function RootLayout({
         {hideChrome ? null : (
           <>
             <a
-              href="#servicios"
+              href="#contenido"
               className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-3 focus:left-3 focus:rounded-md focus:bg-brand-900 focus:px-4 focus:py-2 focus:text-white"
             >
               Saltar al contenido
@@ -106,7 +109,7 @@ export default async function RootLayout({
           </>
         )}
 
-        <main className="flex-1">{children}</main>
+        <main id="contenido" className="flex-1">{children}</main>
 
         {hideChrome ? null : <Footer />}
 

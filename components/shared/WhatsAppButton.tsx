@@ -105,8 +105,8 @@ export default function WhatsAppButton({
               }}
             />
             <p className="text-gray-800 text-sm leading-relaxed">
-              ¡Hola! 👋 Escribinos para sacar un turno o hacer una consulta sobre
-              nuestros servicios y obras sociales.
+              Hola. Escribinos para solicitar un turno o consultar por nuestros
+              servicios y obras sociales.
             </p>
             <span className="block text-right text-gray-400 text-[10px] mt-1">ahora</span>
           </div>
@@ -122,7 +122,7 @@ export default function WhatsAppButton({
           onClick={() => setOpen(false)}
         >
           <span className="w-4 h-4 shrink-0">{WA_ICON}</span>
-          Sacar un turno
+          Solicitar turno
         </a>
       </div>
 

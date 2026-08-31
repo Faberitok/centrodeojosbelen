@@ -1,4 +1,5 @@
 const DEFAULT_MESSAGE = 'Hola, quisiera hacer una consulta.'
+const OFFICIAL_NUMBER = '5493804100707'
 
 /**
  * Enlace al chatbot del centro.
@@ -8,8 +9,8 @@ const DEFAULT_MESSAGE = 'Hola, quisiera hacer una consulta.'
  * no un dato hardcodeado).
  */
 export function whatsappHref(message?: string): string | null {
-  const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim()
-  if (!number) return null
+  const number =
+    process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim() || OFFICIAL_NUMBER
 
   const text =
     message ?? process.env.NEXT_PUBLIC_WHATSAPP_MESSAGE?.trim() ?? DEFAULT_MESSAGE

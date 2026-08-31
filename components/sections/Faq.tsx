@@ -17,7 +17,7 @@ export default function Faq() {
     <SectionWrapper id="preguntas" className="py-20 md:py-28 bg-white">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-600">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-700">
             {faqSection.eyebrow}
           </p>
           <h2 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-brand-900">

@@ -1,6 +1,7 @@
 'use client'
 
-import { brand, nav, site } from '@/content/site'
+import { brand, siteName } from '@/content/brand'
+import { nav } from '@/content/navigation'
 import { appointmentHref } from '@/lib/whatsapp'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -35,14 +36,14 @@ export default function Navbar() {
       <div className="max-w-[1140px] mx-auto px-6">
         <div className="flex h-16 md:h-20 items-center justify-between gap-4">
           <Link
-            href="#inicio"
+            href="/#inicio"
             className="flex min-h-11 items-center rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
-            aria-label={`${site.name} — Inicio`}
+            aria-label={`${siteName} — Inicio`}
             onClick={() => setOpen(false)}
           >
             <Image
               src={brand.logoLight}
-              alt={site.name}
+              alt={siteName}
               width={1180}
               height={526}
               sizes="(min-width: 768px) 220px, 170px"
@@ -53,7 +54,7 @@ export default function Navbar() {
 
           <nav
             aria-label="Navegación principal"
-            className="hidden lg:flex items-center gap-7"
+            className="hidden items-center gap-5 xl:flex"
           >
             {nav.links.map((link) => (
               <Link
@@ -79,7 +80,7 @@ export default function Navbar() {
             aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="lg:hidden -mr-2 p-3 text-brand-900 hover:text-accent-600 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
+            className="-mr-2 rounded-lg p-3 text-brand-900 hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 xl:hidden"
             onClick={() => setOpen((value) => !value)}
           >
             <svg
@@ -102,7 +103,7 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div id="mobile-menu" className="lg:hidden border-t border-brand-100 bg-white">
+        <div id="mobile-menu" className="border-t border-brand-100 bg-white xl:hidden">
           <nav
             aria-label="Menú de navegación"
             className="max-w-[1140px] mx-auto px-6 py-4 flex flex-col"

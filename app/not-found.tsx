@@ -34,7 +34,7 @@ export default function NotFound() {
           {nav.links.map((link) => (
             <li key={link.href}>
               <Link
-                href={`/${link.href}`}
+                href={link.href}
                 className="text-[15px] font-semibold text-accent-700 underline underline-offset-4 hover:text-accent-800"
               >
                 {link.label}

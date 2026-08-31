@@ -59,14 +59,16 @@ export default function Footer() {
           <div>
             <p className="text-sm font-bold uppercase tracking-wide text-white">Contacto</p>
             <ul className="mt-2">
-              <li>
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="inline-flex min-h-11 items-center rounded break-all text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
-                >
-                  {contact.email}
-                </a>
-              </li>
+              {contact.email && (
+                <li>
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="inline-flex min-h-11 items-center rounded break-all text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
+                  >
+                    {contact.email}
+                  </a>
+                </li>
+              )}
               {contact.phones.map((phone) => (
                 <li key={phone}>
                   <a
