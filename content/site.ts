@@ -115,7 +115,28 @@ export interface Study {
   preparation: string
   equipment: string
   image: string
+  /** Duración orientativa, visible en la tarjeta compacta. */
+  duration: string
 }
+
+export const studiesDisclosure = {
+  action: 'Ver detalle',
+  close: 'Cerrar',
+  dateLabel: 'Con turno previo',
+  statusLabel: 'Disponible',
+  indicatedByLabel: 'Médico solicitante',
+  indicatedByValue: 'Indicación del oftalmólogo del centro',
+  durationLabel: 'Duración aproximada',
+  imageAction: 'Ver imagen del estudio',
+  consultAction: 'Consultar este estudio',
+  consultMessagePrefix: 'Hola, quisiera consultar por el estudio: ',
+  sections: {
+    purpose: 'Conclusión clínica',
+    experience: 'Cómo se realiza y qué se observa',
+    preparation: 'Preparación previa',
+    equipment: 'Equipo y valores que registra',
+  },
+} as const
 
 export const studies: Study[] = [
   {
@@ -131,6 +152,7 @@ export const studies: Study[] = [
       'En general no requiere preparación especial. Según el motivo del estudio, el profesional puede indicar dilatación de las pupilas.',
     equipment: 'OCT Optovue iScan',
     image: '/media/oct-estudio.webp',
+    duration: '10–15 min',
   },
   {
     id: 'topografia-corneal',
@@ -145,6 +167,7 @@ export const studies: Study[] = [
       'Las lentes de contacto pueden modificar temporalmente la forma corneal. Al solicitar el turno, consultá si es necesario suspender su uso antes del estudio.',
     equipment: 'Topógrafo Tomey TMS-4',
     image: '/media/topografia-corneal.webp',
+    duration: '5–10 min',
   },
   {
     id: 'paquimetria',
@@ -159,6 +182,7 @@ export const studies: Study[] = [
       'Habitualmente no requiere preparación. Si usás lentes de contacto o tenés antecedentes de cirugía corneal, informalo al equipo.',
     equipment: 'Paquímetro corneal',
     image: '/media/paquimetria-estudio.webp',
+    duration: 'unos 5 min',
   },
   {
     id: 'biometria',
@@ -173,6 +197,7 @@ export const studies: Study[] = [
       'No suele requerir preparación especial. Es importante informar si usás lentes de contacto o si tuviste cirugías oculares previas.',
     equipment: 'Regla biométrica MEDA',
     image: '/media/biometria-meda.webp',
+    duration: '5–10 min',
   },
   {
     id: 'tonometria',
@@ -187,6 +212,7 @@ export const studies: Study[] = [
       'No requiere preparación especial. Avisá si estás usando gotas oftálmicas o si recibís tratamiento para la presión ocular.',
     equipment: 'Tonómetro iCare 100',
     image: '/media/tonometro-icare-100.webp',
+    duration: 'pocos segundos',
   },
   {
     id: 'autorrefractometria',
@@ -201,6 +227,7 @@ export const studies: Study[] = [
       'No necesita preparación. Llevá tus anteojos actuales y, si usás lentes de contacto, consultá al pedir el turno si debés retirarlos con anticipación.',
     equipment: 'Autorrefractómetro y Retinomax portátil',
     image: '/media/autorrefractometria-estudio.webp',
+    duration: '1–2 min',
   },
 ]
 
@@ -294,9 +321,28 @@ export interface Procedure {
   description: string
   preparation: string
   treatment: string
+  image: string
+  imageAlt: string
+  dateLabel: string
+  statusLabel: string
   href?: string
   ctaLabel?: string
 }
+
+export const proceduresDisclosure = {
+  action: 'Ver detalle',
+  close: 'Cerrar',
+  indicatedByLabel: 'Médico solicitante',
+  indicatedByValue: 'Indicación del oftalmólogo del centro',
+  imageAction: 'Ver imagen del procedimiento',
+  consultAction: 'Consultar este procedimiento',
+  consultMessagePrefix: 'Hola, quisiera consultar por: ',
+  sections: {
+    overview: 'Qué es el procedimiento',
+    preparation: 'Preparación previa',
+    treatment: 'Tratamiento y controles',
+  },
+} as const
 
 export const procedures: Procedure[] = [
   {
@@ -308,6 +354,10 @@ export const procedures: Procedure[] = [
       'Antes de la cirugía realizamos una evaluación oftalmológica completa y los estudios necesarios para planificar el procedimiento y seleccionar la lente intraocular.',
     treatment:
       'Acompañamos al paciente durante todo el proceso: indicación, estudios prequirúrgicos, procedimiento y controles posteriores.',
+    image: '/media/evaluacion-cataratas.webp',
+    imageAlt: 'Evaluación oftalmológica para cirugía de cataratas',
+    dateLabel: 'Según evaluación previa',
+    statusLabel: 'Con indicación médica',
     href: '/cirugia-de-cataratas',
     ctaLabel: 'Ver página de cataratas',
   },
@@ -320,6 +370,10 @@ export const procedures: Procedure[] = [
       'La indicación se confirma en consulta, con evaluación del segmento anterior y revisión de estudios previos cuando correspondan.',
     treatment:
       'Se realiza de forma ambulatoria. Luego del procedimiento indicamos controles y cuidados para el seguimiento.',
+    image: '/media/yag-laser-appasamy.webp',
+    imageAlt: 'Equipo YAG láser de Centro de Ojos Belén',
+    dateLabel: 'Ambulatorio, con turno',
+    statusLabel: 'Ambulatorio',
   },
   {
     id: 'inyecciones',
@@ -330,6 +384,10 @@ export const procedures: Procedure[] = [
       'La indicación surge de la evaluación de la retina y, cuando corresponde, de estudios como OCT.',
     treatment:
       'El procedimiento se planifica de forma personalizada y se acompaña con controles posteriores para valorar la respuesta.',
+    image: '/media/retina-control.webp',
+    imageAlt: 'Evaluación de retina previa al tratamiento',
+    dateLabel: 'Según evaluación de retina',
+    statusLabel: 'Con indicación médica',
   },
   {
     id: 'pterigion',
@@ -340,6 +398,10 @@ export const procedures: Procedure[] = [
       'En la consulta definimos si corresponde tratamiento médico o quirúrgico, según el tamaño, los síntomas y la evolución.',
     treatment:
       'Cuando hay indicación quirúrgica, planificamos el procedimiento y realizamos los controles posteriores.',
+    image: '/media/oftalmoscopio-keeler.webp',
+    imageAlt: 'Equipamiento para evaluación oftalmológica',
+    dateLabel: 'Según evaluación previa',
+    statusLabel: 'Con indicación médica',
   },
 ]
 

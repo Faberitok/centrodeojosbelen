@@ -295,7 +295,7 @@ export default function CardCarousel({
             const copy = looping ? Math.floor(slideIndex / slideCount) : 0
             const item = looping ? slideIndex % slideCount : slideIndex
             return (
-              <li key={`${copy}-${item}`} className={`${itemClassName} h-full`}>
+              <li key={`${copy}-${item}`} className={`${itemClassName} flex [&>*]:h-full [&>*]:w-full`}>
                 {slide}
               </li>
             )
