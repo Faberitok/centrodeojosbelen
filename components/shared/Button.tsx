@@ -1,9 +1,11 @@
 import Link from 'next/link'
 
 type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'onDark' | 'accent'
+type ButtonSize = 'sm' | 'md'
 
 interface ButtonProps {
   variant?: ButtonVariant
+  size?: ButtonSize
   href?: string
   onClick?: () => void
   children: React.ReactNode
@@ -16,6 +18,7 @@ interface ButtonProps {
 
 export default function Button({
   variant = 'solid',
+  size = 'md',
   href,
   onClick,
   children,
@@ -25,8 +28,13 @@ export default function Button({
   type = 'button',
   external,
 }: ButtonProps) {
+  const sizes: Record<ButtonSize, string> = {
+    sm: 'rounded-lg px-3.5 py-2 text-sm font-semibold',
+    md: 'rounded-lg px-6 py-3.5 font-semibold',
+  }
+
   const base =
-    'inline-flex cursor-pointer items-center justify-center rounded-lg px-6 py-3.5 font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-700 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60'
+    `inline-flex cursor-pointer items-center justify-center ${sizes[size]} transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-700 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60`
 
   const variants: Record<ButtonVariant, string> = {
     solid: 'bg-brand-800 text-white hover:bg-brand-700',

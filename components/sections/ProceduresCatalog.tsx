@@ -1,6 +1,5 @@
 'use client'
 
-import CardCarousel from '@/components/shared/CardCarousel'
 import ServiceDetailPanel, {
   type ServiceDetailItem,
 } from '@/components/shared/ServiceDetailPanel'
@@ -37,7 +36,6 @@ function toDetail(procedure: (typeof procedures)[number]): ServiceDetailItem {
       { title: proceduresDisclosure.sections.preparation, body: procedure.preparation },
       { title: proceduresDisclosure.sections.treatment, body: procedure.treatment },
     ],
-    imageActionLabel: proceduresDisclosure.imageAction,
     primaryAction: {
       label: proceduresDisclosure.consultAction,
       href: appointmentHref(
@@ -60,28 +58,20 @@ export default function ProceduresCatalog() {
   return (
     <section className="bg-white py-12 md:py-16">
       <div className="mx-auto max-w-[1140px] px-6">
-        <CardCarousel
-          ariaLabel="Cirugías y procedimientos"
-          prevLabel="Ver procedimiento anterior"
-          nextLabel="Ver procedimiento siguiente"
-          infinite
-          controlsClassName="md:hidden"
-          itemClassName="w-[min(86vw,22rem)] shrink-0 md:w-auto md:max-w-none"
-          desktopGridClassName="md:grid md:grid-cols-2 md:overflow-visible"
-          listClassName="items-stretch"
-        >
+        <ul className="grid grid-cols-2 items-stretch gap-3 md:grid-cols-4 md:gap-5">
           {items.map((item) => (
-            <ServiceSummaryCard
-              key={item.id}
-              title={item.title}
-              dateLabel={item.dateLabel}
-              statusLabel={item.statusLabel}
-              statusTone={item.statusTone}
-              actionLabel={proceduresDisclosure.action}
-              onOpen={() => setSelectedId(item.id)}
-            />
+            <li key={item.id} className="min-h-0">
+              <ServiceSummaryCard
+                title={item.title}
+                dateLabel={item.dateLabel}
+                statusLabel={item.statusLabel}
+                statusTone={item.statusTone}
+                actionLabel={proceduresDisclosure.action}
+                onOpen={() => setSelectedId(item.id)}
+              />
+            </li>
           ))}
-        </CardCarousel>
+        </ul>
       </div>
 
       <ServiceDetailPanel

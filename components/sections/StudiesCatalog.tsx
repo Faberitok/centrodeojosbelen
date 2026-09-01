@@ -1,6 +1,5 @@
 'use client'
 
-import CardCarousel from '@/components/shared/CardCarousel'
 import ServiceDetailPanel, {
   type ServiceDetailItem,
 } from '@/components/shared/ServiceDetailPanel'
@@ -31,7 +30,6 @@ function toDetail(study: (typeof studies)[number]): ServiceDetailItem {
       { title: studiesDisclosure.sections.preparation, body: study.preparation },
       { title: studiesDisclosure.sections.equipment, body: study.equipment },
     ],
-    imageActionLabel: studiesDisclosure.imageAction,
     primaryAction: {
       label: studiesDisclosure.consultAction,
       href: appointmentHref(`${studiesDisclosure.consultMessagePrefix}${study.title}`),
@@ -48,28 +46,20 @@ export default function StudiesCatalog() {
   return (
     <section className="bg-white py-12 md:py-16">
       <div className="mx-auto max-w-[1140px] px-6">
-        <CardCarousel
-          ariaLabel="Estudios oftalmológicos"
-          prevLabel="Ver estudio anterior"
-          nextLabel="Ver estudio siguiente"
-          infinite
-          controlsClassName="md:hidden"
-          itemClassName="w-[min(86vw,22rem)] shrink-0 md:w-auto md:max-w-none"
-          desktopGridClassName="md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible"
-          listClassName="items-stretch"
-        >
+        <ul className="grid grid-cols-2 items-stretch gap-3 md:grid-cols-3 md:gap-5">
           {items.map((item) => (
-            <ServiceSummaryCard
-              key={item.id}
-              title={item.title}
-              dateLabel={item.dateLabel}
-              statusLabel={item.statusLabel}
-              statusTone={item.statusTone}
-              actionLabel={studiesDisclosure.action}
-              onOpen={() => setSelectedId(item.id)}
-            />
+            <li key={item.id} className="min-h-0">
+              <ServiceSummaryCard
+                title={item.title}
+                dateLabel={item.dateLabel}
+                statusLabel={item.statusLabel}
+                statusTone={item.statusTone}
+                actionLabel={studiesDisclosure.action}
+                onOpen={() => setSelectedId(item.id)}
+              />
+            </li>
           ))}
-        </CardCarousel>
+        </ul>
       </div>
 
       <ServiceDetailPanel

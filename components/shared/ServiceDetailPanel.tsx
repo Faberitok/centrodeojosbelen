@@ -26,7 +26,6 @@ export interface ServiceDetailItem {
   lead?: string
   sections: ServiceDetailSection[]
   meta?: ServiceDetailMeta[]
-  imageActionLabel?: string
   documentHref?: string
   documentLabel?: string
   primaryAction?: { label: string; href: string; external?: boolean }
@@ -44,6 +43,8 @@ const statusClasses: Record<ServiceStatusTone, string> = {
   info: 'bg-brand-100 text-brand-800',
 }
 
+const CLOSE_DRAG_PX = 100
+
 export default function ServiceDetailPanel({
   item,
   onClose,
@@ -52,6 +53,7 @@ export default function ServiceDetailPanel({
   const titleId = useId()
   const closeRef = useRef<HTMLButtonElement>(null)
   const dragStartY = useRef<number | null>(null)
+  const dragOffsetRef = useRef(0)
   const [mounted, setMounted] = useState(false)
   const [dragOffset, setDragOffset] = useState(0)
 
@@ -65,6 +67,8 @@ export default function ServiceDetailPanel({
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     closeRef.current?.focus()
+    dragOffsetRef.current = 0
+    setDragOffset(0)
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') onClose()
@@ -81,19 +85,34 @@ export default function ServiceDetailPanel({
 
   const tone = item.statusTone ?? 'available'
 
-  function onHandlePointerDown(event: React.PointerEvent<HTMLDivElement>) {
+  function isMobileSheet() {
+    return !window.matchMedia('(min-width: 768px)').matches
+  }
+
+  function onHandlePointerDown(event: React.PointerEvent<HTMLElement>) {
+    if (!isMobileSheet()) return
+    if ((event.target as HTMLElement).closest('[data-sheet-close]')) return
     dragStartY.current = event.clientY
+    dragOffsetRef.current = 0
     event.currentTarget.setPointerCapture(event.pointerId)
   }
 
-  function onHandlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
+  function onHandlePointerMove(event: React.PointerEvent<HTMLElement>) {
     if (dragStartY.current == null) return
-    setDragOffset(Math.max(0, event.clientY - dragStartY.current))
+    const next = Math.max(0, event.clientY - dragStartY.current)
+    dragOffsetRef.current = next
+    setDragOffset(next)
   }
 
   function onHandlePointerUp() {
-    if (dragOffset > 80) onClose()
+    if (dragStartY.current == null) return
+    const offset = dragOffsetRef.current
     dragStartY.current = null
+    dragOffsetRef.current = 0
+    if (offset > CLOSE_DRAG_PX) {
+      onClose()
+      return
+    }
     setDragOffset(0)
   }
 
@@ -114,44 +133,48 @@ export default function ServiceDetailPanel({
         style={dragOffset ? { transform: `translateY(${dragOffset}px)` } : undefined}
       >
         <div
-          className="flex shrink-0 cursor-grab touch-none justify-center pt-3 md:hidden"
+          className="shrink-0 touch-none md:cursor-auto"
           onPointerDown={onHandlePointerDown}
           onPointerMove={onHandlePointerMove}
           onPointerUp={onHandlePointerUp}
           onPointerCancel={onHandlePointerUp}
         >
-          <span className="h-1.5 w-12 rounded-full bg-brand-200" aria-hidden="true" />
-        </div>
-
-        <div className="flex items-start justify-between gap-4 px-5 pb-3 pt-2 md:px-8 md:pt-6">
-          <div className="min-w-0">
-            <p className="flex items-center gap-2 text-sm font-medium text-brand-700">
-              <CalendarIcon />
-              {item.dateLabel}
-            </p>
-            <h2
-              id={titleId}
-              className="mt-2 text-2xl font-extrabold leading-tight text-brand-800 md:text-3xl"
-            >
-              {item.title}
-            </h2>
-            <span
-              className={`mt-3 inline-flex rounded-full px-3 py-1 text-xs font-bold tracking-wide ${statusClasses[tone]}`}
-            >
-              {item.statusLabel}
-            </span>
+          <div className="flex cursor-grab justify-center pt-3 active:cursor-grabbing md:hidden">
+            <span className="h-1.5 w-12 rounded-full bg-brand-200" aria-hidden="true" />
           </div>
-          <button
-            ref={closeRef}
-            type="button"
-            onClick={onClose}
-            aria-label={closeLabel}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-200 text-brand-800 transition hover:bg-brand-50"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
-              <path d="M6 6l12 12M18 6 6 18" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </button>
+
+          <div className="flex items-start justify-between gap-4 px-5 pb-3 pt-2 md:px-8 md:pt-6">
+            <div className="min-w-0">
+              <p className="flex items-center gap-2 text-sm font-medium text-brand-700">
+                <CalendarIcon />
+                {item.dateLabel}
+              </p>
+              <h2
+                id={titleId}
+                className="mt-2 text-2xl font-extrabold leading-tight text-brand-800 md:text-3xl"
+              >
+                {item.title}
+              </h2>
+              <span
+                className={`mt-3 inline-flex rounded-full px-3 py-1 text-xs font-bold tracking-wide ${statusClasses[tone]}`}
+              >
+                {item.statusLabel}
+              </span>
+            </div>
+            <button
+              ref={closeRef}
+              type="button"
+              data-sheet-close
+              onClick={onClose}
+              onPointerDown={(event) => event.stopPropagation()}
+              aria-label={closeLabel}
+              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brand-200 text-brand-800 transition hover:bg-brand-50"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
+                <path d="M6 6l12 12M18 6 6 18" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         <div className="overflow-y-auto px-5 pb-8 md:px-8">
@@ -194,11 +217,6 @@ export default function ServiceDetailPanel({
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            {item.image && item.imageActionLabel && (
-              <Button href={item.image.src} external variant="outline">
-                {item.imageActionLabel}
-              </Button>
-            )}
             {item.documentHref && item.documentLabel && (
               <Button href={item.documentHref} external variant="outline">
                 {item.documentLabel}

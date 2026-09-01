@@ -372,7 +372,7 @@ export const procedures: Procedure[] = [
       'Se realiza de forma ambulatoria. Luego del procedimiento indicamos controles y cuidados para el seguimiento.',
     image: '/media/yag-laser-appasamy.webp',
     imageAlt: 'Equipo YAG láser de Centro de Ojos Belén',
-    dateLabel: 'Ambulatorio, con turno',
+    dateLabel: 'Con turno',
     statusLabel: 'Ambulatorio',
   },
   {
