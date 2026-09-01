@@ -46,7 +46,7 @@ export default function StudiesCatalog() {
   return (
     <section className="bg-white py-12 md:py-16">
       <div className="mx-auto max-w-[1140px] px-6">
-        <ul className="grid grid-cols-2 items-stretch gap-3 md:grid-cols-3 md:gap-5">
+        <ul className="grid grid-cols-1 items-stretch gap-3 md:grid-cols-3 md:gap-5">
           {items.map((item) => (
             <li key={item.id} className="min-h-0">
               <ServiceSummaryCard
