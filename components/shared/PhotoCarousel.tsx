@@ -54,28 +54,28 @@ export default function PhotoCarousel({
         <div className="pointer-events-none absolute inset-0 z-10">{overlay}</div>
       ) : null}
       {images.length > 1 && (
-        <div className="absolute bottom-6 right-6 z-20 flex gap-2">
+        <>
           <button
             type="button"
             onClick={() => go(index - 1)}
             aria-label="Foto anterior"
-            className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white/90 text-brand-800 shadow-sm transition hover:bg-white"
+            className="absolute left-3 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/50 bg-white/30 text-brand-800/70 backdrop-blur-[2px] transition hover:bg-white/55 hover:text-brand-800"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
-              <path d="m15 18-6-6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="m15 18-6-6 6-6" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
           <button
             type="button"
             onClick={() => go(index + 1)}
             aria-label="Foto siguiente"
-            className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white/90 text-brand-800 shadow-sm transition hover:bg-white"
+            className="absolute right-3 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/50 bg-white/30 text-brand-800/70 backdrop-blur-[2px] transition hover:bg-white/55 hover:text-brand-800"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
-              <path d="m9 18 6-6-6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="m9 18 6-6-6-6" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
-        </div>
+        </>
       )}
       <span className="sr-only">{current?.alt}</span>
     </div>

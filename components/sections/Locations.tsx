@@ -1,5 +1,6 @@
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import { locations, locationsSection, type Location } from '@/content/site'
+import Link from 'next/link'
 
 function PinIcon() {
   return (
@@ -59,9 +60,7 @@ function LocationCard({ location }: { location: Location }) {
     <article className="overflow-hidden rounded-[2rem] border border-brand-200 bg-white shadow-[0_20px_55px_-44px_rgba(16,16,48,0.38)]">
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="p-6 md:p-8">
-          {locations.length > 1 && (
-            <h3 className="text-xl font-bold text-brand-900">{location.name}</h3>
-          )}
+          <h3 className="text-xl font-bold text-brand-900">{location.name}</h3>
 
           <ul className="mt-4 space-y-5">
             <li className="flex gap-3">
@@ -163,6 +162,9 @@ function LocationCard({ location }: { location: Location }) {
 }
 
 export default function Locations() {
+  const featured = locations.filter((location) => location.featured)
+  const alsoAt = locations.filter((location) => !location.featured)
+
   return (
     <SectionWrapper id="ubicacion" className="bg-white py-14 md:py-20">
       <div className="max-w-2xl">
@@ -178,10 +180,38 @@ export default function Locations() {
       </div>
 
       <div className="mt-12 space-y-6">
-        {locations.map((location) => (
+        {featured.map((location) => (
           <LocationCard key={location.id} location={location} />
         ))}
       </div>
+
+      {alsoAt.length > 0 && (
+        <div className="mt-10 rounded-[1.75rem] border border-brand-200 bg-brand-50 p-6 md:p-8">
+          <p className="text-sm font-bold uppercase tracking-[0.14em] text-accent-700">
+            {locationsSection.alsoAtLabel}
+          </p>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+            {alsoAt.map((location) => (
+              <li key={location.id}>
+                <Link
+                  href={locationsSection.branchesHref}
+                  className="group block rounded-2xl bg-white p-5 transition hover:border-accent-300 hover:shadow-sm border border-brand-100"
+                >
+                  <p className="text-lg font-extrabold text-brand-800 group-hover:text-accent-800">
+                    {location.name}
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-brand-700">
+                    {location.street}, {location.city}
+                  </p>
+                  <span className="mt-3 inline-flex items-center text-sm font-semibold text-accent-700">
+                    {locationsSection.branchesLinkLabel} →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </SectionWrapper>
   )
 }

@@ -13,11 +13,12 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || 'http://localhost:30
  * hablen de la misma fuente (kick-off §5).
  */
 export function buildClinicJsonLd() {
-  const nodes = locations.map((location) => ({
+  const published = locations.filter((location) => !location.placeholderAddress)
+  const nodes = published.map((location) => ({
     '@context': 'https://schema.org',
     '@type': 'MedicalClinic',
     '@id': `${siteUrl}/#${location.id}`,
-    name: locations.length > 1 ? `${site.name} — ${location.name}` : site.name,
+    name: published.length > 1 ? `${site.name} — ${location.name}` : site.name,
     description: site.description,
     url: siteUrl,
     image: `${siteUrl}/opengraph-image`,

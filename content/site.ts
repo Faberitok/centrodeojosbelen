@@ -610,6 +610,12 @@ export interface Location {
   /** URL de "Cómo llegar" — abre la app de mapas del dispositivo */
   mapDirectionsUrl: string
   geo?: { lat: number; lng: number }
+  image: string
+  imageAlt: string
+  /** Sede principal en la home. Las demás se enlazan a Nosotros. */
+  featured?: boolean
+  /** Dirección provisoria: no entra al JSON-LD hasta confirmarla. */
+  placeholderAddress?: boolean
 }
 
 export const locations: Location[] = [
@@ -622,12 +628,47 @@ export const locations: Location[] = [
     postalCode: '4750',
     phones: ['3804-100707'],
     hours: [],
+    featured: true,
+    image: '/institucional/belen.jpeg',
+    imageAlt: 'Fachada de Centro de Ojos Belén en Belén',
     // Se consulta por nombre + dirección para que el pin caiga sobre la ficha
     // del centro y no sobre el número de la calle.
     mapEmbedUrl:
       'https://www.google.com/maps?q=Centro+de+Ojos+Bel%C3%A9n%2C+Rivadavia+490%2C+Bel%C3%A9n%2C+Catamarca&output=embed',
     mapDirectionsUrl:
       'https://www.google.com/maps/dir/?api=1&destination=Centro+de+Ojos+Bel%C3%A9n%2C+Rivadavia+490%2C+Bel%C3%A9n%2C+Catamarca',
+  },
+  {
+    id: 'sede-andalgala',
+    name: 'Andalgalá',
+    street: 'Belgrano 200',
+    city: 'Andalgalá',
+    province: 'Catamarca',
+    phones: ['3804-100707'],
+    hours: [],
+    placeholderAddress: true,
+    image: '/institucional/andalgala.jpeg',
+    imageAlt: 'Sucursal de Centro de Ojos Belén en Andalgalá',
+    mapEmbedUrl:
+      'https://www.google.com/maps?q=Andalgal%C3%A1%2C+Catamarca&output=embed',
+    mapDirectionsUrl:
+      'https://www.google.com/maps/dir/?api=1&destination=Andalgal%C3%A1%2C+Catamarca',
+  },
+  {
+    id: 'sede-tinogasta',
+    name: 'Tinogasta',
+    street: 'San Martín 150',
+    city: 'Tinogasta',
+    province: 'Catamarca',
+    phones: ['3804-100707'],
+    hours: [],
+    placeholderAddress: true,
+    image: '/institucional/tinogasta.jpeg',
+    imageAlt: 'Sucursal de Centro de Ojos Belén en Tinogasta',
+    mapEmbedUrl:
+      'https://www.google.com/maps?q=Tinogasta%2C+Catamarca&output=embed',
+    mapDirectionsUrl:
+      'https://www.google.com/maps/dir/?api=1&destination=Tinogasta%2C+Catamarca',
   },
 ]
 
@@ -637,6 +678,16 @@ export const locationsSection = {
   subtitle: 'Rivadavia 490, Belén, Catamarca. Tocá “Cómo llegar” para abrir el mapa.',
   directionsLabel: 'Cómo llegar',
   hoursPending: 'Consultá los horarios de atención por WhatsApp.',
+  alsoAtLabel: 'También estamos en',
+  branchesHref: '/nosotros#sucursales',
+  branchesLinkLabel: 'Ver en sucursales',
+} as const
+
+export const branchesSection = {
+  eyebrow: 'Sucursales',
+  title: 'Tres sedes en el oeste de Catamarca',
+  subtitle:
+    'Atención oftalmológica en Belén, Andalgalá y Tinogasta. Las direcciones de Andalgalá y Tinogasta se confirman al pedir el turno.',
 } as const
 
 // ─── Preguntas frecuentes ─────────────────────────────────────────────────────

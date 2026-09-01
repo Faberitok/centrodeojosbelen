@@ -17,42 +17,41 @@ interface CardCarouselProps {
   headerLayout?: 'beside' | 'below'
 }
 
-function CarouselControls({
-  onPrev,
-  onNext,
-  prevLabel,
-  nextLabel,
+const overlayButtonClass =
+  'absolute top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/50 bg-white/30 text-brand-800/60 shadow-none backdrop-blur-[2px] transition hover:bg-white/55 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600'
+
+function OverlayArrow({
+  direction,
+  label,
+  onClick,
   className = '',
 }: {
-  onPrev: () => void
-  onNext: () => void
-  prevLabel: string
-  nextLabel: string
+  direction: 'prev' | 'next'
+  label: string
+  onClick: () => void
   className?: string
 }) {
   return (
-    <div className={`flex shrink-0 gap-2 ${className}`}>
-      <button
-        type="button"
-        onClick={onPrev}
-        aria-label={prevLabel}
-        className="inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-brand-200 bg-white text-brand-800 transition hover:border-accent-400 hover:bg-accent-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
-      >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
-          <path d="m15 18-6-6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        onClick={onNext}
-        aria-label={nextLabel}
-        className="inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-brand-200 bg-white text-brand-800 transition hover:border-accent-400 hover:bg-accent-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
-      >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
-          <path d="m9 18 6-6-6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </button>
-    </div>
+    <button
+      type="button"
+      aria-label={label}
+      className={`${overlayButtonClass} ${direction === 'prev' ? 'left-2' : 'right-2'} ${className}`}
+      onClick={(event) => {
+        event.stopPropagation()
+        onClick()
+      }}
+      onPointerDown={(event) => event.stopPropagation()}
+      onPointerUp={(event) => event.stopPropagation()}
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
+        <path
+          d={direction === 'prev' ? 'm15 18-6-6 6-6' : 'm9 18 6-6-6-6'}
+          strokeWidth="1.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </button>
   )
 }
 
@@ -209,31 +208,15 @@ export default function CardCarousel({
     return () => window.clearInterval(timer)
   }, [autoplay, looping, slideCount])
 
-  const controls = (
-    <CarouselControls
-      onPrev={() => go(-1)}
-      onNext={() => go(1)}
-      prevLabel={prevLabel}
-      nextLabel={nextLabel}
-      className={controlsClassName}
-    />
-  )
-
   const headerBlock = header ? (
     headerLayout === 'below' ? (
-      <div>
-        {header}
-        <div className={`mt-6 flex justify-end ${controlsClassName}`}>{controls}</div>
-      </div>
+      header
     ) : (
       <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         {header}
-        {controls}
       </div>
     )
-  ) : (
-    <div className={`mb-8 flex justify-end ${controlsClassName}`}>{controls}</div>
-  )
+  ) : null
 
   const carouselActive = !gridMode && slideCount > 1
 
@@ -245,7 +228,7 @@ export default function CardCarousel({
         role="region"
         tabIndex={0}
         aria-roledescription="carrusel"
-        className={carouselActive ? 'overflow-hidden outline-none' : 'outline-none'}
+        className={`relative ${carouselActive ? 'overflow-hidden outline-none' : 'outline-none'}`}
         onMouseEnter={() => {
           hoveringRef.current = true
         }}
@@ -301,6 +284,22 @@ export default function CardCarousel({
             )
           })}
         </ul>
+        {carouselActive && (
+          <>
+            <OverlayArrow
+              direction="prev"
+              label={prevLabel}
+              onClick={() => go(-1)}
+              className={controlsClassName}
+            />
+            <OverlayArrow
+              direction="next"
+              label={nextLabel}
+              onClick={() => go(1)}
+              className={controlsClassName}
+            />
+          </>
+        )}
       </div>
     </>
   )
