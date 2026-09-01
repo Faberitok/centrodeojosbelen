@@ -10,10 +10,11 @@ export default function Staff() {
           ariaLabel="Staff médico"
           prevLabel="Ver profesional anterior"
           nextLabel="Ver profesional siguiente"
+          infinite
           controlsClassName="md:hidden"
-          itemClassName="w-[min(88vw,40rem)] shrink-0 snap-start md:w-auto md:max-w-none"
+          itemClassName="w-[min(88vw,24rem)] shrink-0 md:w-auto md:max-w-none"
           desktopGridClassName="md:grid md:grid-cols-2 md:overflow-visible"
-          listClassName="mt-10"
+          listClassName="mt-10 items-stretch"
           header={
             <div className="max-w-xl">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-700">
@@ -32,19 +33,20 @@ export default function Staff() {
           {team.map((member) => (
             <article
               key={member.name}
-              className="grid h-full overflow-hidden rounded-[2rem] border border-brand-200 bg-white shadow-[0_24px_70px_-48px_rgba(32,32,85,0.45)] transition duration-300 hover:border-accent-300 hover:shadow-[0_28px_70px_-44px_rgba(16,16,48,0.36)] grid-cols-[minmax(7.5rem,38%)_1fr]"
+              className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-brand-200 bg-white shadow-[0_24px_70px_-48px_rgba(32,32,85,0.45)] transition duration-300 hover:border-accent-300 hover:shadow-[0_28px_70px_-44px_rgba(16,16,48,0.36)]"
             >
-              <div className="relative min-h-[16rem] overflow-hidden bg-[#E8E8EA] sm:min-h-[22rem]">
+              <div className="relative aspect-[4/5] overflow-hidden bg-[#E8E8EA]">
                 {member.photo ? (
                   <Image
                     src={member.photo}
                     alt={member.name}
                     fill
-                    sizes="(min-width: 768px) 230px, 38vw"
+                    quality={90}
+                    sizes="(min-width: 768px) 50vw, 88vw"
                     className="object-cover object-top"
                   />
                 ) : (
-                  <div className="flex h-full min-h-[16rem] items-center justify-center bg-brand-50">
+                  <div className="flex h-full items-center justify-center bg-brand-50">
                     <Image
                       src={brand.isotypeLight}
                       alt=""
@@ -55,7 +57,7 @@ export default function Staff() {
                   </div>
                 )}
               </div>
-              <div className="flex flex-col justify-center p-4 sm:p-6 md:p-8">
+              <div className="flex flex-1 flex-col p-6 md:p-8">
                 <h3 className="text-xl font-extrabold text-brand-800 sm:text-2xl">{member.name}</h3>
                 <p className="mt-2 text-sm font-semibold leading-relaxed text-accent-800 sm:text-base">
                   {member.role}
@@ -65,9 +67,7 @@ export default function Staff() {
                     {member.license}
                   </p>
                 )}
-                <p className="mt-4 text-[13px] leading-relaxed text-brand-700 sm:text-[15px]">
-                  {member.bio}
-                </p>
+                <p className="mt-4 text-[15px] leading-relaxed text-brand-700">{member.bio}</p>
               </div>
             </article>
           ))}

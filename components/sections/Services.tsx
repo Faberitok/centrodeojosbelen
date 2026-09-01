@@ -11,7 +11,8 @@ export default function Services() {
         prevLabel="Ver etapa anterior"
         nextLabel="Ver etapa siguiente"
         controlsClassName="lg:hidden"
-        itemClassName="w-[82vw] max-w-[28rem] shrink-0 snap-start lg:w-auto lg:max-w-none"
+        infinite
+        itemClassName="w-[82vw] max-w-[28rem] shrink-0 lg:w-auto lg:max-w-none"
         desktopGridClassName="lg:grid lg:grid-cols-3 lg:overflow-visible"
         listClassName="mt-12"
         header={

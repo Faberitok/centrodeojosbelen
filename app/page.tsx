@@ -16,16 +16,18 @@ export default async function Page() {
   }
 
   return (
-    <div className="landing-stack">
+    <>
       <Hero />
-      <ServiceOverview />
-      <Services />
-      <Staff />
-      <ConditionCards />
-      <HealthPlans />
-      <Locations />
-      <Faq />
-      <Contact />
-    </div>
+      <div className="landing-stack">
+        <ServiceOverview />
+        <Services />
+        <Staff />
+        <ConditionCards />
+        <HealthPlans />
+        <Locations />
+        <Faq />
+        <Contact />
+      </div>
+    </>
   )
 }

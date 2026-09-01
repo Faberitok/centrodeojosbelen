@@ -6,10 +6,13 @@ import { appointmentHref } from '@/lib/whatsapp'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
+  const servicesRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const ctaHref = appointmentHref()
   const ctaIsExternal = ctaHref.startsWith('http')
@@ -27,10 +30,24 @@ export default function Navbar() {
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') {
+        setOpen(false)
+        setServicesOpen(false)
+        setMobileServicesOpen(false)
+      }
     }
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
+  }, [])
+
+  useEffect(() => {
+    function onPointerDown(event: PointerEvent) {
+      if (!servicesRef.current?.contains(event.target as Node)) {
+        setServicesOpen(false)
+      }
+    }
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => document.removeEventListener('pointerdown', onPointerDown)
   }, [])
 
   function navigateFromHome(
@@ -83,28 +100,37 @@ export default function Navbar() {
           >
             {nav.links.map((link) =>
               'children' in link ? (
-                <div key={link.href} className="group relative flex items-center">
-                  <Link
-                    href={link.href}
-                    onClick={(event) => navigateFromHome(event, link.href)}
-                    className="rounded px-1 py-1 text-[15px] font-semibold text-brand-800 transition-colors hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
-                  >
-                    {link.label}
-                  </Link>
+                <div key={link.href} ref={servicesRef} className="relative flex items-center">
                   <button
                     type="button"
-                    aria-label="Mostrar opciones de servicios"
-                    className="rounded p-1 text-brand-600 transition group-hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
+                    aria-expanded={servicesOpen}
+                    aria-haspopup="menu"
+                    aria-controls="servicios-menu"
+                    onClick={() => setServicesOpen((value) => !value)}
+                    className="inline-flex cursor-pointer items-center gap-1 rounded px-1 py-1 text-[15px] font-semibold text-brand-800 transition-colors hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
                   >
-                    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4" aria-hidden="true">
+                    {link.label}
+                    <svg
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className={`h-4 w-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`}
+                      aria-hidden="true"
+                    >
                       <path fillRule="evenodd" d="M5.22 7.97a.75.75 0 0 1 1.06 0L10 11.69l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.03a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
                     </svg>
                   </button>
-                  <div className="invisible absolute left-0 top-full z-50 w-48 translate-y-1 rounded-xl border border-brand-100 bg-white p-2 opacity-0 shadow-xl transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                  <div
+                    id="servicios-menu"
+                    role="menu"
+                    hidden={!servicesOpen}
+                    className="absolute left-0 top-full z-50 w-48 rounded-xl border border-brand-100 bg-white p-2 shadow-xl"
+                  >
                     {link.children.map((child) => (
                       <Link
                         key={child.href}
                         href={child.href}
+                        role="menuitem"
+                        onClick={() => setServicesOpen(false)}
                         className="block rounded-lg px-4 py-2.5 text-sm font-semibold text-brand-800 transition-colors hover:bg-brand-50 hover:text-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
                       >
                         {child.label}
@@ -116,7 +142,10 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={(event) => navigateFromHome(event, link.href)}
+                  onClick={(event) => {
+                    setServicesOpen(false)
+                    navigateFromHome(event, link.href)
+                  }}
                   className="rounded px-1 py-1 text-[15px] font-semibold text-brand-800 transition-colors hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
                 >
                   {link.label}
@@ -168,26 +197,47 @@ export default function Navbar() {
           >
             {nav.links.map((link) => (
               <div key={link.href} className="border-b border-brand-100">
-                <Link
-                  href={link.href}
-                  className="block rounded py-3.5 text-base font-semibold text-brand-800 transition-colors hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
-                  onClick={(event) => navigateFromHome(event, link.href)}
-                >
-                  {link.label}
-                </Link>
-                {'children' in link && (
-                  <div className="-mt-1 mb-3 flex gap-2 pl-3">
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        className="rounded-lg bg-brand-50 px-3 py-2 text-sm font-semibold text-brand-700 hover:text-accent-700"
-                        onClick={() => setOpen(false)}
+                {'children' in link ? (
+                  <>
+                    <button
+                      type="button"
+                      aria-expanded={mobileServicesOpen}
+                      onClick={() => setMobileServicesOpen((value) => !value)}
+                      className="flex w-full cursor-pointer items-center justify-between rounded py-3.5 text-left text-base font-semibold text-brand-800 transition-colors hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
+                    >
+                      {link.label}
+                      <svg
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        className={`h-4 w-4 transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`}
+                        aria-hidden="true"
                       >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
+                        <path fillRule="evenodd" d="M5.22 7.97a.75.75 0 0 1 1.06 0L10 11.69l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.03a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                    {mobileServicesOpen && (
+                      <div className="mb-3 flex gap-2 pl-3">
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="rounded-lg bg-brand-50 px-3 py-2 text-sm font-semibold text-brand-700 hover:text-accent-700"
+                            onClick={() => setOpen(false)}
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className="block rounded py-3.5 text-base font-semibold text-brand-800 transition-colors hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
+                    onClick={(event) => navigateFromHome(event, link.href)}
+                  >
+                    {link.label}
+                  </Link>
                 )}
               </div>
             ))}

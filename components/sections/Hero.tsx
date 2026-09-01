@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="landing-panel dark-brand-gradient relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden md:min-h-[calc(92svh-5rem)]"
+      className="dark-brand-gradient relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden md:min-h-[calc(92svh-5rem)]"
     >
       {hero.image ? (
         <>
