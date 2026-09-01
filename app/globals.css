@@ -8,11 +8,11 @@
   --color-brand-300: #A4ACD9;
   --color-brand-400: #818BBF;
   --color-brand-500: #202055;
-  --color-brand-600: #1A1844;
-  --color-brand-700: #141333;
-  --color-brand-800: #161648;
-  --color-brand-900: #202055;
-  --color-brand-950: #12122E;
+  --color-brand-600: #1D1D4D;
+  --color-brand-700: #1A1A46;
+  --color-brand-800: #171740;
+  --color-brand-900: #101030;
+  --color-brand-950: #08081D;
 
   --color-accent-50: #E6F4F7;
   --color-accent-100: #CDEAF1;
@@ -44,7 +44,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   /* Compensa el navbar sticky (h-16) para que los anclas no queden tapados */
   scroll-padding-top: 5rem;
   overflow-x: hidden;
@@ -92,6 +91,17 @@ button:disabled,
   display: none;
 }
 
+.dark-brand-gradient {
+  background-color: #101030;
+  background-image:
+    radial-gradient(circle at 82% 18%, rgba(33, 159, 192, 0.18), transparent 34%),
+    linear-gradient(135deg, #151542 0%, #090922 100%);
+}
+
+.page-transition {
+  animation: pageFadeIn 320ms ease-out both;
+}
+
 body.maintenance-page {
   color: #ffffff;
 
@@ -99,9 +109,9 @@ body.maintenance-page {
      Safari con este color liso. Para que no se vea un corte, el degradado
      NO puede terminar en otro color contra los bordes: por eso la base es
      plana y los brillos son elipses que se apagan antes de llegar al borde.
-     Así, el borde de la página es exactamente #202055 — el mismo color que
-     las franjas y que el theme-color. */
-  background-color: #202055;
+     Así, el borde de la página coincide con el color institucional oscuro,
+     las franjas del navegador y el theme-color. */
+  background-color: #101030;
   background-image:
     radial-gradient(ellipse 75% 40% at 22% 45%, #202055 0%, rgba(32, 32, 85, 0) 100%),
     radial-gradient(ellipse 65% 30% at 82% 62%, rgba(33, 159, 192, 0.22) 0%, rgba(33, 159, 192, 0) 100%);
@@ -118,6 +128,15 @@ body.maintenance-page {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

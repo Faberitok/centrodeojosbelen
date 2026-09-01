@@ -79,7 +79,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#202055',
+  themeColor: '#101030',
   colorScheme: 'light',
 }
 
@@ -109,7 +109,12 @@ export default async function RootLayout({
           </>
         )}
 
-        <main id="contenido" className="flex-1">{children}</main>
+        <main
+          id="contenido"
+          className={hideChrome ? 'flex-1' : 'flex-1 pt-16 md:pt-20'}
+        >
+          {children}
+        </main>
 
         {hideChrome ? null : <Footer />}
 

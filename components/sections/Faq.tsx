@@ -1,7 +1,5 @@
-import Button from '@/components/shared/Button'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import { faq, faqSection } from '@/content/site'
-import { appointmentHref } from '@/lib/whatsapp'
 
 /**
  * Preguntas frecuentes.
@@ -11,8 +9,6 @@ import { appointmentHref } from '@/lib/whatsapp'
  * así que el buscador la indexa igual.
  */
 export default function Faq() {
-  const ctaHref = appointmentHref('Hola, tengo una consulta sobre la atención.')
-
   return (
     <SectionWrapper id="preguntas" className="bg-white py-20 md:py-28">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
@@ -59,11 +55,6 @@ export default function Faq() {
         </ul>
       </div>
 
-      <div className="mt-10 flex justify-end">
-        <Button href={ctaHref} external>
-          Hacer otra consulta
-        </Button>
-      </div>
     </SectionWrapper>
   )
 }

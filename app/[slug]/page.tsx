@@ -47,7 +47,7 @@ export default async function ConditionPage({ params }: PageProps) {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[#2A4A78] text-white">
+      <section className="dark-brand-gradient relative overflow-hidden text-white">
         <div className="mx-auto grid min-h-[32rem] max-w-[1440px] lg:grid-cols-[1fr_0.9fr]">
           <div className="relative z-10 flex items-center px-6 py-20 md:px-12 lg:px-[max(3rem,calc((100vw-1140px)/2))]">
             <div className="max-w-2xl">
@@ -80,7 +80,7 @@ export default async function ConditionPage({ params }: PageProps) {
               sizes="(min-width: 1024px) 45vw, 100vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#2A4A78]/55 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-900/70 to-transparent" />
           </div>
         </div>
       </section>

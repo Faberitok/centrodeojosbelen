@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden bg-[#202055] md:min-h-[calc(92svh-5rem)]"
+      className="dark-brand-gradient relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden md:min-h-[calc(92svh-5rem)]"
     >
       {hero.image ? (
         <>
@@ -26,7 +26,7 @@ export default function Hero() {
             sizes="100vw"
           />
           <div
-            className="absolute inset-0 bg-[linear-gradient(90deg,rgba(32,32,85,0.92)_0%,rgba(32,32,85,0.78)_46%,rgba(32,32,85,0.32)_74%,rgba(32,32,85,0.08)_100%)]"
+            className="absolute inset-0 bg-[linear-gradient(90deg,rgba(20,20,58,0.95)_0%,rgba(24,24,72,0.82)_46%,rgba(20,20,58,0.38)_74%,rgba(12,12,36,0.12)_100%)]"
             aria-hidden="true"
           />
         </>

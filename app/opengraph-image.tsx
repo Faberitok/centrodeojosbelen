@@ -15,7 +15,7 @@ export default function OpenGraphImage() {
           position: 'relative',
           overflow: 'hidden',
           color: 'white',
-          background: '#202055',
+          background: '#101030',
           padding: '76px 84px',
           fontFamily: 'sans-serif',
         }}

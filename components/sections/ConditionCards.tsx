@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function ConditionCards() {
   return (
-    <SectionWrapper id="especialidades" className="overflow-hidden bg-[#202055] py-20 text-white md:py-28">
+    <SectionWrapper id="especialidades" className="dark-brand-gradient overflow-hidden py-20 text-white md:py-28">
       <div className="max-w-2xl">
         <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent-300">
           Evaluación y seguimiento
@@ -24,7 +24,7 @@ export default function ConditionCards() {
           <li key={condition.slug}>
             <Link
               href={`/${condition.slug}`}
-              className="group relative flex min-h-[28rem] overflow-hidden rounded-[2rem] border border-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-300 focus-visible:ring-offset-4 focus-visible:ring-offset-[#202055]"
+              className="group relative flex min-h-[28rem] overflow-hidden rounded-[2rem] border border-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-300 focus-visible:ring-offset-4 focus-visible:ring-offset-brand-900"
             >
               <article className="absolute inset-0">
                 <Image
@@ -34,7 +34,7 @@ export default function ConditionCards() {
                   sizes="(min-width: 768px) 50vw, 100vw"
                   className="object-cover transition duration-700 group-hover:scale-[1.035]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#10102E] via-[#202055]/55 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-900/60 to-transparent" />
               </article>
 
               <div className="relative z-10 mt-auto p-7 md:p-9">

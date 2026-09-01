@@ -29,7 +29,7 @@ export default function Procedures() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[#202055] text-white">
+      <section className="dark-brand-gradient relative overflow-hidden text-white">
         <div className="mx-auto grid min-h-[34rem] max-w-[1440px] lg:grid-cols-[1fr_0.9fr]">
           <div className="relative z-10 flex items-center px-6 py-20 md:px-12 lg:px-[max(3rem,calc((100vw-1140px)/2))]">
             <div className="max-w-2xl">
@@ -58,7 +58,7 @@ export default function Procedures() {
               sizes="(min-width: 1024px) 45vw, 100vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#202055]/65 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-900/80 to-transparent" />
           </div>
         </div>
       </section>
@@ -84,7 +84,7 @@ export default function Procedures() {
                     sizes="(min-width: 1024px) 50vw, 100vw"
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#202055]/25 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/35 to-transparent" />
                 </div>
 
                 <div className="flex flex-col justify-center p-7 md:p-10 lg:p-12">

@@ -110,6 +110,10 @@ export interface Study {
   id: string
   title: string
   description: string
+  purpose: string
+  experience: string
+  preparation: string
+  equipment: string
   image: string
 }
 
@@ -119,6 +123,13 @@ export const studies: Study[] = [
     title: 'OCT · Tomografía de Coherencia Óptica',
     description:
       'Imágenes de alta resolución de la retina, la mácula y el nervio óptico para diagnóstico y seguimiento.',
+    purpose:
+      'Permite observar las distintas capas de la retina y medir estructuras del nervio óptico. Es útil para acompañar el diagnóstico y comparar cambios en glaucoma, enfermedades maculares, retinopatía diabética y otras patologías de retina.',
+    experience:
+      'Es un estudio no invasivo y sin contacto. El paciente apoya la frente y el mentón, mira un punto fijo y el equipo realiza las imágenes mediante luz.',
+    preparation:
+      'En general no requiere preparación especial. Según el motivo del estudio, el profesional puede indicar dilatación de las pupilas.',
+    equipment: 'OCT Optovue iScan',
     image: '/media/oct-estudio.webp',
   },
   {
@@ -126,6 +137,13 @@ export const studies: Study[] = [
     title: 'Topografía corneal',
     description:
       'Analiza la forma y curvatura de la córnea para detectar queratocono y planificar evaluaciones prequirúrgicas.',
+    purpose:
+      'Genera un mapa de la superficie corneal que ayuda a detectar curvaturas irregulares, astigmatismo y signos compatibles con queratocono. También aporta información para adaptar lentes de contacto y planificar determinadas cirugías.',
+    experience:
+      'El equipo proyecta anillos de luz sobre la córnea mientras el paciente mantiene la mirada fija. No toca el ojo y la captura es breve.',
+    preparation:
+      'Las lentes de contacto pueden modificar temporalmente la forma corneal. Al solicitar el turno, consultá si es necesario suspender su uso antes del estudio.',
+    equipment: 'Topógrafo Tomey TMS-4',
     image: '/media/topografia-corneal.webp',
   },
   {
@@ -133,6 +151,13 @@ export const studies: Study[] = [
     title: 'Paquimetría corneal',
     description:
       'Mide el espesor de la córnea, un dato importante para evaluar glaucoma y patologías corneales.',
+    purpose:
+      'El espesor corneal ayuda a interpretar correctamente la presión intraocular y aporta datos para el estudio del glaucoma, las enfermedades de córnea y la evaluación previa a ciertos procedimientos.',
+    experience:
+      'La medición es rápida. Según la técnica utilizada puede realizarse de forma óptica o mediante una pequeña sonda, siempre bajo indicación profesional.',
+    preparation:
+      'Habitualmente no requiere preparación. Si usás lentes de contacto o tenés antecedentes de cirugía corneal, informalo al equipo.',
+    equipment: 'Paquímetro corneal',
     image: '/media/paquimetria-estudio.webp',
   },
   {
@@ -140,6 +165,13 @@ export const studies: Study[] = [
     title: 'Biometría óptica',
     description:
       'Realiza mediciones precisas del ojo para calcular la lente intraocular de una cirugía de cataratas.',
+    purpose:
+      'Mide la longitud del ojo y otros parámetros ópticos necesarios para calcular la potencia de la lente intraocular que se utilizará en una cirugía de cataratas.',
+    experience:
+      'El paciente mira un punto de fijación mientras el equipo obtiene varias mediciones. Es un procedimiento breve, no invasivo y generalmente sin contacto.',
+    preparation:
+      'No suele requerir preparación especial. Es importante informar si usás lentes de contacto o si tuviste cirugías oculares previas.',
+    equipment: 'Regla biométrica MEDA',
     image: '/media/biometria-meda.webp',
   },
   {
@@ -147,6 +179,13 @@ export const studies: Study[] = [
     title: 'Tonometría',
     description:
       'Mide la presión intraocular para la detección y el seguimiento del glaucoma.',
+    purpose:
+      'La presión intraocular es uno de los datos que el oftalmólogo considera para evaluar el riesgo de glaucoma y controlar su evolución. El resultado siempre se interpreta junto con el examen del nervio óptico y otros estudios.',
+    experience:
+      'Con el tonómetro de rebote, una sonda muy pequeña realiza una medición rápida frente al ojo. El procedimiento dura pocos segundos.',
+    preparation:
+      'No requiere preparación especial. Avisá si estás usando gotas oftálmicas o si recibís tratamiento para la presión ocular.',
+    equipment: 'Tonómetro iCare 100',
     image: '/media/tonometro-icare-100.webp',
   },
   {
@@ -154,6 +193,13 @@ export const studies: Study[] = [
     title: 'Autorrefractometría',
     description:
       'Obtiene una medición objetiva de los defectos refractivos como parte de la evaluación oftalmológica.',
+    purpose:
+      'Estima de manera objetiva miopía, hipermetropía y astigmatismo. Es un punto de partida para la evaluación de la graduación, que luego se completa durante la consulta.',
+    experience:
+      'El paciente observa una imagen dentro del equipo mientras se toman las mediciones. No hay contacto con el ojo y puede realizarse en personas de diferentes edades.',
+    preparation:
+      'No necesita preparación. Llevá tus anteojos actuales y, si usás lentes de contacto, consultá al pedir el turno si debés retirarlos con anticipación.',
+    equipment: 'Autorrefractómetro y Retinomax portátil',
     image: '/media/autorrefractometria-estudio.webp',
   },
 ]
@@ -579,7 +625,7 @@ export const faqSection = {
   eyebrow: 'Consultas',
   title: 'Preguntas frecuentes',
   subtitle:
-    'Si tu duda no está acá, escribinos por WhatsApp y te respondemos sin compromiso.',
+    'Si tu duda no está acá, podés comunicarte por WhatsApp desde el ícono disponible en pantalla.',
 } as const
 
 // ─── Pie de página ────────────────────────────────────────────────────────────

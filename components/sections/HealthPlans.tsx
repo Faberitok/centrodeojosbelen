@@ -1,13 +1,7 @@
-import Button from '@/components/shared/Button'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import { healthPlans, healthPlansSection } from '@/content/health-plans'
-import { appointmentHref } from '@/lib/whatsapp'
 
 export default function HealthPlans() {
-  const ctaHref = appointmentHref(
-    'Hola, quisiera consultar si atienden mi obra social.'
-  )
-
   return (
     <SectionWrapper id="obras-sociales" className="bg-white py-20 md:py-28">
       <div className="max-w-2xl">
@@ -44,12 +38,9 @@ export default function HealthPlans() {
       </ul>
 
       <div className="mt-10 flex flex-col gap-5 rounded-2xl border border-accent-200 bg-accent-50 p-6 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-2xl text-[15px] leading-relaxed text-accent-900">
+        <p className="text-[15px] leading-relaxed text-accent-900 lg:whitespace-nowrap">
           {healthPlansSection.disclaimer}
         </p>
-        <Button href={ctaHref} external className="shrink-0">
-          {healthPlansSection.ctaLabel}
-        </Button>
       </div>
     </SectionWrapper>
   )

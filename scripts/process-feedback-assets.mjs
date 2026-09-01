@@ -17,68 +17,15 @@ async function toWebp(input, output, width) {
     .toFile(path.join(media, output))
 }
 
-async function blurFaces(input, output, regions, width = 1200) {
-  const source = sharp(path.join(root, input)).rotate()
-  const resized = source.resize({
-    width,
-    height: width,
-    fit: 'inside',
-    withoutEnlargement: true,
-  })
-  const buffer = await resized.toBuffer()
-  const { width: w, height: h } = await sharp(buffer).metadata()
-  const overlays = []
-
-  for (const region of regions) {
-    const left = Math.max(0, Math.round(region.x * w))
-    const top = Math.max(0, Math.round(region.y * h))
-    const extractWidth = Math.min(w - left, Math.round(region.w * w))
-    const extractHeight = Math.min(h - top, Math.round(region.h * h))
-    if (extractWidth < 8 || extractHeight < 8) continue
-
-    const blurred = await sharp(buffer)
-      .extract({ left, top, width: extractWidth, height: extractHeight })
-      .blur(32)
-      .toBuffer()
-
-    overlays.push({ input: blurred, left, top })
-  }
-
-  await sharp(buffer)
-    .composite(overlays)
-    .webp({ quality: 82, effort: 5 })
-    .toFile(path.join(media, output))
-}
-
 await toWebp('public/staff/gonza (2).jpeg', 'staff-gonzalo.webp', 900)
 await toWebp('public/staff/carla.jpeg', 'staff-carla.webp', 900)
 await toWebp('public/institucional/institucional (2).jpeg', 'consultorio.webp', 1600)
 await toWebp('public/institucional/institucional (27).jpeg', 'sala-espera.webp', 1600)
 await toWebp('public/institucional/institucional (8).jpeg', 'pasillo-centro.webp', 1600)
 
-await blurFaces(
-  'public/institucional/institucional (12).jpeg',
-  'atencion-bebes-ninos.webp',
-  [
-    { x: 0.22, y: 0.05, w: 0.28, h: 0.18 },
-    { x: 0.52, y: 0.2, w: 0.24, h: 0.16 },
-  ]
-)
-
-await blurFaces(
-  'public/institucional/institucional (16).jpeg',
-  'atencion-adultos.webp',
-  [{ x: 0.05, y: 0.16, w: 0.32, h: 0.24 }]
-)
-
-await blurFaces(
-  'public/institucional/institucional (13).jpeg',
-  'atencion-adultos-mayores.webp',
-  [
-    { x: 0.0, y: 0.18, w: 0.32, h: 0.26 },
-    { x: 0.58, y: 0.14, w: 0.38, h: 0.32 },
-  ]
-)
+await toWebp('public/institucional/institucional (12).jpeg', 'atencion-bebes-ninos.webp', 1200)
+await toWebp('public/institucional/institucional (16).jpeg', 'atencion-adultos.webp', 1200)
+await toWebp('public/institucional/institucional (13).jpeg', 'atencion-adultos-mayores.webp', 1200)
 
 const logoSources = [
   ['osep', ['https://logo.clearbit.com/osep.gob.ar', 'https://www.google.com/s2/favicons?domain=osep.gob.ar&sz=256']],

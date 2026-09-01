@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export default function Services() {
   return (
-    <SectionWrapper id="servicios" className="py-20 md:py-28 bg-white">
+    <SectionWrapper id="atencion" className="bg-white py-20 md:py-28">
       <div className="max-w-2xl">
         <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent-700">
           Atención oftalmológica
@@ -20,7 +20,7 @@ export default function Services() {
       <ul className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service) => (
           <li key={service.id}>
-            <article className="h-full overflow-hidden rounded-[1.75rem] border border-brand-200 bg-white">
+            <article className="flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-brand-200 bg-white">
               {service.image && (
                 <div className="relative aspect-[16/9] overflow-hidden rounded-t-2xl">
                   <Image
@@ -33,15 +33,15 @@ export default function Services() {
                 </div>
               )}
 
-              <div className="p-6">
+              <div className="flex flex-1 flex-col p-6">
                 <h3 className="text-xl font-bold text-brand-900">
                   {service.title}
                 </h3>
-                <p className="mt-2 leading-relaxed text-brand-700">
+                <p className="mb-5 mt-2 leading-relaxed text-brand-700">
                   {service.description}
                 </p>
 
-                <ul className="mt-5 space-y-2.5 border-t border-brand-100 pt-5">
+                <ul className="mt-auto space-y-2.5 border-t border-brand-100 pt-5">
                   {service.details.map((detail) => (
                     <li
                       key={detail}

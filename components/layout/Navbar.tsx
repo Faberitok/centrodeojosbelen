@@ -5,10 +5,12 @@ import { nav } from '@/content/navigation'
 import { appointmentHref } from '@/lib/whatsapp'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
   const ctaHref = appointmentHref()
   const ctaIsExternal = ctaHref.startsWith('http')
 
@@ -31,8 +33,31 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [])
 
+  function navigateFromHome(
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) {
+    setOpen(false)
+    if (pathname !== '/') return
+
+    if (href === '/') {
+      event.preventDefault()
+      window.history.replaceState(null, '', '/')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
+
+    if (href.startsWith('/#')) {
+      const target = document.getElementById(href.slice(2))
+      if (!target) return
+      event.preventDefault()
+      window.history.pushState(null, '', href)
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-sm border-b border-brand-100">
+    <header className="fixed inset-x-0 top-0 z-40 w-full border-b border-brand-100 bg-white/95 backdrop-blur-sm">
       <div className="max-w-[1140px] mx-auto px-6">
         <div className="flex h-16 md:h-20 items-center justify-between gap-4">
           <Link
@@ -56,15 +81,48 @@ export default function Navbar() {
             aria-label="Navegación principal"
             className="hidden items-center gap-5 xl:flex"
           >
-            {nav.links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-[15px] font-semibold text-brand-800 hover:text-accent-600 transition-colors rounded px-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {nav.links.map((link) =>
+              'children' in link ? (
+                <div key={link.href} className="group relative flex items-center">
+                  <Link
+                    href={link.href}
+                    onClick={(event) => navigateFromHome(event, link.href)}
+                    className="rounded px-1 py-1 text-[15px] font-semibold text-brand-800 transition-colors hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
+                  >
+                    {link.label}
+                  </Link>
+                  <button
+                    type="button"
+                    aria-label="Mostrar opciones de servicios"
+                    className="rounded p-1 text-brand-600 transition group-hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
+                  >
+                    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4" aria-hidden="true">
+                      <path fillRule="evenodd" d="M5.22 7.97a.75.75 0 0 1 1.06 0L10 11.69l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.03a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                  <div className="invisible absolute left-0 top-full z-50 w-48 translate-y-1 rounded-xl border border-brand-100 bg-white p-2 opacity-0 shadow-xl transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                    {link.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        className="block rounded-lg px-4 py-2.5 text-sm font-semibold text-brand-800 transition-colors hover:bg-brand-50 hover:text-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={(event) => navigateFromHome(event, link.href)}
+                  className="rounded px-1 py-1 text-[15px] font-semibold text-brand-800 transition-colors hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
           </nav>
 
           <a
@@ -109,14 +167,29 @@ export default function Navbar() {
             className="max-w-[1140px] mx-auto px-6 py-4 flex flex-col"
           >
             {nav.links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="py-3.5 text-base font-semibold text-brand-800 border-b border-brand-100 hover:text-accent-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 rounded"
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </Link>
+              <div key={link.href} className="border-b border-brand-100">
+                <Link
+                  href={link.href}
+                  className="block rounded py-3.5 text-base font-semibold text-brand-800 transition-colors hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
+                  onClick={(event) => navigateFromHome(event, link.href)}
+                >
+                  {link.label}
+                </Link>
+                {'children' in link && (
+                  <div className="-mt-1 mb-3 flex gap-2 pl-3">
+                    {link.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        className="rounded-lg bg-brand-50 px-3 py-2 text-sm font-semibold text-brand-700 hover:text-accent-700"
+                        onClick={() => setOpen(false)}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
             <a
               href={ctaHref}
