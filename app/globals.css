@@ -102,6 +102,31 @@ button:disabled,
   animation: pageFadeIn 320ms ease-out both;
 }
 
+.landing-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+  padding-block: clamp(0.5rem, 1.2vw, 1rem);
+  background: #ffffff;
+}
+
+.landing-stack > .landing-panel,
+.page-hero-panel {
+  isolation: isolate;
+  width: min(calc(100% - clamp(1rem, 3vw, 3rem)), 1480px);
+  margin-inline: auto;
+  overflow: clip;
+  border: 1px solid rgba(23, 23, 64, 0.12);
+  border-radius: clamp(1.5rem, 3vw, 2.25rem);
+  box-shadow:
+    0 1px 1px rgba(16, 16, 48, 0.03),
+    0 18px 55px -46px rgba(16, 16, 48, 0.34);
+}
+
+.page-hero-panel {
+  margin-block: clamp(0.5rem, 1.2vw, 1rem);
+}
+
 body.maintenance-page {
   color: #ffffff;
 

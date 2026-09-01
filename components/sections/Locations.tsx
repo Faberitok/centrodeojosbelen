@@ -56,7 +56,7 @@ function ClockIcon() {
 
 function LocationCard({ location }: { location: Location }) {
   return (
-    <article className="overflow-hidden rounded-2xl border border-brand-200 bg-white">
+    <article className="overflow-hidden rounded-[2rem] border border-brand-200 bg-white shadow-[0_20px_55px_-44px_rgba(16,16,48,0.38)]">
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="p-6 md:p-8">
           {locations.length > 1 && (
@@ -164,7 +164,7 @@ function LocationCard({ location }: { location: Location }) {
 
 export default function Locations() {
   return (
-    <SectionWrapper id="ubicacion" className="bg-brand-50 py-20 md:py-28">
+    <SectionWrapper id="ubicacion" className="bg-white py-14 md:py-20">
       <div className="max-w-2xl">
         <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent-700">
           {locationsSection.eyebrow}

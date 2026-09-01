@@ -57,7 +57,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 w-full border-b border-brand-100 bg-white/95 backdrop-blur-sm">
+    <header className="fixed inset-x-0 top-0 z-40 w-full border-b border-white/50 bg-white/70 shadow-[0_8px_30px_-24px_rgba(16,16,48,0.45)] backdrop-blur-xl">
       <div className="max-w-[1140px] mx-auto px-6">
         <div className="flex h-16 md:h-20 items-center justify-between gap-4">
           <Link

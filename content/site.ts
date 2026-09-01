@@ -99,7 +99,7 @@ export const services: Service[] = [
       'Cataratas y glaucoma',
       'Degeneración macular',
       'Retinopatía diabética',
-      'Superficie ocular y enfermedades crónicas',
+      'Enfermedades crónicas',
     ],
     icon: 'pressure',
     image: '/media/atencion-adultos-mayores.webp',

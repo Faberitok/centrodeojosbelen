@@ -4,7 +4,7 @@ import { about } from '@/content/site'
 
 export default function About() {
   return (
-    <SectionWrapper className="bg-white py-16 md:py-24">
+    <SectionWrapper className="bg-white py-12 md:py-16">
       <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
         <PhotoCarousel
           images={about.gallery}

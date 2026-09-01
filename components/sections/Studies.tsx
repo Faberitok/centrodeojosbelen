@@ -10,9 +10,9 @@ export default function Studies() {
 
   return (
     <>
-      <section className="dark-brand-gradient relative overflow-hidden text-white">
-        <div className="mx-auto grid min-h-[34rem] max-w-[1440px] lg:grid-cols-[1fr_0.9fr]">
-          <div className="relative z-10 flex items-center px-6 py-20 md:px-12 lg:px-[max(3rem,calc((100vw-1140px)/2))]">
+      <section className="page-hero-panel dark-brand-gradient relative overflow-hidden text-white">
+        <div className="mx-auto grid max-w-[1240px] gap-8 px-6 py-6 md:px-10 md:py-8 lg:min-h-[32rem] lg:grid-cols-[1fr_0.9fr] lg:gap-12 lg:px-12">
+          <div className="relative z-10 flex items-center py-8 md:py-10">
             <div className="max-w-2xl">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-300">
                 Diagnóstico y seguimiento
@@ -29,7 +29,7 @@ export default function Studies() {
               </Button>
             </div>
           </div>
-          <div className="relative min-h-80 lg:min-h-full">
+          <div className="relative min-h-80 overflow-hidden rounded-[1.75rem] border border-white/15 shadow-[0_28px_70px_-42px_rgba(0,0,0,0.75)] md:min-h-[26rem] lg:my-3 lg:min-h-0">
             <Image
               src="/media/atencion-adultos.webp"
               alt="Evaluación oftalmológica con lámpara de hendidura"
@@ -38,12 +38,12 @@ export default function Studies() {
               sizes="(min-width: 1024px) 45vw, 100vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-900/80 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-brand-900/70 via-brand-900/25 to-transparent" />
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-16 md:py-24">
+      <section className="bg-white py-12 md:py-16">
         <div className="mx-auto max-w-[1140px] space-y-16 px-6 md:space-y-24">
           {studies.map((study, index) => (
             <article

@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="dark-brand-gradient relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden md:min-h-[calc(92svh-5rem)]"
+      className="landing-panel dark-brand-gradient relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden md:min-h-[calc(92svh-5rem)]"
     >
       {hero.image ? (
         <>
@@ -46,7 +46,7 @@ export default function Hero() {
         </div>
       )}
 
-      <div className="relative z-10 mx-auto w-full max-w-[1140px] px-6 py-20 text-white md:py-28">
+      <div className="relative z-10 mx-auto w-full max-w-[1140px] px-6 py-16 text-white md:py-24">
         <div className="max-w-[44rem]">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-300">
             {hero.eyebrow}

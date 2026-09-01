@@ -21,8 +21,12 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-brand-900 text-brand-300">
-      <div className="mx-auto max-w-[1140px] px-6 py-14">
+    <footer className="dark-brand-gradient relative mt-3 overflow-hidden rounded-t-[2rem] border-t border-white/10 text-brand-300 md:rounded-t-[2.75rem]">
+      <div
+        className="pointer-events-none absolute -right-24 -top-40 h-96 w-96 rounded-full border-[64px] border-accent-500/10"
+        aria-hidden="true"
+      />
+      <div className="relative mx-auto max-w-[1140px] px-6 py-14 md:py-16">
         <div className="grid grid-cols-1 gap-10 border-b border-brand-800 pb-10 md:grid-cols-3">
           <div>
             <Image
@@ -42,7 +46,7 @@ export default function Footer() {
             <p className="text-sm font-bold uppercase tracking-wide text-white">
               Navegación
             </p>
-            <ul className="mt-2">
+            <ul className="mt-3 grid grid-cols-2 gap-x-5">
               {footer.links.map((link) => (
                 <li key={link.href}>
                   <Link
@@ -118,9 +122,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <p className="pt-8 text-center text-sm text-brand-400">
-          © {year} {footer.copyrightSuffix}
-        </p>
+        <div className="flex flex-col gap-2 pt-8 text-center text-sm text-brand-400 sm:flex-row sm:items-center sm:justify-between sm:text-left">
+          <p>© {year} {footer.copyrightSuffix}</p>
+          <p>{site.city} · {site.province}</p>
+        </div>
       </div>
     </footer>
   )

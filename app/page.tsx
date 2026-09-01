@@ -16,7 +16,7 @@ export default async function Page() {
   }
 
   return (
-    <>
+    <div className="landing-stack">
       <Hero />
       <ServiceOverview />
       <Services />
@@ -26,6 +26,6 @@ export default async function Page() {
       <Locations />
       <Faq />
       <Contact />
-    </>
+    </div>
   )
 }

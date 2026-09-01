@@ -1,4 +1,5 @@
 import Button from '@/components/shared/Button'
+import CardCarousel from '@/components/shared/CardCarousel'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 
 const items = [
@@ -33,24 +34,34 @@ const items = [
 
 export default function ServiceOverview() {
   return (
-    <SectionWrapper id="servicios" className="bg-brand-50 py-20 md:py-28">
-      <div className="mx-auto max-w-3xl text-center">
-        <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-700">
-          Atención integral
-        </p>
-        <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-brand-800 md:text-5xl">
-          Nuestros servicios
-        </h2>
-        <p className="mt-4 text-lg leading-relaxed text-brand-700">
-          Consulta, diagnóstico, tecnología y seguimiento en un mismo centro.
-        </p>
-      </div>
-
-      <div className="mt-12 grid gap-6 md:grid-cols-2">
+    <SectionWrapper id="servicios" className="landing-panel bg-brand-50 py-14 md:py-20">
+      <CardCarousel
+        ariaLabel="Nuestros servicios"
+        prevLabel="Ver servicio anterior"
+        nextLabel="Ver servicio siguiente"
+        itemClassName="w-[82vw] max-w-[28rem] shrink-0 snap-start md:w-auto md:max-w-none"
+        desktopGridClassName="md:grid md:grid-cols-2 md:overflow-visible"
+        listClassName="mt-12"
+        controlsClassName="md:hidden"
+        headerLayout="below"
+        header={
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-700">
+              Atención integral
+            </p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-brand-800 md:text-5xl">
+              Nuestros servicios
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-brand-700">
+              Consulta, diagnóstico, tecnología y seguimiento en un mismo centro.
+            </p>
+          </div>
+        }
+      >
         {items.map((item) => (
           <article
             key={item.title}
-            className="flex h-full flex-col rounded-[2rem] border border-brand-200 bg-white p-7 shadow-[0_24px_60px_-48px_rgba(16,16,48,0.5)] md:p-10"
+            className="flex h-full flex-col rounded-[2rem] border border-brand-200 bg-white p-7 shadow-[0_24px_60px_-48px_rgba(16,16,48,0.5)] transition duration-300 hover:-translate-y-1 hover:border-accent-300 hover:shadow-[0_28px_70px_-44px_rgba(16,16,48,0.42)] md:p-10"
           >
             <span className="text-accent-700">{item.icon}</span>
             <h3 className="mt-6 text-2xl font-extrabold text-brand-800 md:text-3xl">
@@ -64,7 +75,7 @@ export default function ServiceOverview() {
             </Button>
           </article>
         ))}
-      </div>
+      </CardCarousel>
     </SectionWrapper>
   )
 }

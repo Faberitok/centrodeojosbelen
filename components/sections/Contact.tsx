@@ -5,7 +5,7 @@ import { contact, locations } from '@/content/site'
 
 export default function Contact() {
   return (
-    <SectionWrapper id="contacto" className="bg-brand-50 py-20 md:py-28">
+    <SectionWrapper id="contacto" className="bg-white py-14 md:py-20">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent-700">

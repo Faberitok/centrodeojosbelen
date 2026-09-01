@@ -49,7 +49,7 @@ export default async function ConditionPage({ params }: PageProps) {
     <>
       <section className="dark-brand-gradient relative overflow-hidden text-white">
         <div className="mx-auto grid min-h-[32rem] max-w-[1440px] lg:grid-cols-[1fr_0.9fr]">
-          <div className="relative z-10 flex items-center px-6 py-20 md:px-12 lg:px-[max(3rem,calc((100vw-1140px)/2))]">
+          <div className="relative z-10 flex items-center px-6 py-14 md:px-12 lg:px-[max(3rem,calc((100vw-1140px)/2))]">
             <div className="max-w-2xl">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-200">
                 {condition.lead}
@@ -85,7 +85,7 @@ export default async function ConditionPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="bg-white py-20 md:py-28">
+      <section className="bg-white py-14 md:py-20">
         <div className="mx-auto max-w-[1140px] px-6">
           <ol className="grid gap-6 md:grid-cols-2">
             {condition.sections.map((section) => (
@@ -98,7 +98,7 @@ export default async function ConditionPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="bg-brand-50 py-20">
+      <section className="bg-brand-50 py-14">
         <div className="mx-auto max-w-[1140px] px-6">
           <h2 className="text-2xl font-extrabold text-brand-800">También puede interesarte</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-3">

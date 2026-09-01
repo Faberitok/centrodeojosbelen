@@ -11,7 +11,7 @@ export const siteName = 'Centro de Ojos Belén'
 
 export const brand = {
   // Isologo horizontal, versión color — para fondos claros
-  logoLight: '/centrodeojosbelen.png',
+  logoLight: '/centrodeojosbelen-transparente.png',
   // Isologo horizontal, versión blanca — para fondos oscuros.
   // Generado a partir de centrodeojosbelenfondo.png despejando el navy de
   // fondo: los PNG originales traen el alfa opaco al 100% y recortan un

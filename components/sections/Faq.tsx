@@ -10,28 +10,28 @@ import { faq, faqSection } from '@/content/site'
  */
 export default function Faq() {
   return (
-    <SectionWrapper id="preguntas" className="bg-white py-20 md:py-28">
+    <SectionWrapper id="preguntas" className="landing-panel dark-brand-gradient py-14 text-white md:py-20">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-700">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-300">
             {faqSection.eyebrow}
           </p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-brand-800 md:text-4xl">
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white md:text-4xl">
             {faqSection.title}
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-brand-700">
+          <p className="mt-4 text-lg leading-relaxed text-white/75">
             {faqSection.subtitle}
           </p>
         </div>
 
-        <ul className="divide-y divide-brand-200 border-y border-brand-200">
+        <ul className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.07] px-5 md:px-7">
           {faq.map((item) => (
-            <li key={item.question}>
+            <li key={item.question} className="border-b border-white/15 last:border-b-0">
               <details className="group py-1">
-                <summary className="flex min-h-11 cursor-pointer list-none items-start justify-between gap-4 rounded py-4 text-left text-lg font-bold text-brand-800 hover:text-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-4 [&::-webkit-details-marker]:hidden">
+                <summary className="flex min-h-11 cursor-pointer list-none items-start justify-between gap-4 rounded py-4 text-left text-lg font-bold text-white hover:text-accent-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-300 focus-visible:ring-offset-4 focus-visible:ring-offset-brand-900 [&::-webkit-details-marker]:hidden">
                   {item.question}
                   <span
-                    className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-brand-300 text-accent-700 transition-transform group-open:rotate-45"
+                    className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/30 text-accent-300 transition-transform group-open:rotate-45"
                     aria-hidden="true"
                   >
                     <svg
@@ -46,7 +46,7 @@ export default function Faq() {
                     </svg>
                   </span>
                 </summary>
-                <p className="mt-3 max-w-2xl leading-relaxed text-brand-700">
+                <p className="mt-3 max-w-2xl pb-4 leading-relaxed text-white/75">
                   {item.answer}
                 </p>
               </details>
