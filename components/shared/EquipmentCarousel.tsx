@@ -23,7 +23,7 @@ export default function EquipmentCarousel({ items }: { items: Equipment[] }) {
           type="button"
           onClick={() => move(-1)}
           aria-label="Ver equipo anterior"
-          className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/25 text-white transition hover:border-accent-400 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-300"
+          className="inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-white/25 text-white transition hover:border-accent-400 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-300"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
             <path d="m15 18-6-6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -33,7 +33,7 @@ export default function EquipmentCarousel({ items }: { items: Equipment[] }) {
           type="button"
           onClick={() => move(1)}
           aria-label="Ver equipo siguiente"
-          className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/25 text-white transition hover:border-accent-400 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-300"
+          className="inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-white/25 text-white transition hover:border-accent-400 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-300"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
             <path d="m9 18 6-6-6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -46,7 +46,7 @@ export default function EquipmentCarousel({ items }: { items: Equipment[] }) {
         aria-label="Equipamiento del centro"
         className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-color:#4EBBD1_transparent] [scrollbar-width:thin]"
       >
-        {items.map((item, index) => (
+        {items.map((item) => (
           <li
             key={item.id}
             className="group relative min-h-[29rem] w-[84vw] max-w-[25rem] shrink-0 snap-start overflow-hidden rounded-[2rem] bg-brand-800 sm:w-[23rem]"
@@ -58,10 +58,7 @@ export default function EquipmentCarousel({ items }: { items: Equipment[] }) {
               sizes="(min-width: 640px) 368px, 84vw"
               className="object-cover transition duration-700 group-hover:scale-[1.035]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-900 via-brand-900/25 to-transparent" />
-            <span className="absolute left-6 top-6 rounded-full border border-white/30 bg-brand-900/60 px-3 py-1.5 text-xs font-bold tracking-widest text-white backdrop-blur-sm">
-              {String(index + 1).padStart(2, '0')}
-            </span>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#202055] via-[#202055]/30 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-7">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent-300">
                 {item.kicker}

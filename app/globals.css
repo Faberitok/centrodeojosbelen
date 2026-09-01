@@ -10,9 +10,9 @@
   --color-brand-500: #202055;
   --color-brand-600: #1A1844;
   --color-brand-700: #141333;
-  --color-brand-800: #0D0D22;
-  --color-brand-900: #070712;
-  --color-brand-950: #040409;
+  --color-brand-800: #161648;
+  --color-brand-900: #202055;
+  --color-brand-950: #12122E;
 
   --color-accent-50: #E6F4F7;
   --color-accent-100: #CDEAF1;
@@ -71,6 +71,27 @@ body {
    estado de iOS y en el rebote del scroll. Con el degradado adentro de una
    sección, esas franjas quedaban blancas.                                     */
 
+a,
+button,
+summary,
+[role='button'],
+label[for] {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled='true'] {
+  cursor: not-allowed;
+}
+
+.staff-track {
+  scrollbar-width: none;
+}
+
+.staff-track::-webkit-scrollbar {
+  display: none;
+}
+
 body.maintenance-page {
   color: #ffffff;
 
@@ -80,7 +101,7 @@ body.maintenance-page {
      plana y los brillos son elipses que se apagan antes de llegar al borde.
      Así, el borde de la página es exactamente #202055 — el mismo color que
      las franjas y que el theme-color. */
-  background-color: #070712;
+  background-color: #202055;
   background-image:
     radial-gradient(ellipse 75% 40% at 22% 45%, #202055 0%, rgba(32, 32, 85, 0) 100%),
     radial-gradient(ellipse 65% 30% at 82% 62%, rgba(33, 159, 192, 0.22) 0%, rgba(33, 159, 192, 0) 100%);

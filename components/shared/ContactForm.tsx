@@ -17,7 +17,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="inline-flex w-full items-center justify-center rounded-lg bg-brand-900 px-8 py-4 text-base font-bold text-white transition-colors hover:bg-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+      className="inline-flex w-full cursor-pointer items-center justify-center rounded-lg bg-brand-900 px-8 py-4 text-base font-bold text-white transition-colors hover:bg-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
     >
       {pending ? copy.submittingLabel : copy.submitLabel}
     </button>

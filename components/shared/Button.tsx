@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-type ButtonVariant = 'solid' | 'outline' | 'ghost'
+type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'onDark' | 'accent'
 
 interface ButtonProps {
   variant?: ButtonVariant
@@ -11,6 +11,7 @@ interface ButtonProps {
   'aria-label'?: string
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
+  external?: boolean
 }
 
 export default function Button({
@@ -22,20 +23,46 @@ export default function Button({
   'aria-label': ariaLabel,
   disabled,
   type = 'button',
+  external,
 }: ButtonProps) {
   const base =
-    'inline-flex items-center justify-center px-6 py-3.5 rounded-lg font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2'
+    'inline-flex cursor-pointer items-center justify-center rounded-lg px-6 py-3.5 font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-700 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60'
 
   const variants: Record<ButtonVariant, string> = {
-    solid: 'bg-brand-900 text-white hover:bg-brand-800 active:bg-brand-950',
+    solid: 'bg-brand-800 text-white hover:bg-brand-700',
     outline:
-      'border border-brand-300 text-brand-900 hover:bg-brand-50 active:bg-brand-100',
-    ghost: 'text-accent-700 hover:bg-accent-50 active:bg-accent-100',
+      'border border-brand-300 bg-white text-brand-800 hover:bg-brand-50',
+    ghost: 'text-accent-800 hover:bg-accent-50',
+    onDark:
+      'border border-white/50 bg-white/10 text-white hover:bg-white/20',
+    accent: 'bg-accent-500 text-[#202055] hover:bg-accent-300',
   }
 
   const classes = `${base} ${variants[variant]} ${className}`
 
   if (href) {
+    const isExternal =
+      external ||
+      href.startsWith('http') ||
+      href.startsWith('mailto:') ||
+      href.startsWith('tel:')
+
+    if (isExternal) {
+      const opensInNewTab = Boolean(external) || href.startsWith('http')
+      return (
+        <a
+          href={href}
+          className={classes}
+          aria-label={ariaLabel}
+          {...(opensInNewTab
+            ? { target: '_blank', rel: 'noopener noreferrer' }
+            : {})}
+        >
+          {children}
+        </a>
+      )
+    }
+
     return (
       <Link href={href} className={classes} aria-label={ariaLabel}>
         {children}

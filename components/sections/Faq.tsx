@@ -1,3 +1,4 @@
+import Button from '@/components/shared/Button'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import { faq, faqSection } from '@/content/site'
 import { appointmentHref } from '@/lib/whatsapp'
@@ -11,36 +12,27 @@ import { appointmentHref } from '@/lib/whatsapp'
  */
 export default function Faq() {
   const ctaHref = appointmentHref('Hola, tengo una consulta sobre la atención.')
-  const ctaIsExternal = ctaHref.startsWith('http')
 
   return (
-    <SectionWrapper id="preguntas" className="py-20 md:py-28 bg-white">
+    <SectionWrapper id="preguntas" className="bg-white py-20 md:py-28">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-accent-700">
             {faqSection.eyebrow}
           </p>
-          <h2 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-brand-900">
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-brand-800 md:text-4xl">
             {faqSection.title}
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-brand-700">
             {faqSection.subtitle}
           </p>
-
-          <a
-            href={ctaHref}
-            {...(ctaIsExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            className="mt-7 inline-flex items-center justify-center rounded-lg border border-brand-300 px-6 py-3.5 font-semibold text-brand-900 transition-colors hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
-          >
-            Hacer otra consulta
-          </a>
         </div>
 
         <ul className="divide-y divide-brand-200 border-y border-brand-200">
           {faq.map((item) => (
             <li key={item.question}>
               <details className="group py-1">
-                <summary className="flex min-h-11 cursor-pointer list-none items-start justify-between gap-4 rounded py-4 text-left text-lg font-bold text-brand-900 hover:text-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-4 [&::-webkit-details-marker]:hidden">
+                <summary className="flex min-h-11 cursor-pointer list-none items-start justify-between gap-4 rounded py-4 text-left text-lg font-bold text-brand-800 hover:text-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-4 [&::-webkit-details-marker]:hidden">
                   {item.question}
                   <span
                     className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-brand-300 text-accent-700 transition-transform group-open:rotate-45"
@@ -65,6 +57,12 @@ export default function Faq() {
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="mt-10 flex justify-end">
+        <Button href={ctaHref} external>
+          Hacer otra consulta
+        </Button>
       </div>
     </SectionWrapper>
   )

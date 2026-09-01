@@ -43,7 +43,7 @@ export default function WhatsAppButton({
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`Contactar por WhatsApp: ${label}`}
-        className="inline-flex items-center gap-2 px-7 py-3.5 font-semibold rounded-md transition-colors text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 text-white"
+        className="inline-flex items-center gap-2 px-7 py-3.5 font-semibold rounded-md cursor-pointer transition-colors text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 text-white"
         style={{ backgroundColor: '#25D366' }}
       >
         <span className="w-5 h-5 shrink-0">{WA_ICON}</span>
@@ -117,7 +117,7 @@ export default function WhatsAppButton({
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 w-full py-3 text-white text-sm font-semibold transition-opacity hover:opacity-90 focus-visible:outline-none"
+          className="flex cursor-pointer items-center justify-center gap-2 w-full py-3 text-white text-sm font-semibold transition-opacity hover:opacity-90 focus-visible:outline-none"
           style={{ backgroundColor: '#25D366' }}
           onClick={() => setOpen(false)}
         >

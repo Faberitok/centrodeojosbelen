@@ -1,3 +1,4 @@
+import Button from '@/components/shared/Button'
 import { brand, hero, locations, site } from '@/content/site'
 import { appointmentHref } from '@/lib/whatsapp'
 import Image from 'next/image'
@@ -12,7 +13,7 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden bg-brand-900 md:min-h-[calc(92svh-5rem)]"
+      className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden bg-[#202055] md:min-h-[calc(92svh-5rem)]"
     >
       {hero.image ? (
         <>
@@ -25,7 +26,7 @@ export default function Hero() {
             sizes="100vw"
           />
           <div
-            className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,18,0.96)_0%,rgba(13,13,34,0.87)_44%,rgba(13,13,34,0.35)_74%,rgba(7,7,18,0.12)_100%)]"
+            className="absolute inset-0 bg-[linear-gradient(90deg,rgba(32,32,85,0.92)_0%,rgba(32,32,85,0.78)_46%,rgba(32,32,85,0.32)_74%,rgba(32,32,85,0.08)_100%)]"
             aria-hidden="true"
           />
         </>
@@ -65,21 +66,21 @@ export default function Hero() {
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a
+            <Button
               href={primaryHref}
-              {...(primaryIsExternal
-                ? { target: '_blank', rel: 'noopener noreferrer' }
-                : {})}
-              className="inline-flex min-h-13 items-center justify-center rounded-full bg-accent-500 px-7 py-4 text-base font-bold text-brand-900 transition-colors hover:bg-accent-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
+              external={primaryIsExternal}
+              variant="accent"
+              className="rounded-full px-7 py-4 text-base"
             >
               {hero.ctaPrimary.label}
-            </a>
-            <Link
+            </Button>
+            <Button
               href={hero.ctaSecondary.href}
-              className="inline-flex min-h-13 items-center justify-center rounded-full border border-white/45 px-7 py-4 text-base font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-900"
+              variant="onDark"
+              className="rounded-full px-7 py-4 text-base"
             >
               {hero.ctaSecondary.label}
-            </Link>
+            </Button>
           </div>
 
           {mainLocation && (

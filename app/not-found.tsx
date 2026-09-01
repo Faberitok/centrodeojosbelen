@@ -17,13 +17,13 @@ export default function NotFound() {
       <div className="mt-9 flex flex-col gap-3 sm:flex-row">
         <Link
           href="/"
-          className="inline-flex items-center justify-center rounded-lg bg-brand-900 px-7 py-4 text-base font-bold text-white transition-colors hover:bg-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900 focus-visible:ring-offset-2"
+          className="inline-flex cursor-pointer items-center justify-center rounded-lg bg-brand-900 px-7 py-4 text-base font-bold text-white transition-colors hover:bg-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900 focus-visible:ring-offset-2"
         >
           Volver al inicio
         </Link>
         <Link
           href="/#contacto"
-          className="inline-flex items-center justify-center rounded-lg border border-brand-300 px-7 py-4 text-base font-semibold text-brand-900 transition-colors hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
+          className="inline-flex cursor-pointer items-center justify-center rounded-lg border border-brand-300 px-7 py-4 text-base font-semibold text-brand-900 transition-colors hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
         >
           Contactarnos
         </Link>

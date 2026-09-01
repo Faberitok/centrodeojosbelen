@@ -1,10 +1,46 @@
 export interface HealthPlan {
   name: string
-  note?: string
+  logo: string
+  href?: string
 }
 
-// Se completa únicamente con convenios confirmados y sus logos oficiales.
-export const healthPlans: HealthPlan[] = []
+export const healthPlans: HealthPlan[] = [
+  {
+    name: 'OSEP Catamarca',
+    logo: '/obras-sociales/osep.png',
+    href: 'https://www.osep.gob.ar/osep/',
+  },
+  {
+    name: 'Red de Seguro Médico',
+    logo: '/obras-sociales/red-seguro-medico.svg',
+    href: 'https://reddeseguromedico.com/',
+  },
+  {
+    name: 'OSDE',
+    logo: '/obras-sociales/osde.svg',
+    href: 'https://www.osde.com.ar/',
+  },
+  {
+    name: 'Swiss Medical',
+    logo: '/obras-sociales/swiss-medical.svg',
+    href: 'https://www.swissmedical.com.ar/prepagaclientes/',
+  },
+  {
+    name: 'Nobis',
+    logo: '/obras-sociales/nobis.svg',
+    href: 'https://nobis.com.ar/',
+  },
+  {
+    name: 'SanCor Salud',
+    logo: '/obras-sociales/sancor-salud.svg',
+    href: 'https://sancorsalud.com.ar/',
+  },
+  {
+    name: 'Medicus',
+    logo: '/obras-sociales/medicus.png',
+    href: 'https://medicus.com.ar/',
+  },
+]
 
 export const healthPlansSection = {
   eyebrow: 'Coberturas',

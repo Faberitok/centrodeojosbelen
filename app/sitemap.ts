@@ -11,6 +11,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
+  const extraPages = ['/nosotros', '/estudios', '/cirugias'] as const
+
   return [
     {
       url: siteUrl,
@@ -18,6 +20,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1,
     },
+    ...extraPages.map((path) => ({
+      url: `${siteUrl}${path}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
     ...detailPages,
   ]
 }

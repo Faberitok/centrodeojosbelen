@@ -70,7 +70,7 @@ export default function Navbar() {
           <a
             href={ctaHref}
             {...(ctaIsExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            className="hidden md:inline-flex items-center px-5 py-3 rounded-lg bg-brand-900 text-white text-[15px] font-semibold hover:bg-brand-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900 focus-visible:ring-offset-2"
+            className="hidden md:inline-flex cursor-pointer items-center px-5 py-3 rounded-lg bg-brand-900 text-white text-[15px] font-semibold hover:bg-brand-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900 focus-visible:ring-offset-2"
           >
             {nav.ctaLabel}
           </a>
@@ -80,7 +80,7 @@ export default function Navbar() {
             aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="-mr-2 rounded-lg p-3 text-brand-900 hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 xl:hidden"
+            className="-mr-2 cursor-pointer rounded-lg p-3 text-brand-900 hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 xl:hidden"
             onClick={() => setOpen((value) => !value)}
           >
             <svg
@@ -121,7 +121,7 @@ export default function Navbar() {
             <a
               href={ctaHref}
               {...(ctaIsExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              className="mt-5 inline-flex justify-center items-center px-5 py-3.5 rounded-lg bg-brand-900 text-white text-base font-semibold hover:bg-brand-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900 focus-visible:ring-offset-2"
+              className="mt-5 inline-flex cursor-pointer justify-center items-center px-5 py-3.5 rounded-lg bg-brand-900 text-white text-base font-semibold hover:bg-brand-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900 focus-visible:ring-offset-2"
               onClick={() => setOpen(false)}
             >
               {nav.ctaLabel}

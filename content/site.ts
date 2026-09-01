@@ -34,7 +34,7 @@ export const hero = {
   subtitle:
     'Atención oftalmológica integral para bebés, niños, adolescentes y adultos, con tecnología diagnóstica y seguimiento cercano.',
   ctaPrimary: { label: 'Solicitar turno por WhatsApp', href: 'whatsapp' as const },
-  ctaSecondary: { label: 'Conocer el centro', href: '#nosotros' },
+  ctaSecondary: { label: 'Conocer el centro', href: '/nosotros' },
   image: '/media/hero-centro.webp',
   imageAlt: 'Fachada de Centro de Ojos Belén',
 } as const
@@ -105,27 +105,6 @@ export const services: Service[] = [
     image: '/media/atencion-adultos-mayores.webp',
   },
 ]
-
-export const careStages = [
-  {
-    label: 'Primeros años',
-    title: 'Desarrollo visual',
-    description:
-      'Controles desde los primeros meses de vida para acompañar cómo aprende a ver cada niño.',
-  },
-  {
-    label: 'Vida adulta',
-    title: 'Prevención y diagnóstico',
-    description:
-      'Evaluaciones periódicas para detectar cambios y cuidar la visión antes de que aparezcan síntomas.',
-  },
-  {
-    label: 'Adultos mayores',
-    title: 'Seguimiento cercano',
-    description:
-      'Diagnóstico y control de cataratas, glaucoma y enfermedades de la retina.',
-  },
-] as const
 
 export interface Study {
   id: string
@@ -267,7 +246,10 @@ export interface Procedure {
   id: string
   title: string
   description: string
+  preparation: string
+  treatment: string
   href?: string
+  ctaLabel?: string
 }
 
 export const procedures: Procedure[] = [
@@ -275,32 +257,50 @@ export const procedures: Procedure[] = [
     id: 'cataratas',
     title: 'Cirugía de cataratas',
     description:
-      'Evaluación, estudios prequirúrgicos, planificación y seguimiento postoperatorio.',
+      'La catarata produce una pérdida progresiva de transparencia del cristalino. Su tratamiento es quirúrgico y consiste en reemplazar el cristalino opacificado por una lente intraocular.',
+    preparation:
+      'Antes de la cirugía realizamos una evaluación oftalmológica completa y los estudios necesarios para planificar el procedimiento y seleccionar la lente intraocular.',
+    treatment:
+      'Acompañamos al paciente durante todo el proceso: indicación, estudios prequirúrgicos, procedimiento y controles posteriores.',
     href: '/cirugia-de-cataratas',
+    ctaLabel: 'Ver página de cataratas',
   },
   {
     id: 'yag-laser',
     title: 'YAG láser',
     description:
-      'Procedimiento láser ambulatorio indicado para determinadas patologías del segmento anterior.',
+      'Procedimiento láser ambulatorio utilizado para determinadas patologías del segmento anterior y, especialmente, para el tratamiento de la opacificación de la cápsula posterior luego de una cirugía de cataratas.',
+    preparation:
+      'La indicación se confirma en consulta, con evaluación del segmento anterior y revisión de estudios previos cuando correspondan.',
+    treatment:
+      'Se realiza de forma ambulatoria. Luego del procedimiento indicamos controles y cuidados para el seguimiento.',
   },
   {
     id: 'inyecciones',
     title: 'Inyecciones intravítreas',
     description:
-      'Tratamiento de distintas enfermedades de la retina según indicación oftalmológica.',
+      'Procedimiento utilizado para el tratamiento de diferentes enfermedades retinales, como edema macular diabético, oclusiones vasculares retinales y determinadas enfermedades maculares.',
+    preparation:
+      'La indicación surge de la evaluación de la retina y, cuando corresponde, de estudios como OCT.',
+    treatment:
+      'El procedimiento se planifica de forma personalizada y se acompaña con controles posteriores para valorar la respuesta.',
   },
   {
     id: 'pterigion',
     title: 'Cirugía de pterigión',
-    description: 'Evaluación, indicación quirúrgica y seguimiento personalizado.',
+    description:
+      'Evaluación, indicación quirúrgica y seguimiento de pacientes con pterigión.',
+    preparation:
+      'En la consulta definimos si corresponde tratamiento médico o quirúrgico, según el tamaño, los síntomas y la evolución.',
+    treatment:
+      'Cuando hay indicación quirúrgica, planificamos el procedimiento y realizamos los controles posteriores.',
   },
 ]
 
 export interface ConditionPage {
   slug: string
-  eyebrow: string
   title: string
+  lead: string
   summary: string
   sections: { title: string; body: string }[]
   ctaLabel: string
@@ -312,18 +312,18 @@ export interface ConditionPage {
 export const conditionPages: ConditionPage[] = [
   {
     slug: 'cirugia-de-cataratas',
-    eyebrow: 'Cirugía de cataratas',
-    title: 'Volver a ver con claridad',
+    title: 'Cirugía de cataratas',
+    lead: 'Volver a ver con claridad',
     summary:
-      'La catarata es la pérdida progresiva de transparencia del cristalino. Puede provocar visión borrosa, menor contraste y molestias con las luces.',
+      'La catarata es la pérdida progresiva de transparencia del cristalino, una lente natural que se encuentra dentro del ojo. Puede provocar visión borrosa, disminución del contraste, molestias con las luces y cambios frecuentes en la graduación.',
     sections: [
       {
-        title: '¿Cómo se trata?',
-        body: 'El tratamiento definitivo es quirúrgico. Durante la cirugía se retira el cristalino opacificado y se implanta una lente intraocular calculada específicamente para cada paciente.',
+        title: 'Preparación',
+        body: 'Antes de la cirugía realizamos una evaluación oftalmológica completa y los estudios necesarios para planificar el procedimiento y seleccionar la lente intraocular.',
       },
       {
-        title: 'Evaluación prequirúrgica',
-        body: 'Antes de la cirugía realizamos una evaluación oftalmológica completa y los estudios necesarios para planificar el procedimiento y seleccionar la lente intraocular.',
+        title: 'Tratamiento',
+        body: 'El tratamiento definitivo es quirúrgico. Durante la cirugía se retira el cristalino opacificado y se implanta una lente intraocular calculada específicamente para cada paciente.',
       },
       {
         title: 'Seguimiento',
@@ -337,35 +337,39 @@ export const conditionPages: ConditionPage[] = [
   },
   {
     slug: 'glaucoma',
-    eyebrow: 'Glaucoma',
-    title: 'Puede avanzar sin dar síntomas',
+    title: 'Glaucoma',
+    lead: 'Puede avanzar sin dar síntomas',
     summary:
-      'El glaucoma comprende enfermedades capaces de producir daño progresivo del nervio óptico. En sus etapas iniciales puede no producir síntomas.',
+      'El glaucoma comprende un grupo de enfermedades capaces de producir daño progresivo del nervio óptico. En sus etapas iniciales puede no producir síntomas, por lo que los controles oftalmológicos periódicos son fundamentales para detectarlo tempranamente.',
     sections: [
       {
-        title: '¿Cómo lo estudiamos?',
+        title: 'Preparación',
         body: 'La evaluación puede incluir medición de presión intraocular, evaluación del nervio óptico, paquimetría corneal, OCT y otros estudios según cada paciente.',
       },
       {
-        title: 'La importancia del control',
-        body: 'Los controles oftalmológicos periódicos son fundamentales. El diagnóstico temprano permite iniciar tratamiento y disminuir el riesgo de pérdida visual.',
+        title: 'Tratamiento',
+        body: 'El diagnóstico temprano permite iniciar tratamiento y disminuir el riesgo de pérdida visual, con un seguimiento cercano de cada caso.',
       },
     ],
-    ctaLabel: 'Solicitar control',
+    ctaLabel: 'Solicitar control de glaucoma',
     whatsappMessage: 'Hola, quisiera solicitar un control de glaucoma.',
     image: '/media/tonometro-icare-100.webp',
     imageAlt: 'Tonómetro iCare para medición de presión intraocular',
   },
   {
     slug: 'queratocono',
-    eyebrow: 'Queratocono',
-    title: 'Diagnóstico y seguimiento',
+    title: 'Queratocono',
+    lead: 'Diagnóstico y seguimiento',
     summary:
-      'El queratocono produce un adelgazamiento y una modificación progresiva de la forma de la córnea. Puede generar astigmatismo irregular y disminución de la visión.',
+      'El queratocono es una enfermedad que produce un adelgazamiento y una modificación progresiva de la forma de la córnea. Puede generar astigmatismo irregular y disminución progresiva de la visión.',
     sections: [
       {
-        title: 'Topografía corneal',
-        body: 'La topografía corneal constituye una herramienta fundamental para detectar la enfermedad y acompañar su evolución con mediciones comparables.',
+        title: 'Preparación',
+        body: 'La topografía corneal constituye una herramienta fundamental para su detección. En la consulta definimos qué estudios complementar según cada paciente.',
+      },
+      {
+        title: 'Tratamiento',
+        body: 'El seguimiento con mediciones comparables permite acompañar la evolución y definir la conducta terapéutica más adecuada en cada etapa.',
       },
     ],
     ctaLabel: 'Solicitar topografía corneal',
@@ -375,14 +379,18 @@ export const conditionPages: ConditionPage[] = [
   },
   {
     slug: 'retinopatia-diabetica',
-    eyebrow: 'Retinopatía diabética',
-    title: 'Diabetes y salud visual',
+    title: 'Retinopatía diabética',
+    lead: 'Diabetes y salud visual',
     summary:
       'La diabetes puede afectar los pequeños vasos sanguíneos de la retina y producir retinopatía diabética. Durante sus primeras etapas puede no generar síntomas.',
     sections: [
       {
-        title: 'Controles aunque veas bien',
+        title: 'Preparación',
         body: 'Las personas con diabetes deben realizar controles oftalmológicos periódicos aunque tengan buena visión. La evaluación puede incluir fondo de ojos y estudios como OCT cuando estén indicados.',
+      },
+      {
+        title: 'Tratamiento',
+        body: 'Según cada caso, el seguimiento puede incluir controles periódicos, estudios complementarios y procedimientos como inyecciones intravítreas cuando estén indicados.',
       },
     ],
     ctaLabel: 'Solicitar control oftalmológico',
@@ -396,7 +404,7 @@ export const conditionPages: ConditionPage[] = [
 
 export const about = {
   eyebrow: 'El centro',
-  title: 'Atención integral, cerca de casa',
+  title: 'Nosotros',
   paragraphs: [
     'Centro de Ojos Belén nace con el objetivo de brindar atención oftalmológica integral en Belén y la región, acercando profesionales especializados y tecnología diagnóstica a nuestros pacientes.',
     'Nuestro modelo de atención integra en un mismo espacio la consulta, los estudios complementarios, el seguimiento de enfermedades oculares y la planificación de tratamientos y procedimientos quirúrgicos.',
@@ -415,6 +423,28 @@ export const about = {
   ],
   image: '/media/centro-interior.webp',
   imageAlt: 'Interior de Centro de Ojos Belén en Belén, Catamarca',
+  gallery: [
+    {
+      src: '/media/centro-interior.webp',
+      alt: 'Interior de Centro de Ojos Belén',
+    },
+    {
+      src: '/media/pasillo-centro.webp',
+      alt: 'Pasillo y consultorios de Centro de Ojos Belén',
+    },
+    {
+      src: '/media/sala-espera.webp',
+      alt: 'Sala de espera de Centro de Ojos Belén',
+    },
+    {
+      src: '/media/consultorio.webp',
+      alt: 'Consultorio oftalmológico de Centro de Ojos Belén',
+    },
+    {
+      src: '/media/hero-centro.webp',
+      alt: 'Fachada de Centro de Ojos Belén',
+    },
+  ],
 } as const
 
 export interface TeamMember {
@@ -429,14 +459,16 @@ export const team: TeamMember[] = [
   {
     name: 'Dr. Gonzalo Castro Barrientos',
     role: 'Médico especialista en Oftalmología · Oftalmología clínica y quirúrgica',
-    license: 'MP 2820 · ME 1483',
-    photo: '/media/dr-gonzalo-castro.webp',
+    license: 'MP 2820 / ME 1483',
+    photo: '/media/staff-gonzalo.webp',
     bio:
-      'Formación médica y residencia en Oftalmología en el Hospital Nacional de Clínicas. Especial interés en cirugía de cataratas, glaucoma y seguimiento de patologías oftalmológicas.',
+      'Formación médica y residencia en Oftalmología en el Hospital Nacional de Clínicas. Especial interés en cirugía de cataratas, glaucoma y seguimiento de patologías oftalmológicas. Miembro activo del Consejo Argentino de Oftalmología y parte de la Sociedad Catamarqueña de Oftalmología.',
   },
   {
     name: 'Dra. Carla Ferreyra',
     role: 'Médica oftalmóloga · Atención integral de bebés, niños y adultos',
+    license: 'MP 3229 / ME 1718',
+    photo: '/staff/carla.jpeg',
     bio:
       'Médica formada en la Universidad Nacional de Córdoba. Residencia en Oftalmología realizada en el Instituto Mostaza Sánchez, Córdoba.',
   },
@@ -544,8 +576,8 @@ export const faq: FaqItem[] = [
 ]
 
 export const faqSection = {
-  eyebrow: 'Preguntas frecuentes',
-  title: 'Lo que más nos consultan',
+  eyebrow: 'Consultas',
+  title: 'Preguntas frecuentes',
   subtitle:
     'Si tu duda no está acá, escribinos por WhatsApp y te respondemos sin compromiso.',
 } as const

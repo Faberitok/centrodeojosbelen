@@ -130,7 +130,7 @@ function LocationCard({ location }: { location: Location }) {
             href={location.mapDirectionsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-7 inline-flex items-center gap-2 rounded-lg bg-brand-900 px-6 py-3.5 font-semibold text-white transition-colors hover:bg-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900 focus-visible:ring-offset-2"
+            className="mt-7 inline-flex cursor-pointer items-center gap-2 rounded-lg bg-brand-900 px-6 py-3.5 font-semibold text-white transition-colors hover:bg-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-900 focus-visible:ring-offset-2"
           >
             {locationsSection.directionsLabel}
             <svg
