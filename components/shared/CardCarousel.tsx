@@ -18,7 +18,7 @@ interface CardCarouselProps {
 }
 
 const overlayButtonClass =
-  'absolute top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/50 bg-white/30 text-brand-800/60 shadow-none backdrop-blur-[2px] transition hover:bg-white/55 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600'
+  'absolute top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/50 bg-white/40 text-brand-800/70 shadow-none backdrop-blur-[2px] transition hover:bg-white/70 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600'
 
 function OverlayArrow({
   direction,
@@ -35,7 +35,7 @@ function OverlayArrow({
     <button
       type="button"
       aria-label={label}
-      className={`${overlayButtonClass} ${direction === 'prev' ? 'left-2' : 'right-2'} ${className}`}
+      className={`${overlayButtonClass} ${direction === 'prev' ? 'left-0' : 'right-0'} ${className}`}
       onClick={(event) => {
         event.stopPropagation()
         onClick()
@@ -81,6 +81,7 @@ function useDesktopGrid(gridClass: string) {
 }
 
 const TRANSITION_MS = 500
+const SWIPE_THRESHOLD = 24
 
 export default function CardCarousel({
   children,
@@ -99,6 +100,7 @@ export default function CardCarousel({
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLUListElement>(null)
   const pointerStartX = useRef<number | null>(null)
+  const pointerStartY = useRef<number | null>(null)
   const hoveringRef = useRef(false)
   const playingRef = useRef(false)
   const unlockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -223,12 +225,13 @@ export default function CardCarousel({
   return (
     <>
       {headerBlock}
+      <div className={`relative ${carouselActive ? 'px-11' : ''}`}>
       <div
         ref={viewportRef}
         role="region"
         tabIndex={0}
         aria-roledescription="carrusel"
-        className={`relative ${carouselActive ? 'overflow-hidden outline-none' : 'outline-none'}`}
+        className={carouselActive ? 'touch-pan-y overflow-hidden outline-none' : 'outline-none'}
         onMouseEnter={() => {
           hoveringRef.current = true
         }}
@@ -248,15 +251,22 @@ export default function CardCarousel({
         onPointerDown={(event) => {
           if (!carouselActive) return
           pointerStartX.current = event.clientX
+          pointerStartY.current = event.clientY
+          event.currentTarget.setPointerCapture(event.pointerId)
         }}
         onPointerUp={(event) => {
-          if (pointerStartX.current == null) return
-          const delta = event.clientX - pointerStartX.current
+          if (pointerStartX.current == null || pointerStartY.current == null) return
+          const deltaX = event.clientX - pointerStartX.current
+          const deltaY = event.clientY - pointerStartY.current
           pointerStartX.current = null
-          if (Math.abs(delta) > 40) go(delta < 0 ? 1 : -1)
+          pointerStartY.current = null
+          if (Math.abs(deltaX) < SWIPE_THRESHOLD) return
+          if (Math.abs(deltaX) <= Math.abs(deltaY)) return
+          go(deltaX < 0 ? 1 : -1)
         }}
         onPointerCancel={() => {
           pointerStartX.current = null
+          pointerStartY.current = null
         }}
       >
         <ul
@@ -284,6 +294,7 @@ export default function CardCarousel({
             )
           })}
         </ul>
+      </div>
         {carouselActive && (
           <>
             <OverlayArrow

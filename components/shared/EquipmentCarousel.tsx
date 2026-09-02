@@ -17,17 +17,17 @@ export default function EquipmentCarousel({ items }: { items: Equipment[] }) {
   }
 
   const overlayBtn =
-    'absolute top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/40 bg-white/25 text-white/80 backdrop-blur-[2px] transition hover:bg-white/45 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-300'
+    'absolute top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/50 bg-white/40 text-brand-800/70 backdrop-blur-[2px] transition hover:bg-white/70 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-300'
 
   return (
-    <div className="relative mt-10">
+    <div className="relative mt-10 px-11">
       {items.length > 1 && (
         <>
           <button
             type="button"
             onClick={() => move(-1)}
             aria-label="Ver equipo anterior"
-            className={`${overlayBtn} left-2`}
+            className={`${overlayBtn} left-0`}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
               <path d="m15 18-6-6 6-6" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
@@ -37,7 +37,7 @@ export default function EquipmentCarousel({ items }: { items: Equipment[] }) {
             type="button"
             onClick={() => move(1)}
             aria-label="Ver equipo siguiente"
-            className={`${overlayBtn} right-2`}
+            className={`${overlayBtn} right-0`}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
               <path d="m9 18 6-6-6-6" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
