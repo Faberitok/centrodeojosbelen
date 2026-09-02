@@ -11,7 +11,7 @@ export default function HealthPlans() {
         nextLabel="Ver cobertura siguiente"
         infinite
         autoplay
-        itemClassName="w-[min(70vw,16rem)] shrink-0"
+        itemClassName="w-[72%] max-w-[16rem] shrink-0"
         listClassName="mt-10"
         header={
           <div className="max-w-2xl">

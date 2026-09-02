@@ -17,44 +17,6 @@ interface CardCarouselProps {
   headerLayout?: 'beside' | 'below'
 }
 
-const overlayButtonClass =
-  'absolute top-1/2 z-10 inline-flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/50 bg-white/40 text-brand-800/70 shadow-none backdrop-blur-[2px] transition hover:bg-white/70 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600'
-
-function OverlayArrow({
-  direction,
-  label,
-  onClick,
-  className = '',
-}: {
-  direction: 'prev' | 'next'
-  label: string
-  onClick: () => void
-  className?: string
-}) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      className={`${overlayButtonClass} ${direction === 'prev' ? 'left-0' : 'right-0'} ${className}`}
-      onClick={(event) => {
-        event.stopPropagation()
-        onClick()
-      }}
-      onPointerDown={(event) => event.stopPropagation()}
-      onPointerUp={(event) => event.stopPropagation()}
-    >
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
-        <path
-          d={direction === 'prev' ? 'm15 18-6-6 6-6' : 'm9 18 6-6-6-6'}
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </button>
-  )
-}
-
 function desktopMediaQuery(gridClass: string) {
   if (gridClass.includes('lg:grid') || gridClass.includes('lg:flex-col')) {
     return '(min-width: 1024px)'
@@ -86,14 +48,14 @@ const SWIPE_THRESHOLD = 24
 export default function CardCarousel({
   children,
   ariaLabel,
-  prevLabel,
-  nextLabel,
+  prevLabel: _prevLabel,
+  nextLabel: _nextLabel,
   infinite = true,
   autoplay = false,
-  itemClassName = 'w-[82vw] max-w-[32rem] shrink-0',
+  itemClassName = 'w-[85%] max-w-[32rem] shrink-0',
   listClassName = '',
   desktopGridClassName = '',
-  controlsClassName = '',
+  controlsClassName: _controlsClassName,
   header,
   headerLayout = 'beside',
 }: CardCarouselProps) {
@@ -124,6 +86,10 @@ export default function CardCarousel({
     setIndex(looping ? slideCount : 0)
   }
 
+  const activeIndex = looping
+    ? ((index % slideCount) + slideCount) % slideCount
+    : index
+
   function measureStep() {
     const track = trackRef.current
     const first = track?.children[0] as HTMLElement | undefined
@@ -150,6 +116,13 @@ export default function CardCarousel({
       }
       return current + direction
     })
+    unlockTimerRef.current = setTimeout(unlock, TRANSITION_MS + 40)
+  }
+
+  function goTo(target: number) {
+    if (gridMode || slideCount < 2 || target === activeIndex) return
+    playingRef.current = true
+    setIndex(looping ? slideCount + target : target)
     unlockTimerRef.current = setTimeout(unlock, TRANSITION_MS + 40)
   }
 
@@ -225,12 +198,12 @@ export default function CardCarousel({
   return (
     <>
       {headerBlock}
-      <div className={`relative ${carouselActive ? 'px-11' : ''}`}>
       <div
         ref={viewportRef}
         role="region"
         tabIndex={0}
         aria-roledescription="carrusel"
+        aria-label={ariaLabel}
         className={carouselActive ? 'touch-pan-y overflow-hidden outline-none' : 'outline-none'}
         onMouseEnter={() => {
           hoveringRef.current = true
@@ -271,10 +244,9 @@ export default function CardCarousel({
       >
         <ul
           ref={trackRef}
-          aria-label={ariaLabel}
-          className={`flex gap-5 ${gridMode ? `${desktopGridClassName} translate-x-0` : ''} ${
-            looping && step === 0 ? 'invisible' : ''
-          } ${listClassName}`}
+          className={`flex gap-5 ${carouselActive ? 'w-full' : ''} ${
+            gridMode ? `${desktopGridClassName} translate-x-0` : ''
+          } ${looping && step === 0 ? 'invisible' : ''} ${listClassName}`}
           style={
             carouselActive
               ? {
@@ -295,23 +267,27 @@ export default function CardCarousel({
           })}
         </ul>
       </div>
-        {carouselActive && (
-          <>
-            <OverlayArrow
-              direction="prev"
-              label={prevLabel}
-              onClick={() => go(-1)}
-              className={controlsClassName}
-            />
-            <OverlayArrow
-              direction="next"
-              label={nextLabel}
-              onClick={() => go(1)}
-              className={controlsClassName}
-            />
-          </>
-        )}
-      </div>
+
+      {carouselActive && (
+        <div className="mt-5 flex justify-center gap-2" role="tablist" aria-label={ariaLabel}>
+          {slides.map((_, slideIndex) => {
+            const current = slideIndex === activeIndex
+            return (
+              <button
+                key={slideIndex}
+                type="button"
+                role="tab"
+                aria-selected={current}
+                aria-label={`${slideIndex + 1} de ${slideCount}`}
+                className={`h-2 rounded-full transition-all ${
+                  current ? 'w-6 bg-accent-600' : 'w-2 bg-brand-200 hover:bg-brand-300'
+                }`}
+                onClick={() => goTo(slideIndex)}
+              />
+            )
+          })}
+        </div>
+      )}
     </>
   )
 }

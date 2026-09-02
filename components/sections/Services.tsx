@@ -12,7 +12,7 @@ export default function Services() {
         nextLabel="Ver etapa siguiente"
         controlsClassName="lg:hidden"
         infinite
-        itemClassName="w-[82vw] max-w-[28rem] shrink-0 lg:w-auto lg:max-w-none"
+        itemClassName="w-[85%] max-w-[28rem] shrink-0 lg:w-auto lg:max-w-none"
         desktopGridClassName="lg:grid lg:grid-cols-3 lg:overflow-visible"
         listClassName="mt-12"
         header={

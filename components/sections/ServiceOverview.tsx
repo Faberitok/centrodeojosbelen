@@ -39,7 +39,7 @@ export default function ServiceOverview() {
         ariaLabel="Nuestros servicios"
         prevLabel="Ver servicio anterior"
         nextLabel="Ver servicio siguiente"
-        itemClassName="w-[82vw] max-w-[28rem] shrink-0 md:w-auto md:max-w-none"
+        itemClassName="w-[85%] max-w-[28rem] shrink-0 md:w-auto md:max-w-none"
         desktopGridClassName="md:grid md:grid-cols-2 md:overflow-visible"
         listClassName="mt-12"
         infinite

@@ -12,7 +12,7 @@ export default function ConditionCards() {
         prevLabel="Ver condición anterior"
         nextLabel="Ver condición siguiente"
         infinite
-        itemClassName="w-[86vw] max-w-[32rem] shrink-0 sm:w-[30rem] lg:w-[32rem]"
+        itemClassName="w-[85%] max-w-[32rem] shrink-0 sm:w-[30rem] lg:w-[32rem]"
         listClassName="mt-12"
         header={
           <div className="max-w-2xl">
