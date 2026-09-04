@@ -29,7 +29,6 @@ export const site = {
 // ─── Inicio ───────────────────────────────────────────────────────────────────
 
 export const hero = {
-  eyebrow: 'Centro de Ojos Belén',
   headline: 'Cuidamos tu visión\nen cada etapa de la vida.',
   subtitle:
     'Atención oftalmológica integral para bebés, niños, adolescentes y adultos, con tecnología diagnóstica y seguimiento cercano.',

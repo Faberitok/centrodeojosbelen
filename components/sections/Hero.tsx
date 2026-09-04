@@ -22,22 +22,22 @@ export default function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[50%_10%] md:object-top"
         />
       )}
 
       <div
-        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.28)_38%,rgba(255,255,255,0.82)_72%,#ffffff_100%)] md:bg-[linear-gradient(90deg,#ffffff_0%,rgba(255,255,255,0.94)_32%,rgba(255,255,255,0.55)_58%,rgba(255,255,255,0)_86%)]"
+        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.45)_22%,rgba(255,255,255,0.88)_38%,rgba(255,255,255,0.97)_52%,#ffffff_70%)] md:bg-[linear-gradient(90deg,#ffffff_0%,rgba(255,255,255,0.94)_32%,rgba(255,255,255,0.55)_58%,rgba(255,255,255,0)_86%)]"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-x-0 bottom-0 h-[70%] bg-white/25 backdrop-blur-sm md:hidden"
         aria-hidden="true"
       />
 
       <div className="relative z-10 w-full">
-        <div className="mx-auto w-full max-w-[1140px] px-6 pb-8 pt-24 md:pb-16 md:pt-20">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-800">
-            {hero.eyebrow}
-          </p>
-
-          <h1 className="mt-4 max-w-[18ch] text-4xl font-extrabold leading-[1.08] tracking-[-0.035em] text-brand-800 md:max-w-none md:text-6xl">
+        <div className="mx-auto w-full max-w-[1140px] px-6 pb-8 pt-10 md:pb-16 md:pt-20">
+          <h1 className="max-w-[18ch] text-4xl font-extrabold leading-[1.08] tracking-[-0.035em] text-brand-800 md:max-w-none md:text-6xl">
             {hero.headline.split('\n').map((line, index) => (
               <span key={line}>
                 {index > 0 && <br />}
@@ -55,14 +55,16 @@ export default function Hero() {
               href={primaryHref}
               external={primaryIsExternal}
               variant="accent"
-              className="w-full rounded-xl px-6 py-3.5 text-white hover:bg-accent-600 md:w-auto"
+              size="sm"
+              className="w-full rounded-xl px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-600 md:w-auto md:px-6 md:py-3 md:text-base"
             >
               {hero.ctaPrimary.label}
             </Button>
             <Button
               href={hero.ctaSecondary.href}
               variant="outline"
-              className="w-full rounded-xl border-brand-800 bg-white/70 px-6 py-3.5 text-brand-800 hover:bg-white md:w-auto"
+              size="sm"
+              className="w-full rounded-xl border-brand-800 bg-white/70 px-5 py-2.5 text-sm font-medium text-brand-800 hover:bg-white md:w-auto md:px-6 md:py-3 md:text-base"
             >
               {hero.ctaSecondary.label}
             </Button>
