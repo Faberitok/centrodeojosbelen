@@ -1,5 +1,6 @@
 'use client'
 
+import EmergencyButton from '@/components/shared/EmergencyButton'
 import { whatsappHref } from '@/lib/whatsapp'
 import { useEffect, useRef, useState } from 'react'
 
@@ -34,9 +35,9 @@ export default function WhatsAppButton({
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [open])
 
-  if (!href) return null
-
   if (variant === 'inline') {
+    if (!href) return null
+
     return (
       <a
         href={href}
@@ -57,13 +58,13 @@ export default function WhatsAppButton({
       ref={popupRef}
       className="pointer-events-none fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-50 flex flex-col items-end gap-3 max-w-[calc(100vw-1.5rem)]"
     >
-      {/* Chat popup */}
+      {href ? (
       <div
         role="dialog"
         aria-label="Chat de WhatsApp"
         aria-hidden={!open}
         className={[
-          'w-[min(18rem,calc(100vw-1.5rem))] rounded-2xl overflow-hidden shadow-2xl',
+          'absolute bottom-full right-0 mb-3 w-[min(18rem,calc(100vw-1.5rem))] rounded-2xl overflow-hidden shadow-2xl',
           'transition-all duration-300 origin-bottom-right',
           open
             ? 'opacity-100 scale-100 pointer-events-auto'
@@ -125,8 +126,12 @@ export default function WhatsAppButton({
           Solicitar turno
         </a>
       </div>
+      ) : null}
+
+      <EmergencyButton />
 
       {/* Trigger button */}
+      {href ? (
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Cerrar chat de WhatsApp' : 'Abrir chat de WhatsApp'}
@@ -157,6 +162,7 @@ export default function WhatsAppButton({
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
+      ) : null}
     </div>
   )
 }

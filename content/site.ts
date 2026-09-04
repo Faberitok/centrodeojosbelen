@@ -35,6 +35,7 @@ export const hero = {
     'Atención oftalmológica integral para bebés, niños, adolescentes y adultos, con tecnología diagnóstica y seguimiento cercano.',
   ctaPrimary: { label: 'Solicitar turno por WhatsApp', href: 'whatsapp' as const },
   ctaSecondary: { label: 'Conocer el centro', href: '/nosotros' },
+  locationCta: 'Ver ubicación',
   image: '/media/hero-centro.webp',
   imageAlt: 'Fachada de Centro de Ojos Belén',
 } as const
@@ -354,7 +355,7 @@ export const procedures: Procedure[] = [
       'Antes de la cirugía realizamos una evaluación oftalmológica completa y los estudios necesarios para planificar el procedimiento y seleccionar la lente intraocular.',
     treatment:
       'Acompañamos al paciente durante todo el proceso: indicación, estudios prequirúrgicos, procedimiento y controles posteriores.',
-    image: '/media/evaluacion-cataratas.webp',
+    image: '/institucional/cataratas.jpeg',
     imageAlt: 'Evaluación oftalmológica para cirugía de cataratas',
     dateLabel: 'Según evaluación previa',
     statusLabel: 'Con indicación médica',
@@ -440,7 +441,7 @@ export const conditionPages: ConditionPage[] = [
     ],
     ctaLabel: 'Solicitar evaluación de cataratas',
     whatsappMessage: 'Hola, quisiera solicitar una evaluación de cataratas.',
-    image: '/media/evaluacion-cataratas.webp',
+    image: '/institucional/cataratas.jpeg',
     imageAlt: 'Profesional de Centro de Ojos Belén junto a equipo oftalmológico',
   },
   {
@@ -727,6 +728,11 @@ export const faq: FaqItem[] = [
     question: '¿Cómo solicito un turno?',
     answer:
       'Podés comunicarte directamente con nuestro equipo mediante WhatsApp.',
+  },
+  {
+    question: '¿Tienen guardia las 24 horas?',
+    answer:
+      'Sí. Ante una urgencia oftalmológica podés llamar al 3804-100707 las 24 horas.',
   },
   {
     question: '¿Dónde están ubicados?',

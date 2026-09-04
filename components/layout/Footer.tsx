@@ -77,9 +77,10 @@ export default function Footer() {
                 <li key={phone}>
                   <a
                     href={`tel:${phone.replace(/[^\d+]/g, '')}`}
-                    className="inline-flex min-h-11 items-center rounded text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
+                    className="flex min-h-11 flex-col justify-center rounded text-brand-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400"
                   >
-                    {phone}
+                    <span>{phone}</span>
+                    <span className="text-xs text-brand-400">{contact.emergency.label}</span>
                   </a>
                 </li>
               ))}

@@ -5,6 +5,12 @@ export const contact = {
   phones: ['3804-100707'],
   email: null as string | null,
   whatsappLabel: 'Solicitar turno por WhatsApp',
+  emergency: {
+    label: 'Guardia 24 hs',
+    badge: '24 hs',
+    ariaLabel: 'Llamar a la guardia oftalmológica las 24 horas',
+    contactNote: 'Urgencias oftalmológicas, las 24 horas.',
+  },
   form: {
     nameLabel: 'Nombre y apellido',
     namePlaceholder: 'Tu nombre completo',

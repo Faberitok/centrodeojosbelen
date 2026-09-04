@@ -23,7 +23,7 @@ export default function Contact() {
           <dl className="mt-10 space-y-6 border-t border-brand-200 pt-8">
             <div>
               <dt className="text-sm font-bold uppercase tracking-wide text-brand-500">
-                Teléfonos
+                {contact.emergency.label}
               </dt>
               <dd className="mt-1">
                 {contact.phones.map((phone) => (
@@ -35,6 +35,7 @@ export default function Contact() {
                     {phone}
                   </a>
                 ))}
+                <p className="mt-1 text-sm text-brand-600">{contact.emergency.contactNote}</p>
               </dd>
             </div>
 
