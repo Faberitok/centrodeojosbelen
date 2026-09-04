@@ -27,17 +27,22 @@ export default function Hero() {
       )}
 
       <div
-        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.45)_22%,rgba(255,255,255,0.88)_38%,rgba(255,255,255,0.97)_52%,#ffffff_70%)] md:bg-[linear-gradient(90deg,#ffffff_0%,rgba(255,255,255,0.94)_32%,rgba(255,255,255,0.55)_58%,rgba(255,255,255,0)_86%)]"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-x-0 bottom-0 h-[70%] bg-white/25 backdrop-blur-sm md:hidden"
+        className="absolute inset-0 hidden bg-[linear-gradient(90deg,#ffffff_0%,#ffffff_48%,rgba(255,255,255,0.96)_62%,rgba(255,255,255,0.5)_78%,rgba(255,255,255,0)_96%)] md:block"
         aria-hidden="true"
       />
 
       <div className="relative z-10 w-full">
-        <div className="mx-auto w-full max-w-[1140px] px-6 pb-8 pt-10 md:pb-16 md:pt-20">
-          <h1 className="max-w-[18ch] text-4xl font-extrabold leading-[1.08] tracking-[-0.035em] text-brand-800 md:max-w-none md:text-6xl">
+        <div
+          className="pointer-events-none absolute inset-x-0 top-[1.2rem] h-28 -translate-y-full bg-gradient-to-t from-white to-transparent md:hidden"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 top-[1.2rem] bottom-0 bg-white md:hidden"
+          aria-hidden="true"
+        />
+
+        <div className="relative mx-auto w-full max-w-[1140px] px-6 pb-8 pt-0 md:pb-16 md:pt-20">
+          <h1 className="max-w-[18ch] text-4xl font-extrabold leading-[1.08] tracking-[-0.035em] text-brand-800 md:max-w-[20ch] md:text-6xl">
             {hero.headline.split('\n').map((line, index) => (
               <span key={line}>
                 {index > 0 && <br />}

@@ -533,6 +533,10 @@ export const about = {
   imageAlt: 'Interior de Centro de Ojos Belén en Belén, Catamarca',
   gallery: [
     {
+      src: '/institucional/belen2.jpeg',
+      alt: 'Sala de espera de Centro de Ojos Belén',
+    },
+    {
       src: '/media/centro-interior.webp',
       alt: 'Interior de Centro de Ojos Belén',
     },
@@ -541,12 +545,12 @@ export const about = {
       alt: 'Pasillo y consultorios de Centro de Ojos Belén',
     },
     {
-      src: '/media/sala-espera.webp',
-      alt: 'Sala de espera de Centro de Ojos Belén',
+      src: '/institucional/belen.jpeg',
+      alt: 'Consultorios de Centro de Ojos Belén',
     },
     {
-      src: '/media/consultorio.webp',
-      alt: 'Consultorio oftalmológico de Centro de Ojos Belén',
+      src: '/institucional/consultorio.jpeg',
+      alt: 'Equipamiento de consultorio en Centro de Ojos Belén',
     },
     {
       src: '/media/hero-centro.webp',
@@ -760,7 +764,13 @@ export const footer = {
   tagline:
     'Cuidamos tu visión en cada etapa de la vida.',
   links: nav.links,
-  social: [] as SocialLink[],
+  social: [
+    {
+      network: 'instagram',
+      label: 'Instagram',
+      href: 'https://www.instagram.com/centrodeojosbelen/',
+    },
+  ] as SocialLink[],
   // El año NO se calcula acá: content/site.ts lo importan componentes de
   // cliente, así que new Date() terminaría corriendo en el navegador y podría
   // no coincidir con el HTML del servidor. Lo resuelve el Footer.

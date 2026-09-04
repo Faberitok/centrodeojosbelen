@@ -14,7 +14,7 @@ export default function Services() {
         infinite
         itemClassName="w-[85%] max-w-[28rem] shrink-0 lg:w-auto lg:max-w-none"
         desktopGridClassName="lg:grid lg:grid-cols-3 lg:overflow-visible"
-        listClassName="mt-12"
+        listClassName="mt-12 items-stretch"
         header={
           <div className="max-w-2xl">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent-700">
@@ -47,8 +47,10 @@ export default function Services() {
             )}
 
             <div className="flex flex-1 flex-col p-6">
-              <h3 className="text-xl font-bold text-brand-900">{service.title}</h3>
-              <p className="mb-5 mt-2 leading-relaxed text-brand-700">{service.description}</p>
+              <h3 className="min-h-[1.75rem] text-xl font-bold text-brand-900">{service.title}</h3>
+              <p className="mb-5 mt-2 line-clamp-2 min-h-[3.3em] leading-relaxed text-brand-700">
+                {service.description}
+              </p>
 
               <ul className="mt-auto space-y-2.5 border-t border-brand-100 pt-5">
                 {service.details.map((detail) => (

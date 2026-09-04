@@ -244,7 +244,7 @@ export default function CardCarousel({
       >
         <ul
           ref={trackRef}
-          className={`flex gap-5 ${carouselActive ? 'w-full' : ''} ${
+          className={`flex items-stretch gap-5 ${carouselActive ? 'w-full' : ''} ${
             gridMode ? `${desktopGridClassName} translate-x-0` : ''
           } ${looping && step === 0 ? 'invisible' : ''} ${listClassName}`}
           style={
@@ -260,7 +260,7 @@ export default function CardCarousel({
             const copy = looping ? Math.floor(slideIndex / slideCount) : 0
             const item = looping ? slideIndex % slideCount : slideIndex
             return (
-              <li key={`${copy}-${item}`} className={`${itemClassName} flex [&>*]:h-full [&>*]:w-full`}>
+              <li key={`${copy}-${item}`} className={`${itemClassName} flex self-stretch [&>*]:h-full [&>*]:w-full`}>
                 {slide}
               </li>
             )

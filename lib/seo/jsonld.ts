@@ -1,4 +1,4 @@
-import { contact, faq, locations, site } from '@/content/site'
+import { contact, faq, footer, locations, site } from '@/content/site'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || 'http://localhost:3000'
 
@@ -25,6 +25,9 @@ export function buildClinicJsonLd() {
     medicalSpecialty: 'Ophthalmologic',
     ...(contact.email ? { email: contact.email } : {}),
     telephone: location.phones,
+    ...(footer.social.length > 0
+      ? { sameAs: footer.social.map((item) => item.href) }
+      : {}),
     address: {
       '@type': 'PostalAddress',
       streetAddress: location.street,

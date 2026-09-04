@@ -58,16 +58,20 @@ export default function Staff() {
                 )}
               </div>
               <div className="flex flex-1 flex-col p-6 md:p-8">
-                <h3 className="text-xl font-extrabold text-brand-800 sm:text-2xl">{member.name}</h3>
-                <p className="mt-2 text-sm font-semibold leading-relaxed text-accent-800 sm:text-base">
+                <h3 className="min-h-[3.5rem] text-xl font-extrabold text-brand-800 sm:min-h-[3.25rem] sm:text-2xl">
+                  {member.name}
+                </h3>
+                <p className="mt-2 line-clamp-3 min-h-[4.5rem] text-sm font-semibold leading-relaxed text-accent-800 sm:text-base">
                   {member.role}
                 </p>
-                {member.license && (
-                  <p className="mt-3 inline-flex w-fit rounded-full bg-accent-50 px-3 py-1 text-xs font-bold tracking-wide text-accent-800">
-                    {member.license}
-                  </p>
-                )}
-                <p className="mt-4 text-[15px] leading-relaxed text-brand-700">{member.bio}</p>
+                <div className="mt-3 min-h-[1.75rem]">
+                  {member.license && (
+                    <p className="inline-flex w-fit rounded-full bg-accent-50 px-3 py-1 text-xs font-bold tracking-wide text-accent-800">
+                      {member.license}
+                    </p>
+                  )}
+                </div>
+                <p className="mt-4 flex-1 text-[15px] leading-relaxed text-brand-700">{member.bio}</p>
               </div>
             </article>
           ))}

@@ -61,12 +61,9 @@ export default async function ConditionPage({ params }: PageProps) {
               <p className="mt-6 text-lg leading-relaxed text-white/90 md:text-xl">
                 {condition.summary}
               </p>
-              <div className="mt-9 flex flex-wrap gap-3">
+              <div className="mt-9">
                 <Button href={ctaHref} external variant="accent">
                   {condition.ctaLabel}
-                </Button>
-                <Button href="/" variant="onDark">
-                  Ir al inicio
                 </Button>
               </div>
             </div>
