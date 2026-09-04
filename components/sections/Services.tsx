@@ -47,12 +47,12 @@ export default function Services() {
             )}
 
             <div className="flex flex-1 flex-col p-6">
-              <h3 className="min-h-[1.75rem] text-xl font-bold text-brand-900">{service.title}</h3>
-              <p className="mb-5 mt-2 line-clamp-2 min-h-[3.3em] leading-relaxed text-brand-700">
+              <h3 className="text-xl font-bold text-brand-900">{service.title}</h3>
+              <p className="mt-2 min-h-[4.875em] leading-relaxed text-brand-700 lg:min-h-[3.25em]">
                 {service.description}
               </p>
 
-              <ul className="mt-auto space-y-2.5 border-t border-brand-100 pt-5">
+              <ul className="mt-5 space-y-2.5 border-t border-brand-100 pt-5">
                 {service.details.map((detail) => (
                   <li
                     key={detail}
@@ -66,6 +66,7 @@ export default function Services() {
                   </li>
                 ))}
               </ul>
+              <div className="flex-1" aria-hidden="true" />
             </div>
           </article>
         ))}
