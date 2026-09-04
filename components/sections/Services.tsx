@@ -12,8 +12,7 @@ export default function Services() {
         nextLabel="Ver etapa siguiente"
         controlsClassName="lg:hidden"
         infinite
-        itemClassName="w-[85%] max-w-[28rem] shrink-0 lg:w-auto lg:max-w-none"
-        desktopGridClassName="lg:grid lg:grid-cols-3 lg:overflow-visible"
+        itemClassName="w-[85%] max-w-[28rem] shrink-0 lg:w-[22rem] lg:max-w-none"
         listClassName="mt-12 items-stretch"
         header={
           <div className="max-w-2xl">

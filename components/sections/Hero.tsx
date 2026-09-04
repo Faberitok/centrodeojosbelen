@@ -22,7 +22,7 @@ export default function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[50%_10%] md:object-top"
+          className="object-cover object-[center_28%] md:object-top"
         />
       )}
 
@@ -33,7 +33,7 @@ export default function Hero() {
 
       <div className="relative z-10 w-full">
         <div
-          className="pointer-events-none absolute inset-x-0 top-[1.2rem] h-28 -translate-y-full bg-gradient-to-t from-white to-transparent md:hidden"
+          className="pointer-events-none absolute inset-x-0 top-[1.2rem] h-32 -translate-y-full bg-gradient-to-t from-white to-transparent md:hidden"
           aria-hidden="true"
         />
         <div
@@ -50,28 +50,37 @@ export default function Hero() {
               </span>
             ))}
           </h1>
+          <div
+            className="mt-3 h-1.5 w-14 rounded-full bg-accent-500"
+            aria-hidden="true"
+          />
 
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-brand-800 md:text-lg">
             {hero.subtitle}
           </p>
 
-          <div className="mt-7 flex flex-col gap-3 md:flex-row md:flex-wrap">
+          <div className="mt-7 flex w-3/4 flex-col gap-2.5 md:w-auto md:flex-row md:flex-wrap">
             <Button
               href={primaryHref}
               external={primaryIsExternal}
               variant="accent"
               size="sm"
-              className="w-full rounded-xl px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-600 md:w-auto md:px-6 md:py-3 md:text-base"
+              className="box-border h-10 w-full !justify-start gap-2 rounded-xl px-4 text-sm font-semibold text-white hover:bg-accent-600 md:w-auto"
             >
+              <CalendarIcon />
               {hero.ctaPrimary.label}
             </Button>
             <Button
               href={hero.ctaSecondary.href}
               variant="outline"
               size="sm"
-              className="w-full rounded-xl border-brand-800 bg-white/70 px-5 py-2.5 text-sm font-medium text-brand-800 hover:bg-white md:w-auto md:px-6 md:py-3 md:text-base"
+              className="box-border h-10 w-full !justify-between rounded-xl border-brand-800 bg-transparent px-4 text-left text-sm font-semibold text-brand-800 hover:bg-white md:w-auto"
             >
-              {hero.ctaSecondary.label}
+              <span className="inline-flex items-center gap-2">
+                <BuildingIcon />
+                {hero.ctaSecondary.label}
+              </span>
+              <ArrowIcon />
             </Button>
           </div>
 
@@ -94,6 +103,51 @@ export default function Hero() {
 
       <span className="sr-only">{site.description}</span>
     </section>
+  )
+}
+
+function CalendarIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      className="h-4 w-4 shrink-0"
+      aria-hidden="true"
+    >
+      <rect x="3.5" y="5" width="17" height="15" rx="2" strokeWidth="1.8" />
+      <path d="M8 3v4M16 3v4M3.5 10h17" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function BuildingIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      className="h-4 w-4 shrink-0"
+      aria-hidden="true"
+    >
+      <path d="M5 20V6h14v14" strokeWidth="1.8" strokeLinejoin="round" />
+      <path d="M9 20v-4h6v4" strokeWidth="1.8" strokeLinejoin="round" />
+      <path d="M12 8.5v4M10 10.5h4" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function ArrowIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      className="h-4 w-4 shrink-0"
+      aria-hidden="true"
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   )
 }
 

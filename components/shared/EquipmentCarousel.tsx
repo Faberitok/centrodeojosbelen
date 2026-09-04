@@ -4,8 +4,16 @@ import type { Equipment } from '@/content/site'
 import Image from 'next/image'
 import { useRef } from 'react'
 
+const DRAG_THRESHOLD = 8
+
 export default function EquipmentCarousel({ items }: { items: Equipment[] }) {
   const trackRef = useRef<HTMLUListElement>(null)
+  const dragRef = useRef<{
+    pointerId: number
+    startX: number
+    scrollLeft: number
+    dragged: boolean
+  } | null>(null)
 
   function move(direction: -1 | 1) {
     const track = trackRef.current
@@ -49,7 +57,37 @@ export default function EquipmentCarousel({ items }: { items: Equipment[] }) {
       <ul
         ref={trackRef}
         aria-label="Equipamiento del centro"
-        className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-color:#4EBBD1_transparent] [scrollbar-width:thin]"
+        className="flex cursor-grab snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-color:#4EBBD1_transparent] [scrollbar-width:thin] active:cursor-grabbing [&_img]:pointer-events-none"
+        onDragStart={(event) => event.preventDefault()}
+        onPointerDown={(event) => {
+          dragRef.current = {
+            pointerId: event.pointerId,
+            startX: event.clientX,
+            scrollLeft: event.currentTarget.scrollLeft,
+            dragged: false,
+          }
+        }}
+        onPointerMove={(event) => {
+          const drag = dragRef.current
+          const track = trackRef.current
+          if (!drag || !track || event.pointerId !== drag.pointerId) return
+          const delta = event.clientX - drag.startX
+          if (Math.abs(delta) <= DRAG_THRESHOLD) return
+          drag.dragged = true
+          if (!track.hasPointerCapture(event.pointerId)) {
+            track.setPointerCapture(event.pointerId)
+          }
+          track.scrollLeft = drag.scrollLeft - delta
+        }}
+        onPointerUp={(event) => {
+          dragRef.current = null
+          if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+            event.currentTarget.releasePointerCapture(event.pointerId)
+          }
+        }}
+        onPointerCancel={() => {
+          dragRef.current = null
+        }}
       >
         {items.map((item) => (
           <li

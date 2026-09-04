@@ -12,8 +12,7 @@ export default function Staff() {
           nextLabel="Ver profesional siguiente"
           infinite
           controlsClassName="md:hidden"
-          itemClassName="w-[85%] max-w-[24rem] shrink-0 md:w-auto md:max-w-none"
-          desktopGridClassName="md:grid md:grid-cols-2 md:overflow-visible"
+          itemClassName="w-[85%] max-w-[24rem] shrink-0 md:w-[22rem] md:max-w-none"
           listClassName="mt-10 items-stretch"
           header={
             <div className="max-w-xl">

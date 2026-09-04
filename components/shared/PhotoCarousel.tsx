@@ -61,7 +61,7 @@ export default function PhotoCarousel({
 
   return (
     <div
-      className="relative min-h-[28rem] touch-pan-y overflow-hidden rounded-[2rem] bg-brand-100 md:min-h-[36rem]"
+      className="relative min-h-[28rem] cursor-grab touch-pan-y overflow-hidden rounded-[2rem] bg-brand-100 active:cursor-grabbing md:min-h-[36rem]"
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
       onPointerCancel={() => {
