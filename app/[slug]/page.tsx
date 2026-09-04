@@ -3,6 +3,7 @@ import { appointmentHref } from '@/lib/whatsapp'
 import Button from '@/components/shared/Button'
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 type PageProps = {
@@ -101,22 +102,44 @@ export default async function ConditionPage({ params }: PageProps) {
       <section className="bg-brand-50 py-14">
         <div className="mx-auto max-w-[1140px] px-6">
           <h2 className="text-2xl font-extrabold text-brand-800">También puede interesarte</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <div className="mt-6 grid gap-3 md:grid-cols-3">
             {related.map((item) => (
-              <article
+              <Link
                 key={item.slug}
-                className="flex flex-col rounded-2xl border border-brand-200 bg-white p-6"
+                href={`/${item.slug}`}
+                aria-label={`Ver detalle: ${item.title}`}
+                className="group rounded-2xl border border-brand-200 bg-white text-left shadow-sm transition duration-300 hover:border-accent-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-700 md:flex md:h-full md:flex-col md:justify-between md:p-6 md:hover:-translate-y-0.5 md:hover:shadow-[0_18px_40px_-28px_rgba(16,16,48,0.35)]"
               >
-                <h3 className="text-lg font-extrabold text-brand-800">{item.title}</h3>
-                <p className="mt-2 flex-1 text-[15px] text-brand-700">{item.lead}</p>
-                <Button href={`/${item.slug}`} className="mt-6 w-fit">
-                  Ver {item.title.toLowerCase()}
-                </Button>
-              </article>
+                <div className="flex h-16 items-center gap-3 px-3 md:hidden">
+                  <h3 className="min-w-0 flex-1 truncate text-sm font-bold text-brand-800">
+                    {item.title}
+                  </h3>
+                  <span className="shrink-0 text-brand-500" aria-hidden="true">
+                    <RelatedChevron />
+                  </span>
+                </div>
+                <div className="hidden md:block">
+                  <h3 className="text-lg font-bold leading-snug text-brand-800">{item.title}</h3>
+                  <p className="mt-2 line-clamp-2 text-sm text-slate-600">{item.lead}</p>
+                </div>
+                <div className="mt-5 hidden items-center justify-between border-t border-brand-100 pt-4 md:flex">
+                  <span className="text-sm font-semibold text-brand-800 transition-colors group-hover:text-accent-700">
+                    Ver detalle →
+                  </span>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
     </>
+  )
+}
+
+function RelatedChevron() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5" aria-hidden="true">
+      <path d="m9 6 6 6-6 6" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   )
 }

@@ -97,17 +97,7 @@ export default async function RootLayout({
           hideChrome ? 'maintenance-page' : 'bg-white text-brand-900'
         }`}
       >
-        {hideChrome ? null : (
-          <>
-            <a
-              href="#contenido"
-              className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-3 focus:left-3 focus:rounded-md focus:bg-brand-900 focus:px-4 focus:py-2 focus:text-white"
-            >
-              Saltar al contenido
-            </a>
-            <Navbar />
-          </>
-        )}
+        {hideChrome ? null : <Navbar />}
 
         <main
           id="contenido"

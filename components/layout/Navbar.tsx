@@ -84,12 +84,12 @@ export default function Navbar() {
             onClick={() => setOpen(false)}
           >
             <Image
-              src={brand.logoLight}
+              src={brand.isotypeLight}
               alt={siteName}
-              width={1180}
-              height={526}
-              sizes="(min-width: 768px) 220px, 170px"
-              className="h-10 md:h-12 w-auto object-contain"
+              width={918}
+              height={667}
+              sizes="48px"
+              className="h-10 w-auto object-contain md:h-12"
               priority
             />
           </Link>

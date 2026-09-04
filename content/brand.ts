@@ -17,7 +17,7 @@ export const brand = {
   // fondo: los PNG originales traen el alfa opaco al 100% y recortan un
   // rectángulo sobre cualquier fondo que no sea exactamente #202055.
   logoDark: '/centrodeojosbelen-blanco.png',
-  // Isotipo suelto (el ojo)
+  // Isotipo suelto (el ojo), fondo transparente
   isotypeLight: '/centrodeojosbelen-iso.png',
   isotypeDark: '/centrodeojosbelen-iso-blanco.png',
 } as const
