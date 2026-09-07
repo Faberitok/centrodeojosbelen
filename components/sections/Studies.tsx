@@ -33,8 +33,9 @@ export default function Studies() {
               alt="Estudios oftalmológicos en Centro de Ojos Belén"
               fill
               priority
+              quality={100}
               sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
+              className="object-cover object-top"
             />
           </div>
         </div>

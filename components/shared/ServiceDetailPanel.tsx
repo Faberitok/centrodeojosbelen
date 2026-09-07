@@ -179,13 +179,15 @@ export default function ServiceDetailPanel({
 
         <div className="overflow-y-auto px-5 pb-8 md:px-8">
           {item.image && (
-            <div className="relative mt-2 aspect-[16/9] overflow-hidden rounded-2xl border border-brand-200">
+            <div className="relative mt-2 overflow-hidden rounded-2xl border border-brand-200 bg-brand-50">
               <Image
                 src={item.image.src}
                 alt={item.image.alt}
-                fill
+                width={1600}
+                height={1200}
+                quality={100}
                 sizes="(min-width: 768px) 48rem, 100vw"
-                className="object-cover"
+                className="mx-auto h-auto max-h-[22rem] w-full object-contain md:max-h-[26rem]"
               />
             </div>
           )}

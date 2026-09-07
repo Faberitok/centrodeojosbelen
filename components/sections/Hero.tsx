@@ -15,9 +15,9 @@ export default function Hero() {
       id="inicio"
       className="relative isolate flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-white md:min-h-[calc(92svh-5rem)] md:justify-center"
     >
-      {/* Mobile: la foto abre el hero y se disuelve en blanco justo donde
-          arranca el titular, sin bordes ni cortes: es una sola pieza. */}
-      <div className="relative h-[clamp(6rem,calc(100svh_-_35rem),18rem)] shrink-0 md:hidden">
+      {/* Mobile: la foto es el fondo. El título va encima, y el velo
+          blanco arranca en el segundo renglón — no hay corte entre foto y texto. */}
+      <div className="absolute inset-x-0 top-0 h-[clamp(17rem,46svh,26rem)] md:hidden">
         {hero.image && (
           <Image
             src={hero.image}
@@ -30,7 +30,11 @@ export default function Hero() {
           />
         )}
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-b from-white/0 via-white/75 to-white"
+          className="pointer-events-none absolute inset-x-0 bottom-0 top-[calc(50%-2rem)]"
+          style={{
+            background:
+              'linear-gradient(to bottom, rgba(255,255,255,0) 0, rgba(255,255,255,0.7) 1.5rem, #ffffff 3.15rem, #ffffff 100%)',
+          }}
           aria-hidden="true"
         />
       </div>
@@ -52,7 +56,7 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 -mt-2 px-6 pb-8 md:mx-auto md:mt-0 md:w-full md:max-w-[1140px] md:px-6 md:pb-16 md:pt-20">
+      <div className="relative z-10 px-6 pb-8 pt-[clamp(8.5rem,23svh,13rem)] md:mx-auto md:mt-0 md:w-full md:max-w-[1140px] md:px-6 md:pb-16 md:pt-20">
         <h1 className="max-w-[18ch] text-4xl font-extrabold leading-[1.12] tracking-[-0.035em] text-brand-800 md:max-w-[20ch] md:text-6xl md:leading-[1.08]">
           {hero.headline.split('\n').map((line, index) => (
             <span key={line}>
@@ -112,18 +116,10 @@ export default function Hero() {
             </Link>
           </p>
         )}
-        <svg
-          className="pointer-events-none absolute left-1/2 top-full z-20 -mt-px h-[3.25rem] w-screen -translate-x-1/2 md:hidden"
-          viewBox="0 0 100 32"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <path fill="#ffffff" d="M0 0h100v8Q50 32 0 8Z" />
-        </svg>
       </div>
 
-      {/* Cierre: debajo del arco vuelve a aparecer la base de la foto. */}
-      <div className="relative min-h-[5rem] flex-1 overflow-hidden md:hidden">
+      {/* Cierre: velo recto, de blanco a la foto. */}
+      <div className="relative -mt-px min-h-[5rem] flex-1 overflow-hidden md:hidden">
         {hero.image && (
           <Image
             src={hero.image}
@@ -134,6 +130,10 @@ export default function Hero() {
             className="object-cover object-bottom"
           />
         )}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white via-white/70 to-white/0"
+          aria-hidden="true"
+        />
       </div>
 
       <span className="sr-only">{site.description}</span>

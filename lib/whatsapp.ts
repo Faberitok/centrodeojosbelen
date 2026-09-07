@@ -18,6 +18,14 @@ export function whatsappHref(message?: string): string | null {
   return `https://wa.me/${number}?text=${encodeURIComponent(text)}`
 }
 
+const APPOINTMENT_MESSAGE = 'Hola, quisiera solicitar un turno.'
+
+/** WhatsApp de una sede concreta (Andalgalá, Tinogasta, etc.). */
+export function branchWhatsappHref(number: string, message?: string): string {
+  const digits = number.replace(/\D/g, '')
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message ?? APPOINTMENT_MESSAGE)}`
+}
+
 /** Href de fallback: si no hay WhatsApp configurado, manda al formulario. */
 export function appointmentHref(message?: string): string {
   return whatsappHref(message) ?? '#contacto'

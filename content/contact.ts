@@ -8,8 +8,10 @@ export const contact = {
   emergency: {
     label: 'Guardia 24 hs',
     badge: '24 hs',
-    ariaLabel: 'Llamar a la guardia oftalmológica las 24 horas',
+    ariaLabel: 'Escribir a la guardia oftalmológica por WhatsApp',
     contactNote: 'Urgencias oftalmológicas, las 24 horas.',
+    whatsappMessage:
+      'Hola, necesito atención de urgencia oftalmológica. ¿Me pueden ayudar?',
   },
   form: {
     nameLabel: 'Nombre y apellido',

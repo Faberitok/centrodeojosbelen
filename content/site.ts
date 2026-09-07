@@ -151,7 +151,7 @@ export const studies: Study[] = [
     preparation:
       'En general no requiere preparación especial. Según el motivo del estudio, el profesional puede indicar dilatación de las pupilas.',
     equipment: 'OCT Optovue iScan',
-    image: '/media/oct-estudio.webp',
+    image: '/media/estudios-oct.jpeg',
     duration: '10–15 min',
   },
   {
@@ -166,7 +166,7 @@ export const studies: Study[] = [
     preparation:
       'Las lentes de contacto pueden modificar temporalmente la forma corneal. Al solicitar el turno, consultá si es necesario suspender su uso antes del estudio.',
     equipment: 'Topógrafo Tomey TMS-4',
-    image: '/media/topografia-corneal.webp',
+    image: '/media/estudios-topografia.jpeg',
     duration: '5–10 min',
   },
   {
@@ -181,7 +181,7 @@ export const studies: Study[] = [
     preparation:
       'Habitualmente no requiere preparación. Si usás lentes de contacto o tenés antecedentes de cirugía corneal, informalo al equipo.',
     equipment: 'Paquímetro corneal',
-    image: '/media/paquimetria-estudio.webp',
+    image: '/media/estudios-paquimetria.jpeg',
     duration: 'unos 5 min',
   },
   {
@@ -196,7 +196,7 @@ export const studies: Study[] = [
     preparation:
       'No suele requerir preparación especial. Es importante informar si usás lentes de contacto o si tuviste cirugías oculares previas.',
     equipment: 'Regla biométrica MEDA',
-    image: '/media/biometria-meda.webp',
+    image: '/media/estudios-biometria.jpeg',
     duration: '5–10 min',
   },
   {
@@ -211,7 +211,7 @@ export const studies: Study[] = [
     preparation:
       'No requiere preparación especial. Avisá si estás usando gotas oftálmicas o si recibís tratamiento para la presión ocular.',
     equipment: 'Tonómetro iCare 100',
-    image: '/media/tonometro-icare-100.webp',
+    image: '/media/estudios-tonometria.jpeg',
     duration: 'pocos segundos',
   },
   {
@@ -226,7 +226,7 @@ export const studies: Study[] = [
     preparation:
       'No necesita preparación. Llevá tus anteojos actuales y, si usás lentes de contacto, consultá al pedir el turno si debés retirarlos con anticipación.',
     equipment: 'Autorrefractómetro y Retinomax portátil',
-    image: '/media/autorrefractometria-estudio.webp',
+    image: '/media/estudios-autorrefractometria.jpeg',
     duration: '1–2 min',
   },
 ]
@@ -624,6 +624,10 @@ export interface Location {
   featured?: boolean
   /** Dirección provisoria: no entra al JSON-LD hasta confirmarla. */
   placeholderAddress?: boolean
+  /** Nombre del predio o centro de salud, si no es sede propia. */
+  venue?: string
+  /** Número de WhatsApp de turnos, con código de país, listo para wa.me. */
+  whatsapp?: string
 }
 
 export const locations: Location[] = [
@@ -649,34 +653,35 @@ export const locations: Location[] = [
   {
     id: 'sede-andalgala',
     name: 'Andalgalá',
-    street: 'Belgrano 200',
+    street: 'Pje. Quevedo Lafone s/n',
+    venue: 'El Fuerte Salud Integral',
     city: 'Andalgalá',
     province: 'Catamarca',
-    phones: ['3804-100707'],
+    phones: ['3835-515391'],
+    whatsapp: '5493835515391',
     hours: [],
-    placeholderAddress: true,
+    geo: { lat: -27.58559, lng: -66.319702 },
     image: '/institucional/andalgala.jpeg',
     imageAlt: 'Sucursal de Centro de Ojos Belén en Andalgalá',
     mapEmbedUrl:
-      'https://www.google.com/maps?q=Andalgal%C3%A1%2C+Catamarca&output=embed',
-    mapDirectionsUrl:
-      'https://www.google.com/maps/dir/?api=1&destination=Andalgal%C3%A1%2C+Catamarca',
+      'https://www.google.com/maps?q=-27.5855900,-66.3197020&output=embed',
+    mapDirectionsUrl: 'https://maps.app.goo.gl/RYNZTYP5pXk4ToUH8',
   },
   {
     id: 'sede-tinogasta',
     name: 'Tinogasta',
-    street: 'San Martín 150',
+    street: 'Rivadavia 151',
+    venue: 'Centro Médico Sagrado Corazón de Jesús',
     city: 'Tinogasta',
     province: 'Catamarca',
-    phones: ['3804-100707'],
+    phones: ['3834-382597'],
+    whatsapp: '5493834382597',
     hours: [],
-    placeholderAddress: true,
     image: '/institucional/tinogasta.jpeg',
     imageAlt: 'Sucursal de Centro de Ojos Belén en Tinogasta',
     mapEmbedUrl:
-      'https://www.google.com/maps?q=Tinogasta%2C+Catamarca&output=embed',
-    mapDirectionsUrl:
-      'https://www.google.com/maps/dir/?api=1&destination=Tinogasta%2C+Catamarca',
+      'https://www.google.com/maps?q=Centro+M%C3%A9dico+Sagrado+Coraz%C3%B3n+de+Jes%C3%BAs%2C+Bernardino+Rivadavia%2C+Tinogasta%2C+Catamarca&output=embed',
+    mapDirectionsUrl: 'https://maps.app.goo.gl/oiTZ6q19LbLB6DvNA',
   },
 ]
 
@@ -695,7 +700,7 @@ export const branchesSection = {
   eyebrow: 'Sucursales',
   title: 'Tres sedes en el oeste de Catamarca',
   subtitle:
-    'Atención oftalmológica en Belén, Andalgalá y Tinogasta. Las direcciones de Andalgalá y Tinogasta se confirman al pedir el turno.',
+    'Atención oftalmológica en Belén, Andalgalá y Tinogasta.',
 } as const
 
 // ─── Preguntas frecuentes ─────────────────────────────────────────────────────

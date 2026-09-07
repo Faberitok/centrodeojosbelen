@@ -14,6 +14,7 @@ export default function Navbar() {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
   const servicesRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
+  const [scrolled, setScrolled] = useState(false)
   const ctaHref = appointmentHref()
   const ctaIsExternal = ctaHref.startsWith('http')
 
@@ -50,6 +51,15 @@ export default function Navbar() {
     return () => document.removeEventListener('pointerdown', onPointerDown)
   }, [])
 
+  useEffect(() => {
+    function update() {
+      setScrolled(window.scrollY > 8)
+    }
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
+  }, [])
+
   function navigateFromHome(
     event: React.MouseEvent<HTMLAnchorElement>,
     href: string
@@ -74,12 +84,18 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 w-full border-b border-white/50 bg-white/70 shadow-[0_8px_30px_-24px_rgba(16,16,48,0.45)] backdrop-blur-xl">
+    <header
+      className={
+        scrolled
+          ? 'fixed inset-x-0 top-0 z-40 w-full border-b border-brand-50/90 bg-brand-50/90 shadow-[0_8px_30px_-24px_rgba(16,16,48,0.45)] backdrop-blur-xl transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300'
+          : 'fixed inset-x-0 top-0 z-40 w-full border-b border-brand-50 bg-brand-50 shadow-none backdrop-blur-none transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300'
+      }
+    >
       <div className="max-w-[1140px] mx-auto px-6">
         <div className="flex h-16 md:h-20 items-center justify-between gap-4">
           <Link
             href="/#inicio"
-            className="flex min-h-11 items-center rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2"
+            className="flex min-h-11 items-center rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-50"
             aria-label={`${siteName} — Inicio`}
             onClick={() => setOpen(false)}
           >
@@ -157,7 +173,7 @@ export default function Navbar() {
           <a
             href={ctaHref}
             {...(ctaIsExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            className="hidden h-10 xl:inline-flex cursor-pointer items-center rounded-xl bg-accent-500 px-4 text-sm font-semibold text-white transition-colors hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-700 focus-visible:ring-offset-2"
+            className="hidden h-10 xl:inline-flex cursor-pointer items-center rounded-xl bg-accent-500 px-4 text-sm font-semibold text-white transition-colors hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-700 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-50"
           >
             {nav.ctaLabel}
           </a>
@@ -190,13 +206,13 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div id="mobile-menu" className="border-t border-brand-100 bg-white xl:hidden">
+        <div id="mobile-menu" className="border-t border-brand-200 bg-brand-50 xl:hidden">
           <nav
             aria-label="Menú de navegación"
             className="max-w-[1140px] mx-auto px-6 py-4 flex flex-col"
           >
             {nav.links.map((link) => (
-              <div key={link.href} className="border-b border-brand-100">
+              <div key={link.href} className="border-b border-brand-200">
                 {'children' in link ? (
                   <>
                     <button
@@ -221,7 +237,7 @@ export default function Navbar() {
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="rounded-lg bg-brand-50 px-3 py-2 text-sm font-semibold text-brand-700 hover:text-accent-700"
+                            className="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-brand-700 hover:text-accent-700"
                             onClick={() => setOpen(false)}
                           >
                             {child.label}

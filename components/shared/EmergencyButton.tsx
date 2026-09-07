@@ -1,4 +1,5 @@
 import { contact } from '@/content/site'
+import { whatsappHref } from '@/lib/whatsapp'
 
 const CROSS_ICON = (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -7,12 +8,14 @@ const CROSS_ICON = (
 )
 
 export default function EmergencyButton() {
-  const phone = contact.phones[0]
-  const href = `tel:${phone.replace(/[^\d+]/g, '')}`
+  const href = whatsappHref(contact.emergency.whatsappMessage)
+  if (!href) return null
 
   return (
     <a
       href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label={contact.emergency.ariaLabel}
       className="pointer-events-auto flex h-14 w-14 cursor-pointer flex-col items-center justify-center gap-0.5 rounded-full text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#C45C6C] active:scale-95"
       style={{ backgroundColor: '#C45C6C' }}

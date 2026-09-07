@@ -30,7 +30,9 @@ export function buildClinicJsonLd() {
       : {}),
     address: {
       '@type': 'PostalAddress',
-      streetAddress: location.street,
+      streetAddress: location.venue
+        ? `${location.street}, ${location.venue}`
+        : location.street,
       addressLocality: location.city,
       addressRegion: location.province,
       postalCode: location.postalCode,
