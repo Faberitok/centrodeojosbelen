@@ -1,6 +1,6 @@
 'use client'
 
-import { Children, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Children, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
 
 interface CardCarouselProps {
   children: React.ReactNode
@@ -17,6 +17,31 @@ interface CardCarouselProps {
   headerLayout?: 'beside' | 'below'
 }
 
+function desktopMediaQuery(gridClass: string) {
+  if (gridClass.includes('lg:grid') || gridClass.includes('lg:flex-col')) {
+    return '(min-width: 1024px)'
+  }
+  if (gridClass.includes('md:grid') || gridClass.includes('md:flex-col')) {
+    return '(min-width: 768px)'
+  }
+  if (gridClass.includes('sm:grid')) return '(min-width: 640px)'
+  return ''
+}
+
+function useDesktopGrid(gridClass: string) {
+  const query = desktopMediaQuery(gridClass)
+  return useSyncExternalStore(
+    (onChange) => {
+      if (!query) return () => {}
+      const media = window.matchMedia(query)
+      media.addEventListener('change', onChange)
+      return () => media.removeEventListener('change', onChange)
+    },
+    () => (query ? window.matchMedia(query).matches : false),
+    () => false,
+  )
+}
+
 const TRANSITION_MS = 500
 const SWIPE_THRESHOLD = 24
 
@@ -29,7 +54,7 @@ export default function CardCarousel({
   autoplay = false,
   itemClassName = 'w-[85%] max-w-[32rem] shrink-0',
   listClassName = '',
-  desktopGridClassName: _desktopGridClassName,
+  desktopGridClassName = '',
   controlsClassName: _controlsClassName,
   header,
   headerLayout = 'beside',
@@ -43,9 +68,10 @@ export default function CardCarousel({
   const draggedRef = useRef(false)
   const unlockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  const gridMode = useDesktopGrid(desktopGridClassName)
   const slides = Children.toArray(children)
   const slideCount = slides.length
-  const looping = infinite && slideCount > 1
+  const looping = infinite && slideCount > 1 && !gridMode
   const copies = looping ? 3 : 1
   const loopSlides = looping
     ? Array.from({ length: copies }, () => slides).flat()
@@ -65,7 +91,7 @@ export default function CardCarousel({
     ? ((index % slideCount) + slideCount) % slideCount
     : index
 
-  const carouselActive = slideCount > 1
+  const carouselActive = !gridMode && slideCount > 1
 
   function measureStep() {
     const track = trackRef.current
@@ -85,7 +111,7 @@ export default function CardCarousel({
   }
 
   function go(direction: -1 | 1) {
-    if (slideCount < 2 || playingRef.current) return
+    if (gridMode || slideCount < 2 || playingRef.current) return
     playingRef.current = true
     setIndex((current) => {
       if (!looping) {
@@ -97,7 +123,7 @@ export default function CardCarousel({
   }
 
   function goTo(target: number) {
-    if (slideCount < 2 || target === activeIndex) return
+    if (gridMode || slideCount < 2 || target === activeIndex) return
     playingRef.current = true
     setIndex(looping ? slideCount + target : target)
     unlockTimerRef.current = setTimeout(unlock, TRANSITION_MS + 40)
@@ -116,7 +142,7 @@ export default function CardCarousel({
     if (track.children[0]) observer.observe(track.children[0])
     if (viewport) observer.observe(viewport)
     return () => observer.disconnect()
-  }, [slideCount, itemClassName, looping])
+  }, [slideCount, gridMode, itemClassName, looping])
 
   useLayoutEffect(() => {
     if (!disableAnimation) return
@@ -176,8 +202,8 @@ export default function CardCarousel({
       <div
         ref={viewportRef}
         role="region"
-        tabIndex={0}
-        aria-roledescription="carrusel"
+        tabIndex={carouselActive ? 0 : undefined}
+        aria-roledescription={carouselActive ? 'carrusel' : undefined}
         aria-label={ariaLabel}
         className={
           carouselActive
@@ -214,7 +240,7 @@ export default function CardCarousel({
           pointerStartY.current = event.clientY
         }}
         onPointerMove={(event) => {
-          if (pointerStartX.current == null) return
+          if (!carouselActive || pointerStartX.current == null) return
           if (Math.abs(event.clientX - pointerStartX.current) <= SWIPE_THRESHOLD) return
           draggedRef.current = true
           if (!event.currentTarget.hasPointerCapture(event.pointerId)) {
@@ -227,6 +253,7 @@ export default function CardCarousel({
           const deltaY = event.clientY - pointerStartY.current
           pointerStartX.current = null
           pointerStartY.current = null
+          if (!carouselActive) return
           if (Math.abs(deltaX) < SWIPE_THRESHOLD) return
           if (Math.abs(deltaX) <= Math.abs(deltaY)) return
           draggedRef.current = true
@@ -241,7 +268,9 @@ export default function CardCarousel({
           ref={trackRef}
           className={`flex items-stretch gap-5 [&_img]:pointer-events-none ${
             carouselActive ? 'w-full' : ''
-          } ${looping && step === 0 ? 'invisible' : ''} ${listClassName}`}
+          } ${gridMode ? `${desktopGridClassName} translate-x-0` : ''} ${
+            looping && step === 0 ? 'invisible' : ''
+          } ${listClassName}`}
           style={
             carouselActive
               ? {

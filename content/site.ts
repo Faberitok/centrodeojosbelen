@@ -553,6 +553,10 @@ export const about = {
       alt: 'Equipamiento de consultorio en Centro de Ojos Belén',
     },
     {
+      src: '/institucional/consultorio2.jpeg',
+      alt: 'Consultorio de Centro de Ojos Belén',
+    },
+    {
       src: '/media/hero-centro.webp',
       alt: 'Fachada de Centro de Ojos Belén',
     },

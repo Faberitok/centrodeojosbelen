@@ -29,8 +29,8 @@ export default function Studies() {
           </div>
           <div className="relative min-h-80 overflow-hidden rounded-[1.75rem] border border-brand-200 shadow-[0_24px_60px_-45px_rgba(16,16,48,0.45)] md:min-h-[26rem]">
             <Image
-              src="/media/atencion-adultos.webp"
-              alt="Evaluación oftalmológica con lámpara de hendidura"
+              src="/institucional/estudios.jpeg"
+              alt="Estudios oftalmológicos en Centro de Ojos Belén"
               fill
               priority
               sizes="(min-width: 1024px) 45vw, 100vw"
