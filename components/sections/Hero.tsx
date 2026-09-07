@@ -13,9 +13,11 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative isolate overflow-hidden bg-white md:flex md:min-h-[calc(92svh-5rem)] md:flex-col md:justify-center"
+      className="relative isolate flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-white md:min-h-[calc(92svh-5rem)] md:justify-center"
     >
-      <div className="relative h-[48svh] min-h-[17rem] md:hidden">
+      {/* Mobile: la foto abre el hero, el contenido monta encima sobre un velo
+          blanco translucido y la foto vuelve a asomar debajo de la curva. */}
+      <div className="relative h-[clamp(8rem,26svh,15rem)] shrink-0 md:hidden">
         {hero.image && (
           <Image
             src={hero.image}
@@ -24,13 +26,9 @@ export default function Hero() {
             priority
             quality={100}
             sizes="100vw"
-            className="object-cover object-[center_28%]"
+            className="object-cover object-[center_30%]"
           />
         )}
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[26%] bg-gradient-to-t from-black/60 to-transparent"
-          aria-hidden="true"
-        />
       </div>
 
       {hero.image && (
@@ -50,7 +48,7 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 bg-white px-6 pb-8 pt-6 md:mx-auto md:w-full md:max-w-[1140px] md:bg-transparent md:px-6 md:pb-16 md:pt-20">
+      <div className="relative z-10 -mt-24 rounded-t-[2rem] rounded-b-[2.5rem] bg-gradient-to-b from-white/70 via-white/93 to-white px-6 pb-9 pt-8 shadow-[0_24px_60px_-34px_rgba(16,16,48,0.65)] backdrop-blur-md md:mx-auto md:mt-0 md:w-full md:max-w-[1140px] md:rounded-none md:bg-none md:px-6 md:pb-16 md:pt-20 md:shadow-none md:backdrop-blur-none">
         <div
           className="mb-3 h-1.5 w-14 rounded-full bg-accent-500 md:hidden"
           aria-hidden="true"
@@ -68,20 +66,23 @@ export default function Hero() {
           aria-hidden="true"
         />
 
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-brand-800 md:text-lg">
+        <p className="mt-4 max-w-2xl text-base leading-[1.55] text-brand-800 md:mt-5 md:text-lg md:leading-relaxed">
           {hero.subtitle}
         </p>
 
-        <div className="mt-7 flex w-3/4 flex-col gap-2.5 md:w-auto md:flex-row md:flex-wrap">
+        <div className="mt-6 flex w-full flex-col gap-2.5 md:mt-7 md:w-auto md:flex-row md:flex-wrap">
           <Button
             href={primaryHref}
             external={primaryIsExternal}
             variant="accent"
             size="sm"
-            className="box-border h-10 w-full !justify-start gap-2 rounded-xl px-4 text-sm font-semibold text-white hover:bg-accent-600 md:w-auto"
+            className="box-border h-10 w-full !justify-between gap-2 rounded-xl px-4 text-sm font-semibold text-white hover:bg-accent-600 md:w-auto md:!justify-start"
           >
-            <CalendarIcon />
-            {hero.ctaPrimary.label}
+            <span className="inline-flex items-center gap-2">
+              <CalendarIcon />
+              {hero.ctaPrimary.label}
+            </span>
+            <ArrowIcon className="md:hidden" />
           </Button>
           <Button
             href={hero.ctaSecondary.href}
@@ -98,7 +99,7 @@ export default function Hero() {
         </div>
 
         {mainLocation && (
-          <p className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-brand-800">
+          <p className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-brand-800 md:mt-8">
             <PinIcon />
             <span>
               {mainLocation.street}, {mainLocation.city}
@@ -110,6 +111,19 @@ export default function Hero() {
               {hero.locationCta}
             </Link>
           </p>
+        )}
+      </div>
+
+      <div className="relative -mt-10 min-h-[4.5rem] flex-1 overflow-hidden md:hidden">
+        {hero.image && (
+          <Image
+            src={hero.image}
+            alt=""
+            fill
+            quality={100}
+            sizes="100vw"
+            className="origin-bottom scale-[1.7] object-cover object-bottom"
+          />
         )}
       </div>
 
@@ -149,13 +163,13 @@ function BuildingIcon() {
   )
 }
 
-function ArrowIcon() {
+function ArrowIcon({ className = '' }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      className="h-4 w-4 shrink-0"
+      className={`h-4 w-4 shrink-0 ${className}`}
       aria-hidden="true"
     >
       <path d="M5 12h14M13 6l6 6-6 6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
