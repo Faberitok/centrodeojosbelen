@@ -110,6 +110,17 @@ button:disabled,
   background: #ffffff;
 }
 
+@media (min-width: 768px) {
+  .landing-stack > * {
+    zoom: 0.9;
+    margin-inline: auto;
+  }
+
+  .landing-stack > #staff {
+    zoom: 0.8;
+  }
+}
+
 .landing-stack > .landing-panel,
 .page-hero-panel {
   isolation: isolate;

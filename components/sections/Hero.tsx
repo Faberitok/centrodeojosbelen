@@ -17,7 +17,7 @@ export default function Hero() {
     >
       {/* Mobile: la foto abre el hero y se disuelve en blanco justo donde
           arranca el titular, sin bordes ni cortes: es una sola pieza. */}
-      <div className="relative h-[clamp(7.5rem,calc(100svh_-_30rem),19rem)] shrink-0 md:hidden">
+      <div className="relative h-[clamp(6rem,calc(100svh_-_35rem),18rem)] shrink-0 md:hidden">
         {hero.image && (
           <Image
             src={hero.image}
@@ -53,10 +53,6 @@ export default function Hero() {
       />
 
       <div className="relative z-10 -mt-12 px-6 pb-8 md:mx-auto md:mt-0 md:w-full md:max-w-[1140px] md:px-6 md:pb-16 md:pt-20">
-        <div
-          className="mb-3 h-1.5 w-14 rounded-full bg-accent-500 md:hidden"
-          aria-hidden="true"
-        />
         <h1 className="max-w-[18ch] text-4xl font-extrabold leading-[1.12] tracking-[-0.035em] text-brand-800 md:max-w-[20ch] md:text-6xl md:leading-[1.08]">
           {hero.headline.split('\n').map((line, index) => (
             <span key={line}>
@@ -66,7 +62,7 @@ export default function Hero() {
           ))}
         </h1>
         <div
-          className="mt-3 hidden h-1.5 w-14 rounded-full bg-accent-500 md:block"
+          className="mt-3 h-1.5 w-14 rounded-full bg-accent-500"
           aria-hidden="true"
         />
 
@@ -115,6 +111,28 @@ export default function Hero() {
               {hero.locationCta}
             </Link>
           </p>
+        )}
+        <svg
+          className="pointer-events-none absolute left-1/2 top-full z-20 -mt-px h-[3.25rem] w-screen -translate-x-1/2 md:hidden"
+          viewBox="0 0 100 32"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path fill="#ffffff" d="M0 0h100v8Q50 32 0 8Z" />
+        </svg>
+      </div>
+
+      {/* Cierre: debajo del arco vuelve a aparecer la base de la foto. */}
+      <div className="relative min-h-[5rem] flex-1 overflow-hidden md:hidden">
+        {hero.image && (
+          <Image
+            src={hero.image}
+            alt=""
+            fill
+            quality={100}
+            sizes="100vw"
+            className="object-cover object-bottom"
+          />
         )}
       </div>
 

@@ -33,16 +33,16 @@ export default function Staff() {
           {team.map((member) => (
             <article
               key={member.name}
-              className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-brand-200 bg-white shadow-[0_24px_70px_-48px_rgba(32,32,85,0.45)] transition duration-300 hover:border-accent-300 hover:shadow-[0_28px_70px_-44px_rgba(16,16,48,0.36)]"
+              className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-brand-200 bg-white shadow-[0_24px_70px_-48px_rgba(32,32,85,0.45)] transition duration-300 hover:border-accent-300 hover:shadow-[0_28px_70px_-44px_rgba(16,16,48,0.36)] md:flex-row"
             >
-              <div className="relative aspect-[4/5] overflow-hidden bg-[#E8E8EA]">
+              <div className="relative aspect-[4/5] overflow-hidden bg-[#E8E8EA] md:w-[44%] md:shrink-0">
                 {member.photo ? (
                   <Image
                     src={member.photo}
                     alt={member.name}
                     fill
                     quality={90}
-                    sizes="(min-width: 768px) 50vw, 88vw"
+                    sizes="(min-width: 768px) 22vw, 88vw"
                     className="object-cover object-top"
                   />
                 ) : (
@@ -57,7 +57,7 @@ export default function Staff() {
                   </div>
                 )}
               </div>
-              <div className="flex flex-1 flex-col p-6 md:p-8">
+              <div className="flex min-w-0 flex-1 flex-col p-6 md:justify-center md:p-8">
                 <h3 className="min-h-[3.5rem] text-xl font-extrabold text-brand-800 sm:min-h-[3.25rem] sm:text-2xl">
                   {member.name}
                 </h3>
