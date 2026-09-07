@@ -15,9 +15,9 @@ export default function Hero() {
       id="inicio"
       className="relative isolate flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-white md:min-h-[calc(92svh-5rem)] md:justify-center"
     >
-      {/* Mobile: la foto abre el hero, el contenido monta encima sobre un velo
-          blanco translucido y la foto vuelve a asomar debajo de la curva. */}
-      <div className="relative h-[clamp(8rem,26svh,15rem)] shrink-0 md:hidden">
+      {/* Mobile: la foto abre el hero y se disuelve en blanco justo donde
+          arranca el titular, sin bordes ni cortes: es una sola pieza. */}
+      <div className="relative h-[clamp(7.5rem,calc(100svh_-_30rem),19rem)] shrink-0 md:hidden">
         {hero.image && (
           <Image
             src={hero.image}
@@ -26,9 +26,13 @@ export default function Hero() {
             priority
             quality={100}
             sizes="100vw"
-            className="object-cover object-[center_30%]"
+            className="object-cover object-[center_28%]"
           />
         )}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-b from-white/0 via-white/75 to-white"
+          aria-hidden="true"
+        />
       </div>
 
       {hero.image && (
@@ -48,7 +52,7 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 -mt-24 rounded-t-[2rem] rounded-b-[2.5rem] bg-gradient-to-b from-white/70 via-white/93 to-white px-6 pb-9 pt-8 shadow-[0_24px_60px_-34px_rgba(16,16,48,0.65)] backdrop-blur-md md:mx-auto md:mt-0 md:w-full md:max-w-[1140px] md:rounded-none md:bg-none md:px-6 md:pb-16 md:pt-20 md:shadow-none md:backdrop-blur-none">
+      <div className="relative z-10 -mt-12 px-6 pb-8 md:mx-auto md:mt-0 md:w-full md:max-w-[1140px] md:px-6 md:pb-16 md:pt-20">
         <div
           className="mb-3 h-1.5 w-14 rounded-full bg-accent-500 md:hidden"
           aria-hidden="true"
@@ -70,13 +74,13 @@ export default function Hero() {
           {hero.subtitle}
         </p>
 
-        <div className="mt-6 flex w-full flex-col gap-2.5 md:mt-7 md:w-auto md:flex-row md:flex-wrap">
+        <div className="mt-6 flex w-3/4 flex-col gap-2.5 md:mt-7 md:w-auto md:flex-row md:flex-wrap">
           <Button
             href={primaryHref}
             external={primaryIsExternal}
             variant="accent"
             size="sm"
-            className="box-border h-10 w-full !justify-between gap-2 rounded-xl px-4 text-sm font-semibold text-white hover:bg-accent-600 md:w-auto md:!justify-start"
+            className="box-border h-10 w-full !justify-between gap-1.5 whitespace-nowrap rounded-xl px-3.5 text-[0.8125rem] font-semibold text-white hover:bg-accent-600 md:w-auto md:gap-2 md:px-4 md:text-sm md:!justify-start"
           >
             <span className="inline-flex items-center gap-2">
               <CalendarIcon />
@@ -88,7 +92,7 @@ export default function Hero() {
             href={hero.ctaSecondary.href}
             variant="outline"
             size="sm"
-            className="box-border h-10 w-full !justify-between rounded-xl border-brand-800 bg-transparent px-4 text-left text-sm font-semibold text-brand-800 hover:bg-white md:w-auto"
+            className="box-border h-10 w-full !justify-between whitespace-nowrap rounded-xl border-brand-800 bg-transparent px-3.5 text-left text-[0.8125rem] font-semibold text-brand-800 hover:bg-white md:w-auto md:px-4 md:text-sm"
           >
             <span className="inline-flex items-center gap-2">
               <BuildingIcon />
@@ -111,19 +115,6 @@ export default function Hero() {
               {hero.locationCta}
             </Link>
           </p>
-        )}
-      </div>
-
-      <div className="relative -mt-10 min-h-[4.5rem] flex-1 overflow-hidden md:hidden">
-        {hero.image && (
-          <Image
-            src={hero.image}
-            alt=""
-            fill
-            quality={100}
-            sizes="100vw"
-            className="origin-bottom scale-[1.7] object-cover object-bottom"
-          />
         )}
       </div>
 
