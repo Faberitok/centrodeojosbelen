@@ -14,7 +14,7 @@ export default function EmergencyButton() {
     <a
       href={href}
       aria-label={contact.emergency.ariaLabel}
-      className="pointer-events-auto flex flex-col items-center justify-center gap-0.5 w-14 h-14 rounded-full text-white shadow-lg transition-transform hover:scale-105 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#C45C6C]"
+      className="pointer-events-auto flex h-14 w-14 cursor-pointer flex-col items-center justify-center gap-0.5 rounded-full text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#C45C6C] active:scale-95"
       style={{ backgroundColor: '#C45C6C' }}
     >
       <span className="w-5 h-5 shrink-0">{CROSS_ICON}</span>
