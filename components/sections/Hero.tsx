@@ -32,17 +32,8 @@ export default function Hero() {
       />
 
       <div className="relative z-10 w-full">
-        <div
-          className="pointer-events-none absolute inset-x-0 top-[1.2rem] h-32 -translate-y-full bg-gradient-to-t from-white to-transparent md:hidden"
-          aria-hidden="true"
-        />
-        <div
-          className="pointer-events-none absolute inset-x-0 top-[1.2rem] bottom-0 bg-white md:hidden"
-          aria-hidden="true"
-        />
-
-        <div className="relative mx-auto w-full max-w-[1140px] px-6 pb-8 pt-0 md:pb-16 md:pt-20">
-          <h1 className="max-w-[18ch] text-4xl font-extrabold leading-[1.08] tracking-[-0.035em] text-brand-800 md:max-w-[20ch] md:text-6xl">
+        <div className="mx-auto w-full max-w-[1140px] px-6 pt-0 md:pt-20">
+          <h1 className="relative z-10 max-w-[18ch] text-4xl font-extrabold leading-[1.08] tracking-[-0.035em] text-brand-800 md:max-w-[20ch] md:text-6xl">
             {hero.headline.split('\n').map((line, index) => (
               <span key={line}>
                 {index > 0 && <br />}
@@ -51,53 +42,63 @@ export default function Hero() {
             ))}
           </h1>
           <div
-            className="mt-3 h-1.5 w-14 rounded-full bg-accent-500"
+            className="relative z-10 mt-3 h-1.5 w-14 rounded-full bg-accent-500"
             aria-hidden="true"
           />
+        </div>
 
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-brand-800 md:text-lg">
-            {hero.subtitle}
-          </p>
+        <div className="relative">
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-full h-[25svh] translate-y-px bg-gradient-to-t from-white to-transparent md:hidden"
+            aria-hidden="true"
+          />
+          <div className="bg-white shadow-[0_-1px_0_#fff] md:bg-transparent md:shadow-none">
+            <div className="mx-auto w-full max-w-[1140px] px-6 pb-8 md:pb-16">
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-brand-800 md:text-lg">
+                {hero.subtitle}
+              </p>
 
-          <div className="mt-7 flex w-3/4 flex-col gap-2.5 md:w-auto md:flex-row md:flex-wrap">
-            <Button
-              href={primaryHref}
-              external={primaryIsExternal}
-              variant="accent"
-              size="sm"
-              className="box-border h-10 w-full !justify-start gap-2 rounded-xl px-4 text-sm font-semibold text-white hover:bg-accent-600 md:w-auto"
-            >
-              <CalendarIcon />
-              {hero.ctaPrimary.label}
-            </Button>
-            <Button
-              href={hero.ctaSecondary.href}
-              variant="outline"
-              size="sm"
-              className="box-border h-10 w-full !justify-between rounded-xl border-brand-800 bg-transparent px-4 text-left text-sm font-semibold text-brand-800 hover:bg-white md:w-auto"
-            >
-              <span className="inline-flex items-center gap-2">
-                <BuildingIcon />
-                {hero.ctaSecondary.label}
-              </span>
-              <ArrowIcon />
-            </Button>
+              <div className="mt-7 flex w-3/4 flex-col gap-2.5 md:w-auto md:flex-row md:flex-wrap">
+                <Button
+                  href={primaryHref}
+                  external={primaryIsExternal}
+                  variant="accent"
+                  size="sm"
+                  className="box-border h-10 w-full !justify-start gap-2 rounded-xl px-4 text-sm font-semibold text-white hover:bg-accent-600 md:w-auto"
+                >
+                  <CalendarIcon />
+                  {hero.ctaPrimary.label}
+                </Button>
+                <Button
+                  href={hero.ctaSecondary.href}
+                  variant="outline"
+                  size="sm"
+                  className="box-border h-10 w-full !justify-between rounded-xl border-brand-800 bg-transparent px-4 text-left text-sm font-semibold text-brand-800 hover:bg-white md:w-auto"
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <BuildingIcon />
+                    {hero.ctaSecondary.label}
+                  </span>
+                  <ArrowIcon />
+                </Button>
+              </div>
+
+              {mainLocation && (
+                <p className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-brand-800">
+                  <PinIcon />
+                  <span>
+                    {mainLocation.street}, {mainLocation.city}
+                  </span>
+                  <Link
+                    href="#ubicacion"
+                    className="font-semibold underline decoration-brand-300 underline-offset-4 hover:text-accent-700"
+                  >
+                    {hero.locationCta}
+                  </Link>
+                </p>
+              )}
+            </div>
           </div>
-
-          {mainLocation && (
-            <p className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-brand-800">
-              <PinIcon />
-              <span>
-                {mainLocation.street}, {mainLocation.city}
-              </span>
-              <Link
-                href="#ubicacion"
-                className="font-semibold underline decoration-brand-300 underline-offset-4 hover:text-accent-700"
-              >
-                {hero.locationCta}
-              </Link>
-            </p>
-          )}
         </div>
       </div>
 
