@@ -578,7 +578,7 @@ export const team: TeamMember[] = [
     license: 'MP 2820 / ME 1483',
     photo: '/media/staff-gonzalo.webp',
     bio:
-      'Formación médica y residencia en Oftalmología en el Hospital Nacional de Clínicas. Especial interés en cirugía de cataratas, glaucoma y seguimiento de patologías oftalmológicas. Miembro activo del Consejo Argentino de Oftalmología y parte de la Sociedad Catamarqueña de Oftalmología.',
+      'Residencia en Oftalmología en el Hospital Nacional de Clínicas. Enfoque en cataratas, glaucoma y seguimiento clínico. Miembro del Consejo Argentino de Oftalmología.',
   },
   {
     name: 'Dra. Carla Ferreyra',
@@ -586,7 +586,7 @@ export const team: TeamMember[] = [
     license: 'MP 3229 / ME 1718',
     photo: '/staff/carla.jpeg',
     bio:
-      'Médica formada en la Universidad Nacional de Córdoba. Residencia en Oftalmología realizada en el Instituto Mostaza Sánchez, Córdoba.',
+      'Médica por la UNC. Residencia en Oftalmología en el Instituto Mostaza Sánchez, Córdoba.',
   },
 ]
 

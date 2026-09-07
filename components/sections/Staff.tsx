@@ -57,21 +57,23 @@ export default function Staff() {
                   </div>
                 )}
               </div>
-              <div className="flex min-w-0 flex-1 flex-col p-6 md:justify-center md:p-8">
-                <h3 className="min-h-[3.5rem] text-xl font-extrabold text-brand-800 sm:min-h-[3.25rem] sm:text-2xl">
+              <div className="flex min-w-0 flex-1 flex-col p-5 md:justify-center md:p-8">
+                <h3 className="text-lg font-extrabold leading-snug text-brand-800 md:min-h-[3.5rem] md:text-2xl">
                   {member.name}
                 </h3>
-                <p className="mt-2 line-clamp-3 min-h-[4.5rem] text-sm font-semibold leading-relaxed text-accent-800 sm:text-base">
+                <p className="mt-1.5 line-clamp-2 text-[13px] font-semibold leading-snug text-accent-800 md:mt-2 md:line-clamp-3 md:min-h-[4.5rem] md:text-base md:leading-relaxed">
                   {member.role}
                 </p>
-                <div className="mt-3 min-h-[1.75rem]">
+                <div className="mt-2 md:mt-3 md:min-h-[1.75rem]">
                   {member.license && (
-                    <p className="inline-flex w-fit rounded-full bg-accent-50 px-3 py-1 text-xs font-bold tracking-wide text-accent-800">
+                    <p className="inline-flex w-fit rounded-full bg-accent-50 px-3 py-1 text-[11px] font-bold tracking-wide text-accent-800 md:text-xs">
                       {member.license}
                     </p>
                   )}
                 </div>
-                <p className="mt-4 flex-1 text-[15px] leading-relaxed text-brand-700">{member.bio}</p>
+                <p className="mt-3 line-clamp-5 text-sm leading-snug text-brand-700 md:mt-4 md:line-clamp-none md:flex-1 md:text-[15px] md:leading-relaxed">
+                  {member.bio}
+                </p>
               </div>
             </article>
           ))}
