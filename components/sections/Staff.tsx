@@ -41,8 +41,8 @@ export default function Staff() {
                     src={member.photo}
                     alt={member.name}
                     fill
-                    quality={90}
-                    sizes="(min-width: 768px) 22vw, 88vw"
+                    quality={100}
+                    sizes="(min-width: 768px) 50vw, 90vw"
                     className="object-cover object-top"
                   />
                 ) : (

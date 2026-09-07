@@ -218,17 +218,22 @@ export default function ServiceDetailPanel({
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             {item.documentHref && item.documentLabel && (
-              <Button href={item.documentHref} external variant="outline">
+              <Button href={item.documentHref} external variant="outline" size="sm">
                 {item.documentLabel}
               </Button>
             )}
             {item.primaryAction && (
-              <Button href={item.primaryAction.href} external={item.primaryAction.external}>
+              <Button
+                href={item.primaryAction.href}
+                external={item.primaryAction.external}
+                variant="accent"
+                size="sm"
+              >
                 {item.primaryAction.label}
               </Button>
             )}
             {item.secondaryAction && (
-              <Button href={item.secondaryAction.href} variant="outline">
+              <Button href={item.secondaryAction.href} variant="outline" size="sm">
                 {item.secondaryAction.label}
               </Button>
             )}

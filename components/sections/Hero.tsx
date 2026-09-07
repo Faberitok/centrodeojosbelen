@@ -52,7 +52,7 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 -mt-12 px-6 pb-8 md:mx-auto md:mt-0 md:w-full md:max-w-[1140px] md:px-6 md:pb-16 md:pt-20">
+      <div className="relative z-10 -mt-2 px-6 pb-8 md:mx-auto md:mt-0 md:w-full md:max-w-[1140px] md:px-6 md:pb-16 md:pt-20">
         <h1 className="max-w-[18ch] text-4xl font-extrabold leading-[1.12] tracking-[-0.035em] text-brand-800 md:max-w-[20ch] md:text-6xl md:leading-[1.08]">
           {hero.headline.split('\n').map((line, index) => (
             <span key={line}>

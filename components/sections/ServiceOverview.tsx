@@ -71,7 +71,7 @@ export default function ServiceOverview() {
             <p className="mt-4 flex-1 leading-relaxed text-brand-700">
               {item.description}
             </p>
-            <Button href={item.href} className="mt-8 w-fit">
+            <Button href={item.href} variant="accent" size="sm" className="mt-8 w-fit">
               {item.label}
             </Button>
           </article>

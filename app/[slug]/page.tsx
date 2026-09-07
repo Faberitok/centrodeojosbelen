@@ -62,7 +62,7 @@ export default async function ConditionPage({ params }: PageProps) {
                 {condition.summary}
               </p>
               <div className="mt-9">
-                <Button href={ctaHref} external variant="accent">
+                <Button href={ctaHref} external variant="accent" size="sm">
                   {condition.ctaLabel}
                 </Button>
               </div>

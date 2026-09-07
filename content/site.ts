@@ -584,7 +584,7 @@ export const team: TeamMember[] = [
     name: 'Dra. Carla Ferreyra',
     role: 'Médica oftalmóloga · Atención integral de bebés, niños y adultos',
     license: 'MP 3229 / ME 1718',
-    photo: '/media/staff-carla.webp',
+    photo: '/staff/carla.jpeg',
     bio:
       'Médica formada en la Universidad Nacional de Córdoba. Residencia en Oftalmología realizada en el Instituto Mostaza Sánchez, Córdoba.',
   },

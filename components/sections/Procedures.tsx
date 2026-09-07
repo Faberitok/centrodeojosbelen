@@ -24,7 +24,7 @@ export default function Procedures() {
               estudios previos, el procedimiento y los controles posteriores con el
               mismo equipo médico.
             </p>
-            <Button href={ctaHref} external className="mt-9">
+            <Button href={ctaHref} external variant="accent" size="sm" className="mt-9">
               Consultar por WhatsApp
             </Button>
           </div>

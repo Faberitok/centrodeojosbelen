@@ -23,7 +23,7 @@ export default function Studies() {
               Tecnología diagnóstica para observar distintas estructuras del ojo,
               acompañar el diagnóstico y comparar la evolución en los controles.
             </p>
-            <Button href={ctaHref} external className="mt-9">
+            <Button href={ctaHref} external variant="accent" size="sm" className="mt-9">
               Consultar por un estudio
             </Button>
           </div>
