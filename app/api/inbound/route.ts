@@ -53,12 +53,29 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true })
   }
 
-  const emailId = (
-    (event as Record<string, unknown>).data as Record<string, unknown> | undefined
-  )?.email_id as string | undefined
+  const data = (event as Record<string, unknown>).data as
+    | Record<string, unknown>
+    | undefined
+  const emailId = data?.email_id as string | undefined
 
   if (!emailId) {
     return NextResponse.json({ error: 'Missing email_id' }, { status: 400 })
+  }
+
+  // Misma cuenta de Resend que FaberIT: los dos webhooks reciben todos los
+  // inbound. Si el mail no es de este dominio, no reenviar.
+  const acceptDomain = (
+    process.env.INBOUND_ACCEPT_DOMAIN || 'centrodeojosbelen.com.ar'
+  ).toLowerCase()
+  const recipients = [
+    ...(Array.isArray(data?.to) ? data.to : []),
+    ...(Array.isArray(data?.received_for) ? data.received_for : []),
+  ]
+    .filter((value): value is string => typeof value === 'string')
+    .map((value) => value.toLowerCase())
+
+  if (!recipients.some((address) => address.includes(`@${acceptDomain}`))) {
+    return NextResponse.json({ ok: true, ignored: true })
   }
 
   const email = await getReceivedEmail(emailId)
