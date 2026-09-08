@@ -6,13 +6,16 @@ import { appointmentHref } from '@/lib/whatsapp'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+
+function submenuId(href: string) {
+  return `nav-menu-${href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const [servicesOpen, setServicesOpen] = useState(false)
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
-  const servicesRef = useRef<HTMLDivElement>(null)
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const [mobileOpenMenu, setMobileOpenMenu] = useState<string | null>(null)
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const ctaHref = appointmentHref()
@@ -33,8 +36,8 @@ export default function Navbar() {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         setOpen(false)
-        setServicesOpen(false)
-        setMobileServicesOpen(false)
+        setOpenMenu(null)
+        setMobileOpenMenu(null)
       }
     }
     document.addEventListener('keydown', onKeyDown)
@@ -43,8 +46,9 @@ export default function Navbar() {
 
   useEffect(() => {
     function onPointerDown(event: PointerEvent) {
-      if (!servicesRef.current?.contains(event.target as Node)) {
-        setServicesOpen(false)
+      const target = event.target as HTMLElement | null
+      if (!target?.closest('[data-nav-submenu]')) {
+        setOpenMenu(null)
       }
     }
     document.addEventListener('pointerdown', onPointerDown)
@@ -65,6 +69,8 @@ export default function Navbar() {
     href: string
   ) {
     setOpen(false)
+    setOpenMenu(null)
+    setMobileOpenMenu(null)
     if (pathname !== '/') return
 
     if (href === '/') {
@@ -116,37 +122,43 @@ export default function Navbar() {
           >
             {nav.links.map((link) =>
               'children' in link ? (
-                <div key={link.href} ref={servicesRef} className="relative flex items-center">
+                <div
+                  key={link.href}
+                  data-nav-submenu
+                  className="relative flex items-center"
+                >
                   <button
                     type="button"
-                    aria-expanded={servicesOpen}
+                    aria-expanded={openMenu === link.href}
                     aria-haspopup="menu"
-                    aria-controls="servicios-menu"
-                    onClick={() => setServicesOpen((value) => !value)}
+                    aria-controls={submenuId(link.href)}
+                    onClick={() =>
+                      setOpenMenu((current) => (current === link.href ? null : link.href))
+                    }
                     className="inline-flex cursor-pointer items-center gap-1 rounded px-1 py-1 text-[15px] font-semibold text-brand-800 transition-colors hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
                   >
                     {link.label}
                     <svg
                       viewBox="0 0 20 20"
                       fill="currentColor"
-                      className={`h-4 w-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`}
+                      className={`h-4 w-4 transition-transform ${openMenu === link.href ? 'rotate-180' : ''}`}
                       aria-hidden="true"
                     >
                       <path fillRule="evenodd" d="M5.22 7.97a.75.75 0 0 1 1.06 0L10 11.69l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.03a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
                     </svg>
                   </button>
                   <div
-                    id="servicios-menu"
+                    id={submenuId(link.href)}
                     role="menu"
-                    hidden={!servicesOpen}
-                    className="absolute left-0 top-full z-50 w-48 rounded-xl border border-brand-100 bg-white p-2 shadow-xl"
+                    hidden={openMenu !== link.href}
+                    className="absolute left-0 top-full z-50 min-w-56 rounded-xl border border-brand-100 bg-white p-2 shadow-xl"
                   >
                     {link.children.map((child) => (
                       <Link
                         key={child.href}
                         href={child.href}
                         role="menuitem"
-                        onClick={() => setServicesOpen(false)}
+                        onClick={() => setOpenMenu(null)}
                         className="block rounded-lg px-4 py-2.5 text-sm font-semibold text-brand-800 transition-colors hover:bg-brand-50 hover:text-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
                       >
                         {child.label}
@@ -159,7 +171,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={(event) => {
-                    setServicesOpen(false)
+                    setOpenMenu(null)
                     navigateFromHome(event, link.href)
                   }}
                   className="rounded px-1 py-1 text-[15px] font-semibold text-brand-800 transition-colors hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
@@ -217,27 +229,31 @@ export default function Navbar() {
                   <>
                     <button
                       type="button"
-                      aria-expanded={mobileServicesOpen}
-                      onClick={() => setMobileServicesOpen((value) => !value)}
+                      aria-expanded={mobileOpenMenu === link.href}
+                      onClick={() =>
+                        setMobileOpenMenu((current) =>
+                          current === link.href ? null : link.href
+                        )
+                      }
                       className="flex w-full cursor-pointer items-center justify-between rounded py-3.5 text-left text-base font-semibold text-brand-800 transition-colors hover:text-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-600"
                     >
                       {link.label}
                       <svg
                         viewBox="0 0 20 20"
                         fill="currentColor"
-                        className={`h-4 w-4 transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`}
+                        className={`h-4 w-4 transition-transform ${mobileOpenMenu === link.href ? 'rotate-180' : ''}`}
                         aria-hidden="true"
                       >
                         <path fillRule="evenodd" d="M5.22 7.97a.75.75 0 0 1 1.06 0L10 11.69l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.03a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
                       </svg>
                     </button>
-                    {mobileServicesOpen && (
-                      <div className="mb-3 flex gap-2 pl-3">
+                    {mobileOpenMenu === link.href && (
+                      <div className="mb-3 flex flex-col gap-1 pl-3">
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-brand-700 hover:text-accent-700"
+                            className="rounded-lg px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-white hover:text-accent-700"
                             onClick={() => setOpen(false)}
                           >
                             {child.label}

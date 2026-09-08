@@ -384,8 +384,8 @@ export const procedures: Procedure[] = [
       'La indicación surge de la evaluación de la retina y, cuando corresponde, de estudios como OCT.',
     treatment:
       'El procedimiento se planifica de forma personalizada y se acompaña con controles posteriores para valorar la respuesta.',
-    image: '/media/retina-control.webp',
-    imageAlt: 'Evaluación de retina previa al tratamiento',
+    image: '/institucional/inyecciones-intravitreas.jpeg',
+    imageAlt: 'Inyección intravítrea en Centro de Ojos Belén',
     dateLabel: 'Según evaluación de retina',
     statusLabel: 'Con indicación médica',
   },
@@ -398,8 +398,8 @@ export const procedures: Procedure[] = [
       'En la consulta definimos si corresponde tratamiento médico o quirúrgico, según el tamaño, los síntomas y la evolución.',
     treatment:
       'Cuando hay indicación quirúrgica, planificamos el procedimiento y realizamos los controles posteriores.',
-    image: '/media/oftalmoscopio-keeler.webp',
-    imageAlt: 'Equipamiento para evaluación oftalmológica',
+    image: '/institucional/cirugia-pterigion.jpeg',
+    imageAlt: 'Cirugía de pterigión en Centro de Ojos Belén',
     dateLabel: 'Según evaluación previa',
     statusLabel: 'Con indicación médica',
   },
@@ -461,8 +461,8 @@ export const conditionPages: ConditionPage[] = [
     ],
     ctaLabel: 'Solicitar control de glaucoma',
     whatsappMessage: 'Hola, quisiera solicitar un control de glaucoma.',
-    image: '/media/tonometro-icare-100.webp',
-    imageAlt: 'Tonómetro iCare para medición de presión intraocular',
+    image: '/institucional/glaucoma.jpeg',
+    imageAlt: 'Simulación de visión en túnel asociada al glaucoma',
   },
   {
     slug: 'queratocono',
@@ -482,8 +482,8 @@ export const conditionPages: ConditionPage[] = [
     ],
     ctaLabel: 'Solicitar topografía corneal',
     whatsappMessage: 'Hola, quisiera solicitar una topografía corneal.',
-    image: '/media/topografia-corneal.webp',
-    imageAlt: 'Topógrafo corneal Tomey TMS-4',
+    image: '/institucional/queratocono.jpeg',
+    imageAlt: 'Perfil corneal con forma cónica característica del queratocono',
   },
   {
     slug: 'retinopatia-diabetica',
@@ -503,8 +503,8 @@ export const conditionPages: ConditionPage[] = [
     ],
     ctaLabel: 'Solicitar control oftalmológico',
     whatsappMessage: 'Hola, quisiera solicitar un control por diabetes.',
-    image: '/media/retina-control.webp',
-    imageAlt: 'Evaluación de retina con oftalmoscopio binocular indirecto',
+    image: '/institucional/retinopatia-diabetica.jpeg',
+    imageAlt: 'Fondo de ojo con signos de retinopatía diabética',
   },
 ]
 

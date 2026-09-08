@@ -35,7 +35,7 @@ export default function Studies() {
               priority
               quality={100}
               sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover object-top"
+              className="object-cover object-[center_38%]"
             />
           </div>
         </div>

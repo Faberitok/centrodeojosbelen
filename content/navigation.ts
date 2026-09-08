@@ -10,6 +10,16 @@ export const nav = {
         { label: 'Cirugías', href: '/cirugias' },
       ],
     },
+    {
+      label: 'Patologías',
+      href: '/#especialidades',
+      children: [
+        { label: 'Cirugía de cataratas', href: '/cirugia-de-cataratas' },
+        { label: 'Glaucoma', href: '/glaucoma' },
+        { label: 'Queratocono', href: '/queratocono' },
+        { label: 'Retinopatía diabética', href: '/retinopatia-diabetica' },
+      ],
+    },
     { label: 'Staff médico', href: '/#staff' },
     { label: 'Obras sociales', href: '/#obras-sociales' },
     { label: 'Nosotros', href: '/nosotros' },

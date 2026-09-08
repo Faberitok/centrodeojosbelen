@@ -40,6 +40,16 @@ export const healthPlans: HealthPlan[] = [
     logo: '/obras-sociales/medicus.png',
     href: 'https://medicus.com.ar/',
   },
+  {
+    name: 'Jerárquicos Salud',
+    logo: '/obras-sociales/jerarquicos.jpeg',
+    href: 'https://jerarquicos.com/',
+  },
+  {
+    name: 'OSCA',
+    logo: '/obras-sociales/osca.jpeg',
+    href: 'https://oscoca.org.ar/',
+  },
 ]
 
 export const healthPlansSection = {
