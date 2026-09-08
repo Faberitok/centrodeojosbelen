@@ -3,7 +3,7 @@ export const contact = {
   heading: 'Estamos para ayudarte',
   subtext: 'Solicitá un turno por WhatsApp o dejanos tu consulta en el formulario.',
   phones: ['3804-100707'],
-  email: null as string | null,
+  email: 'contacto@centrodeojosbelen.com.ar',
   whatsappLabel: 'Solicitar turno por WhatsApp',
   emergency: {
     label: 'Guardia 24 hs',
