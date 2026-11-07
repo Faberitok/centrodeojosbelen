@@ -6,7 +6,7 @@ const items = [
   {
     title: 'Estudios oftalmológicos',
     description:
-      'Contamos con tecnología para estudiar la retina, el nervio óptico, la córnea, la presión ocular y el cálculo de lentes intraoculares. Los resultados acompañan el diagnóstico y permiten comparar la evolución en cada control.',
+      'Contamos con tecnología para estudiar la retina, el nervio óptico, el campo visual, la córnea, la presión ocular y el cálculo de lentes intraoculares. Los resultados acompañan el diagnóstico y permiten comparar la evolución en cada control.',
     href: '/estudios',
     label: 'Ver estudios',
     icon: (

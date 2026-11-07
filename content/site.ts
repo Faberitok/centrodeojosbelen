@@ -143,15 +143,16 @@ export const studies: Study[] = [
     id: 'oct',
     title: 'OCT · Tomografía de Coherencia Óptica',
     description:
-      'Imágenes de alta resolución de la retina, la mácula y el nervio óptico para diagnóstico y seguimiento.',
+      'Imágenes de alta resolución y campo amplio de la retina, la mácula y el nervio óptico para diagnóstico y seguimiento.',
     purpose:
-      'Permite observar las distintas capas de la retina y medir estructuras del nervio óptico. Es útil para acompañar el diagnóstico y comparar cambios en glaucoma, enfermedades maculares, retinopatía diabética y otras patologías de retina.',
+      'Permite observar las distintas capas de la retina, medir el espesor de la capa de fibras nerviosas y de la coroides, y analizar la mácula en tres dimensiones. Es útil para acompañar el diagnóstico y comparar cambios en glaucoma, enfermedades maculares, retinopatía diabética, miopía y otras patologías de retina.',
     experience:
       'Es un estudio no invasivo y sin contacto. El paciente apoya la frente y el mentón, mira un punto fijo y el equipo realiza las imágenes mediante luz.',
     preparation:
       'En general no requiere preparación especial. Según el motivo del estudio, el profesional puede indicar dilatación de las pupilas.',
-    equipment: 'OCT Optovue iScan',
-    image: '/media/estudios-oct.jpeg',
+    equipment:
+      'Tomógrafo WRMT Velite C-1000 (OCT de campo amplio). Registra espesor de retina y mácula, capa de fibras nerviosas, coroides y análisis del nervio óptico.',
+    image: '/media/estudios-oct-wrmt.jpeg',
     duration: '10–15 min',
   },
   {
@@ -190,13 +191,14 @@ export const studies: Study[] = [
     description:
       'Realiza mediciones precisas del ojo para calcular la lente intraocular de una cirugía de cataratas.',
     purpose:
-      'Mide la longitud del ojo y otros parámetros ópticos necesarios para calcular la potencia de la lente intraocular que se utilizará en una cirugía de cataratas.',
+      'Mide la longitud del ojo, la curvatura de la córnea, la profundidad de la cámara anterior y otros parámetros ópticos necesarios para calcular la potencia de la lente intraocular que se utilizará en una cirugía de cataratas.',
     experience:
       'El paciente mira un punto de fijación mientras el equipo obtiene varias mediciones. Es un procedimiento breve, no invasivo y generalmente sin contacto.',
     preparation:
       'No suele requerir preparación especial. Es importante informar si usás lentes de contacto o si tuviste cirugías oculares previas.',
-    equipment: 'Regla biométrica MEDA',
-    image: '/media/estudios-biometria.jpeg',
+    equipment:
+      'Biómetro óptico Genesis GEN-OB3. Registra longitud axial (AL), queratometría (K1 y K2), profundidad de cámara anterior (ACD), espesor del cristalino (LT) y diámetro corneal (WTW).',
+    image: '/media/estudios-biometria-genesis.jpeg',
     duration: '5–10 min',
   },
   {
@@ -213,6 +215,22 @@ export const studies: Study[] = [
     equipment: 'Tonómetro iCare 100',
     image: '/media/estudios-tonometria.jpeg',
     duration: 'pocos segundos',
+  },
+  {
+    id: 'campimetria',
+    title: 'Campimetría computarizada',
+    description:
+      'Evalúa el campo visual para detectar alteraciones en la visión periférica y central.',
+    purpose:
+      'Permite evaluar el campo visual, detectar alteraciones en la visión periférica y central, y contribuir al diagnóstico y seguimiento de enfermedades como el glaucoma y otras patologías de la retina y del nervio óptico. Al repetirse en los controles, permite comparar si hubo cambios con el tiempo.',
+    experience:
+      'Se evalúa un ojo por vez, con el otro cubierto. El paciente apoya el mentón, mira un punto fijo en el centro del equipo y presiona un pulsador cada vez que percibe una luz. No hay contacto con el ojo y no produce molestias.',
+    preparation:
+      'Conviene llegar descansado. Llevá tus anteojos actuales y avisá si usás gotas oftálmicas o si tuviste cirugías oculares. Si en otra consulta te dilataron las pupilas, informalo al pedir el turno.',
+    equipment:
+      'Campímetro computarizado Octopus 1-2-3 (Interzeag). Registra la sensibilidad en distintos puntos del campo visual e índices para el seguimiento del glaucoma.',
+    image: '/media/estudios-campimetria.jpeg',
+    duration: '15–20 min',
   },
   {
     id: 'autorrefractometria',
@@ -242,12 +260,12 @@ export interface Equipment {
 
 export const equipment: Equipment[] = [
   {
-    id: 'oct-optovue',
-    name: 'OCT Optovue iScan',
+    id: 'oct-wrmt',
+    name: 'Tomógrafo WRMT Velite C-1000',
     kicker: 'Retina y nervio óptico',
-    description: 'Tomografía no invasiva de alta resolución.',
-    image: '/media/oct-optovue-iscan.webp',
-    imageAlt: 'Equipo OCT Optovue iScan de Centro de Ojos Belén',
+    description: 'Tomografía no invasiva de alta resolución y campo amplio.',
+    image: '/media/estudios-oct-wrmt.jpeg',
+    imageAlt: 'Tomógrafo de coherencia óptica WRMT Velite C-1000 de Centro de Ojos Belén',
   },
   {
     id: 'topografo-tomey',
@@ -266,12 +284,20 @@ export const equipment: Equipment[] = [
     imageAlt: 'Paquímetro corneal del centro',
   },
   {
-    id: 'biometria-meda',
-    name: 'Regla biométrica MEDA',
+    id: 'biometro-genesis',
+    name: 'Biómetro óptico Genesis GEN-OB3',
     kicker: 'Planificación de cataratas',
     description: 'Mediciones para el cálculo de lentes intraoculares.',
-    image: '/media/biometria-meda.webp',
-    imageAlt: 'Regla biométrica MEDA',
+    image: '/media/estudios-biometria-genesis.jpeg',
+    imageAlt: 'Biómetro óptico Genesis GEN-OB3',
+  },
+  {
+    id: 'campimetro-octopus',
+    name: 'Campímetro Octopus 1-2-3',
+    kicker: 'Campo visual',
+    description: 'Campimetría computarizada para glaucoma y nervio óptico.',
+    image: '/media/estudios-campimetria.jpeg',
+    imageAlt: 'Campímetro computarizado Octopus 1-2-3 de Interzeag',
   },
   {
     id: 'tonometro-icare',
@@ -729,7 +755,7 @@ export const faq: FaqItem[] = [
   {
     question: '¿Realizan estudios oftalmológicos?',
     answer:
-      'Sí. Contamos con OCT, topografía corneal, paquimetría, biometría óptica y otros estudios complementarios.',
+      'Sí. Contamos con OCT, campimetría computarizada, topografía corneal, paquimetría, biometría óptica y otros estudios complementarios.',
   },
   {
     question: '¿Realizan cirugías?',
