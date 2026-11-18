@@ -606,14 +606,6 @@ export const team: TeamMember[] = [
     bio:
       'Residencia en Oftalmología en el Hospital Nacional de Clínicas. Enfoque en cataratas, glaucoma y seguimiento clínico. Miembro del Consejo Argentino de Oftalmología.',
   },
-  {
-    name: 'Dra. Carla Ferreyra',
-    role: 'Médica oftalmóloga · Atención integral de bebés, niños y adultos',
-    license: 'MP 3229 / ME 1718',
-    photo: '/staff/carla.jpeg',
-    bio:
-      'Médica por la UNC. Residencia en Oftalmología en el Instituto Mostaza Sánchez, Córdoba.',
-  },
 ]
 
 // ─── Sedes y horarios ─────────────────────────────────────────────────────────

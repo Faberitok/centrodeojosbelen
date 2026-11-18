@@ -74,10 +74,4 @@ await sharp(path.join(root, 'public/staff/gonza (2).jpeg'))
   .webp({ quality: 92, effort: 6, smartSubsample: true })
   .toFile(path.join(media, 'staff-gonzalo.webp'))
 
-await sharp(path.join(root, 'public/staff/carla.jpeg'))
-  .rotate()
-  .resize({ width: 900, height: 1200, fit: 'cover', position: 'top' })
-  .webp({ quality: 92, effort: 6, smartSubsample: true })
-  .toFile(path.join(media, 'staff-carla.webp'))
-
-console.log(`Optimized ${images.length + 2} images at high quality`)
+console.log(`Optimized ${images.length + 1} images at high quality`)

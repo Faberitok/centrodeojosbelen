@@ -18,7 +18,6 @@ async function toWebp(input, output, width) {
 }
 
 await toWebp('public/staff/gonza (2).jpeg', 'staff-gonzalo.webp', 900)
-await toWebp('public/staff/carla.jpeg', 'staff-carla.webp', 900)
 await toWebp('public/institucional/institucional (2).jpeg', 'consultorio.webp', 1600)
 await toWebp('public/institucional/institucional (27).jpeg', 'sala-espera.webp', 1600)
 await toWebp('public/institucional/institucional (8).jpeg', 'pasillo-centro.webp', 1600)

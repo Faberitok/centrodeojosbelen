@@ -3,6 +3,8 @@ import { brand, team } from '@/content/site'
 import Image from 'next/image'
 
 export default function Staff() {
+  const single = team.length === 1
+
   return (
     <section id="staff" className="landing-panel bg-brand-50 py-14 md:py-20">
       <div className="mx-auto max-w-[1140px] px-6">
@@ -12,8 +14,16 @@ export default function Staff() {
           nextLabel="Ver profesional siguiente"
           infinite
           controlsClassName="md:hidden"
-          itemClassName="w-[85%] max-w-[24rem] shrink-0 md:w-auto md:max-w-none"
-          desktopGridClassName="md:grid md:grid-cols-2 md:overflow-visible"
+          itemClassName={
+            single
+              ? 'w-full shrink-0'
+              : 'w-[85%] max-w-[24rem] shrink-0 md:w-auto md:max-w-none'
+          }
+          desktopGridClassName={
+            single
+              ? 'md:grid md:grid-cols-1 md:overflow-visible md:max-w-3xl'
+              : 'md:grid md:grid-cols-2 md:overflow-visible'
+          }
           listClassName="mt-10 items-stretch"
           header={
             <div className="max-w-xl">
