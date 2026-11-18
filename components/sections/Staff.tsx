@@ -31,11 +31,12 @@ export default function Staff() {
                 Nuestro staff
               </p>
               <h2 className="mt-3 text-3xl font-extrabold leading-tight tracking-tight text-brand-800 md:text-4xl">
-                Profesionales que acompañan
+                {single ? 'Un profesional que te acompaña' : 'Profesionales que acompañan'}
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-brand-700">
-                Experiencia, formación continua y una atención cercana para bebés, niños y
-                adultos.
+                {single
+                  ? 'Experiencia, formación continua y una atención cercana en cada consulta.'
+                  : 'Experiencia, formación continua y una atención cercana para bebés, niños y adultos.'}
               </p>
             </div>
           }
